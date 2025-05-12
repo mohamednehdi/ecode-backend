@@ -22,7 +22,7 @@ class User(db.Model):
 
     def set_verification_code(self, code):
         self.verification_code = code
-        self.verification_code_expiry = datetime.utcnow() + timedelta(minutes=5)
+        self.verification_code_expiry = datetime.utcnow() + timedelta(minutes=15)
 
     def is_verification_code_valid(self, code):
         return self.verification_code == code and datetime.utcnow() < self.verification_code_expiry

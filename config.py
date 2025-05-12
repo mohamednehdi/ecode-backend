@@ -22,3 +22,7 @@ class Config:
     }
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_SECRET_KEY = os.environ.get('JWT_SECRET_KEY') or 'your-secret-key'
+    # SMTP_SERVER = 'smtp.gmail.com'  # Replace with your SMTP server
+    # SMTP_PORT = 587
+    # SMTP_USERNAME = 'noreplyybarcode@gmail.com'  # Replace with your "no-reply" email
+    # SMTP_PASSWORD = 'wntw dzkv kuhk lpkb'

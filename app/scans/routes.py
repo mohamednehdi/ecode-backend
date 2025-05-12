@@ -11,6 +11,7 @@ scans_bp = Blueprint('scans', __name__)
 @scans_bp.route('/upload', methods=['POST'])
 @jwt_required()
 def upload_file():
+    
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
     
@@ -19,7 +20,7 @@ def upload_file():
         return jsonify({'error': 'No selected file'}), 400
 
     try:
-        user_id = get_jwt_identity()
+        user_id = int(get_jwt_identity())
         result = process_barcode_image(file, user_id)
         return jsonify(result)
     except Exception as e:
