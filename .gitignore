@@ -1,0 +1,11 @@
+# Secrets
+.env
+
+# Python
+venv/
+__pycache__/
+*.pyc
+instance/
+
+# Local backups
+_backup_before_step1/

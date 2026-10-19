@@ -1,81 +1,69 @@
-from datetime import datetime, timedelta
+import logging
+import secrets
+import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
-import random
-import smtplib
 
-from flask_jwt_extended import create_access_token, decode_token
-from jwt import ExpiredSignatureError, DecodeError
+from flask import current_app
+from itsdangerous import URLSafeTimedSerializer, BadSignature, SignatureExpired
 
-from itsdangerous import URLSafeTimedSerializer
-from ..models.user import User
-from ..extensions import db,jwt
+logger = logging.getLogger(__name__)
 
+# Two kinds of password-reset tokens. They are signed with SECRET_KEY (not the JWT key),
+# so they can never be used as a login token.
+PURPOSE_VERIFY = 'verify-code'      # given after the email is sent, lets you submit the code
+PURPOSE_RESET = 'reset-password'    # given only after the right code, lets you set a new password
+_SALT = 'password-reset'
 
-serializer = URLSafeTimedSerializer('your_secret_key')
-SECRET_KEY = 'supersecretkey'
-SMTP_SERVER = 'smtp.gmail.com'  # Replace with your SMTP server
-SMTP_PORT = 587
-SMTP_USERNAME = 'noreplyybarcode@gmail.com'  # Replace with your "no-reply" email
-SMTP_PASSWORD = 'wntw dzkv kuhk lpkb'
-
-
-def create_user(email, password):
-    """Service layer for user creation"""
-    if User.query.filter_by(email=email).first():
-        return None, 'User already exists'
-    
-    user = User(email=email)
-    user.set_password(password)
-    db.session.add(user)
-    db.session.commit()
-    return user, None
-
-def authenticate_user(email, password):
-    """Service layer for user authentication"""
-    user = User.query.filter_by(email=email).first()
-    if not user or not user.check_password(password):
-        return None, 'Invalid credentials'
-    return user, None
 
 def generate_verification_code():
-    return str(random.randint(100000, 999999))  # Generate a 6-digit random number
+    """6-digit code from a cryptographically secure source."""
+    return f"{secrets.randbelow(1_000_000):06d}"
 
+
+def _serializer():
+    return URLSafeTimedSerializer(current_app.config['SECRET_KEY'], salt=_SALT)
+
+
+def generate_reset_token(email, purpose, password_hash=None):
+    payload = {'email': email, 'purpose': purpose}
+    if password_hash:
+        # Ties the token to the current password: once the password changes, the token is dead (single use)
+        payload['ph'] = password_hash[-12:]
+    return _serializer().dumps(payload)
+
+
+def read_reset_token(token, purpose, max_age_minutes):
+    """Returns the token payload, or None if it is invalid, expired or of the wrong kind."""
+    if not token:
+        return None
+    try:
+        payload = _serializer().loads(token, max_age=max_age_minutes * 60)
+    except (BadSignature, SignatureExpired):
+        return None
+    if payload.get('purpose') != purpose:
+        return None
+    return payload
 
 
 def send_email(to_email, subject, body):
+    cfg = current_app.config
+    if not cfg['SMTP_USERNAME'] or not cfg['SMTP_PASSWORD']:
+        logger.error("SMTP_USERNAME / SMTP_PASSWORD are not set in .env; cannot send email")
+        return False
+
     msg = MIMEMultipart()
-    msg['From'] = SMTP_USERNAME
+    msg['From'] = cfg['SMTP_USERNAME']
     msg['To'] = to_email
     msg['Subject'] = subject
-    msg['Reply-To'] = ''  # Set to a non-existent or no-reply address
-
-    msg.attach(MIMEText(body, 'plain'))
+    msg.attach(MIMEText(body, 'plain', 'utf-8'))
 
     try:
-        server = smtplib.SMTP(SMTP_SERVER, SMTP_PORT)
-        server.starttls()
-        server.login(SMTP_USERNAME, SMTP_PASSWORD)
-        server.sendmail(SMTP_USERNAME, to_email, msg.as_string())
-        server.quit()
+        with smtplib.SMTP(cfg['SMTP_SERVER'], cfg['SMTP_PORT'], timeout=15) as server:
+            server.starttls()
+            server.login(cfg['SMTP_USERNAME'], cfg['SMTP_PASSWORD'])
+            server.sendmail(cfg['SMTP_USERNAME'], to_email, msg.as_string())
         return True
-    except Exception as e:
-        print(f"Failed to send email: {e}")
+    except Exception:
+        logger.exception("Failed to send email to %s", to_email)
         return False
-    
-
-def generate_token(email):
-    payload = {
-        'email': email,
-        'exp': datetime.utcnow() + timedelta(minutes=25)  # Token expires in 15 minutes
-    }
-    return create_access_token(identity=email, expires_delta=timedelta(minutes=25))
-
-def verify_token(token):
-    try:
-        decoded = decode_token(token)
-        return decoded.get("sub")  # sub contains the identity (email)
-    except ExpiredSignatureError:
-        return None
-    except DecodeError:
-        return None 

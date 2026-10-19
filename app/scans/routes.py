@@ -1,37 +1,52 @@
 import base64
+import logging
+import os
+
 from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.models.scan_history import ScanHistory
-from .services import process_barcode_image
-from ..models.user import User
+from .services import process_barcode_image, InvalidImageError
+
+logger = logging.getLogger(__name__)
 
 scans_bp = Blueprint('scans', __name__)
+
+# PDF support comes in step 2
+ALLOWED_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
+
 
 @scans_bp.route('/upload', methods=['POST'])
 @jwt_required()
 def upload_file():
-    
     if 'file' not in request.files:
         return jsonify({'error': 'No file part'}), 400
-    
+
     file = request.files['file']
     if not file.filename:
         return jsonify({'error': 'No selected file'}), 400
 
+    ext = os.path.splitext(file.filename)[1].lower()
+    if ext not in ALLOWED_EXTENSIONS:
+        return jsonify({'error': 'Format non supporté (PNG ou JPG uniquement)'}), 415
+
     try:
-        user_id = int(get_jwt_identity())
-        result = process_barcode_image(file, user_id)
+        result = process_barcode_image(file, int(get_jwt_identity()))
         return jsonify(result)
-    except Exception as e:
-        return jsonify({'error': str(e)}), 500
+    except InvalidImageError:
+        return jsonify({'error': "Le fichier n'est pas une image valide"}), 400
+    except Exception:
+        # Full details go to the server log, never to the client
+        logger.exception("Barcode processing failed for %s", file.filename)
+        return jsonify({'error': 'Erreur interne lors du traitement du fichier'}), 500
+
 
 @scans_bp.route('/history', methods=['GET'])
 @jwt_required()
 def get_history():
-    user_id = get_jwt_identity()
+    user_id = int(get_jwt_identity())
     scans = ScanHistory.query.filter_by(user_id=user_id).order_by(ScanHistory.scan_time.desc()).all()
-    
+
     return jsonify([{
         'id': scan.id,
         'type': scan.code_type,
