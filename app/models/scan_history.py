@@ -8,6 +8,7 @@ class ScanHistory(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))  # Links to existing user table
     code_type = db.Column(db.String(20))
     code_data = db.Column(db.Text)
+    page = db.Column(db.Integer, nullable=True)  # page of the PDF (1 for an image)
     scan_time = db.Column(db.DateTime, default=datetime.utcnow)
     image_data = db.Column(db.LargeBinary)  # For storing scanned images
 

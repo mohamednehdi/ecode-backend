@@ -6,14 +6,13 @@ from flask import Blueprint, request, jsonify
 from flask_jwt_extended import jwt_required, get_jwt_identity
 
 from app.models.scan_history import ScanHistory
-from .services import process_barcode_image, InvalidImageError
+from .services import process_document, is_pdf, InvalidImageError, InvalidPdfError, TooManyPagesError
 
 logger = logging.getLogger(__name__)
 
 scans_bp = Blueprint('scans', __name__)
 
-# PDF support comes in step 2
-ALLOWED_EXTENSIONS = {'.png', '.jpg', '.jpeg'}
+ALLOWED_EXTENSIONS = {'.png', '.jpg', '.jpeg', '.pdf'}
 
 
 @scans_bp.route('/upload', methods=['POST'])
@@ -28,13 +27,22 @@ def upload_file():
 
     ext = os.path.splitext(file.filename)[1].lower()
     if ext not in ALLOWED_EXTENSIONS:
-        return jsonify({'error': 'Format non supporté (PNG ou JPG uniquement)'}), 415
+        return jsonify({'error': 'Format non supporté (PDF, PNG ou JPG uniquement)'}), 415
+
+    data = file.read()
+    # The content must match the extension: a renamed file is rejected
+    if (ext == '.pdf') != is_pdf(data):
+        return jsonify({'error': "Le contenu du fichier ne correspond pas à son extension"}), 400
 
     try:
-        result = process_barcode_image(file, int(get_jwt_identity()))
+        result = process_document(data, int(get_jwt_identity()))
         return jsonify(result)
     except InvalidImageError:
         return jsonify({'error': "Le fichier n'est pas une image valide"}), 400
+    except InvalidPdfError:
+        return jsonify({'error': "Le fichier PDF est invalide ou protégé par mot de passe"}), 400
+    except TooManyPagesError as e:
+        return jsonify({'error': f'Le PDF contient trop de pages (max {e.max_pages})'}), 400
     except Exception:
         # Full details go to the server log, never to the client
         logger.exception("Barcode processing failed for %s", file.filename)
@@ -51,6 +59,7 @@ def get_history():
         'id': scan.id,
         'type': scan.code_type,
         'data': scan.code_data,
+        'page': scan.page,
         'time': scan.scan_time.isoformat(),
         'image': base64.b64encode(scan.image_data).decode('utf-8') if scan.image_data else None
     } for scan in scans])

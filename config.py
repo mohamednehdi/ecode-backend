@@ -27,6 +27,10 @@ class Config:
     # Uploads: anything bigger is rejected by Flask with 413
     MAX_CONTENT_LENGTH = int(os.environ.get('MAX_UPLOAD_MB', 10)) * 1024 * 1024
 
+    # PDF: pages are rendered to images at this resolution before decoding
+    PDF_DPI = int(os.environ.get('PDF_DPI', 200))
+    PDF_MAX_PAGES = int(os.environ.get('PDF_MAX_PAGES', 20))
+
     # Frontend allowed by CORS
     FRONTEND_ORIGIN = os.environ.get('FRONTEND_ORIGIN', 'http://localhost:4200')
 

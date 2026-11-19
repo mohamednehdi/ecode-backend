@@ -128,3 +128,44 @@ def test_upload(ctx):
     assert c.post('/scans/upload', headers=H(tok), data={'file': (io.BytesIO(b'notanimage'), 'a.png')}, content_type='multipart/form-data').status_code == 400
     big = io.BytesIO(b'0' * (11 * 1024 * 1024))
     assert c.post('/scans/upload', headers=H(tok), data={'file': (big, 'big.png')}, content_type='multipart/form-data').status_code == 413
+
+
+def _sample_pdf():
+    """Page 1: QR + Code128 + DataMatrix, page 2: empty, page 3: a QR code."""
+    import pymupdf, segno
+    png, _ = _sample_image()
+    q = io.BytesIO(); segno.make('PAGE-3', error='m', micro=False).save(q, kind='png', scale=8)
+    doc = pymupdf.open()
+    p1 = doc.new_page(width=600, height=450); p1.insert_image(p1.rect, stream=png)
+    doc.new_page()
+    p3 = doc.new_page(); p3.insert_image(pymupdf.Rect(50, 50, 250, 250), stream=q.getvalue())
+    return doc.tobytes()
+
+def test_upload_pdf_multipage(ctx):
+    c, _, _ = ctx
+    tok = login(c, 'admin@t.com', 'adminpass1').json['access_token']
+    up = lambda data, name: c.post('/scans/upload', headers=H(tok), data={'file': (io.BytesIO(data), name)}, content_type='multipart/form-data')
+    r = up(_sample_pdf(), 'doc.pdf')
+    assert r.status_code == 200, r.json
+    j = r.json
+    assert j['file_type'] == 'pdf' and j['page_count'] == 3 and len(j['pages']) == 3
+    found = {(b['page'], b['type'], b['data']) for b in j['barcodes']}
+    assert {(1, 'QRCODE', 'HELLO-QR'), (1, 'CODE128', 'ABC-123'), (1, 'DataMatrix', 'HELLO-DM'), (3, 'QRCODE', 'PAGE-3')} <= found
+    assert j['pages'][1]['barcodes'] == []
+    assert all(p['image'] for p in j['pages'])
+    hist = c.get('/scans/history', headers=H(tok)).json
+    assert {h['page'] for h in hist} == {1, 3}
+    # renamed / broken files are rejected
+    png, _ = _sample_image()
+    assert up(png, 'fake.pdf').status_code == 400
+    assert up(b'%PDF-1.4 garbage', 'broken.pdf').status_code == 400
+    assert up(_sample_pdf(), 'fake.png').status_code == 400
+
+def test_upload_pdf_too_many_pages(ctx):
+    c, _, app = ctx
+    import pymupdf
+    doc = pymupdf.open()
+    for _ in range(app.config['PDF_MAX_PAGES'] + 1): doc.new_page()
+    tok = login(c, 'admin@t.com', 'adminpass1').json['access_token']
+    r = c.post('/scans/upload', headers=H(tok), data={'file': (io.BytesIO(doc.tobytes()), 'big.pdf')}, content_type='multipart/form-data')
+    assert r.status_code == 400 and 'pages' in r.json['error']

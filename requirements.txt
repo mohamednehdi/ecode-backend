@@ -12,6 +12,7 @@ opencv-python==4.11.0.86
 pillow==11.2.1
 PyJWT==2.10.1
 pylibdmtx==0.1.10
+PyMuPDF==2.1
 PyMySQL==1.1.1
 python-dotenv==1.1.0
 pyzbar==0.1.9
