@@ -48,8 +48,10 @@ def create_app(config_class=Config):
     from app.auth.routes import auth_bp
     from app.scans.routes import scans_bp
     from app.admin.routes import admin_bp
+    from app.api.routes import api_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(scans_bp, url_prefix='/scans')
     app.register_blueprint(admin_bp, url_prefix='/admin')
+    app.register_blueprint(api_bp, url_prefix='/api/v1')
 
     return app

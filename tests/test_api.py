@@ -169,3 +169,108 @@ def test_upload_pdf_too_many_pages(ctx):
     tok = login(c, 'admin@t.com', 'adminpass1').json['access_token']
     r = c.post('/scans/upload', headers=H(tok), data={'file': (io.BytesIO(doc.tobytes()), 'big.pdf')}, content_type='multipart/form-data')
     assert r.status_code == 400 and 'pages' in r.json['error']
+
+
+# ---------------------------------------------------------------- web service (API keys)
+
+def _admin_tok(c):
+    return login(c, 'admin@t.com', 'adminpass1').json['access_token']
+
+def _new_key(c, **fields):
+    r = c.post('/admin/api-tokens', headers=H(_admin_tok(c)), json={'name': 'App test', **fields})
+    assert r.status_code == 201, r.json
+    return r.json['api_key'], r.json['token']['id']
+
+def _extract(c, key, data, name='a.png'):
+    headers = {'X-API-Key': key} if key else {}
+    return c.post('/api/v1/extract', headers=headers, data={'file': (io.BytesIO(data), name)}, content_type='multipart/form-data')
+
+def _blank_png():
+    out = io.BytesIO(); Image.new('RGB', (80, 80), 'white').save(out, 'PNG'); return out.getvalue()
+
+def test_api_token_admin_rules(ctx):
+    c, _, _ = ctx
+    atok = _admin_tok(c)
+    c.post('/auth/register', json={'email': 'u@t.com', 'password': 'goodpass1'})
+    uid = c.get('/admin/users', headers=H(atok)).json[0]['id']
+    c.post(f'/admin/approve-user/{uid}', headers=H(atok))
+    utok = login(c, 'u@t.com', 'goodpass1').json['access_token']
+    assert c.post('/admin/api-tokens', headers=H(utok), json={'name': 'x'}).status_code == 403   # admins only
+    assert c.get('/admin/api-tokens', headers=H(utok)).status_code == 403
+    for bad in ({}, {'name': 'x', 'allowed_ips': ['not-an-ip']}, {'name': 'x', 'allowed_types': ['NOPE']},
+                {'name': 'x', 'quota_hourly': -1}, {'name': 'x', 'quota_monthly': 'many'},
+                {'name': 'x', 'valid_from': '2030-01-02', 'valid_until': '2030-01-01'}):
+        assert c.post('/admin/api-tokens', headers=H(atok), json=bad).status_code == 400, bad
+    assert 'QRCODE' in c.get('/admin/supported-types', headers=H(atok)).json
+    assert 'DataMatrix' in c.get('/admin/supported-types', headers=H(atok)).json
+
+def test_api_extract_and_key_rules(ctx):
+    c, _, _ = ctx
+    key, tid = _new_key(c)
+    png, _ = _sample_image()
+    assert _extract(c, None, png).status_code == 401                      # no key
+    assert _extract(c, 'ecode_wrong', png).status_code == 401             # unknown key
+    r = _extract(c, key, png)
+    assert r.status_code == 200, r.json
+    assert {b['data'] for b in r.json['barcodes']} == {'HELLO-QR', 'ABC-123', 'HELLO-DM'}
+    assert 'image' not in r.json and 'pages' not in r.json              # JSON only, no result images
+    assert r.json['page_count'] == 1 and r.json['file_type'] == 'image'
+    # PDF works through the web service too
+    r = _extract(c, key, _sample_pdf(), 'doc.pdf')
+    assert r.status_code == 200 and r.json['page_count'] == 3 and {b['page'] for b in r.json['barcodes']} == {1, 3}
+    # bad files
+    assert _extract(c, key, b'x', 'a.exe').status_code == 415
+    assert _extract(c, key, b'notanimage', 'a.png').status_code == 400
+    assert c.post('/api/v1/extract', headers={'X-API-Key': key}).status_code == 400   # no file
+    # usage is counted for requests that reach processing (rejected-before-processing ones are free)
+    atok = _admin_tok(c)
+    listed = c.get('/admin/api-tokens', headers=H(atok)).json
+    assert listed[0]['usage_hour'] == 3 and listed[0]['last_used_at']
+    assert 'api_key' not in listed[0] and listed[0]['token_prefix'] == key[:10]
+    # the key itself is not stored, only its hash
+    with c.application.app_context():
+        from app.models.api_token import ApiToken
+        assert key not in ApiToken.query.first().token_hash
+    # disable / enable / delete
+    assert c.put(f'/admin/api-tokens/{tid}', headers=H(atok), json={'is_active': False}).status_code == 200
+    assert _extract(c, key, png).status_code == 403
+    assert c.put(f'/admin/api-tokens/{tid}', headers=H(atok), json={'is_active': True}).status_code == 200
+    assert _extract(c, key, _blank_png()).status_code == 200
+    assert c.delete(f'/admin/api-tokens/{tid}', headers=H(atok)).status_code == 200
+    assert _extract(c, key, png).status_code == 401
+
+def test_api_allowed_types(ctx):
+    c, _, _ = ctx
+    png, _ = _sample_image()
+    key, _ = _new_key(c, allowed_types=['QRCODE'])
+    assert {b['type'] for b in _extract(c, key, png).json['barcodes']} == {'QRCODE'}
+    key, _ = _new_key(c, allowed_types=['DataMatrix'])
+    assert {b['type'] for b in _extract(c, key, png).json['barcodes']} == {'DataMatrix'}
+
+def test_api_ip_and_validity_period(ctx):
+    c, _, _ = ctx
+    blank = _blank_png()
+    key, _ = _new_key(c, allowed_ips=['10.1.2.3'])
+    assert _extract(c, key, blank).status_code == 403                    # test client is 127.0.0.1
+    key, _ = _new_key(c, allowed_ips=['10.1.2.3', '127.0.0.0/8'])
+    assert _extract(c, key, blank).status_code == 200                    # CIDR range matches
+    key, _ = _new_key(c, valid_until='2000-01-01')
+    assert _extract(c, key, blank).status_code == 403                    # expired
+    key, _ = _new_key(c, valid_from='2999-01-01')
+    assert _extract(c, key, blank).status_code == 403                    # not valid yet
+    key, _ = _new_key(c, valid_from='2000-01-01', valid_until='2999-01-01')
+    assert _extract(c, key, blank).status_code == 200
+
+def test_api_quotas(ctx):
+    c, _, _ = ctx
+    blank = _blank_png()
+    key, tid = _new_key(c, quota_hourly=2)
+    assert [_extract(c, key, blank).status_code for _ in range(3)] == [200, 200, 429]
+    key, tid = _new_key(c, quota_monthly=1)
+    assert [_extract(c, key, blank).status_code for _ in range(2)] == [200, 429]
+    key, tid = _new_key(c, quota_hourly=0)                               # 0 = nothing allowed
+    assert _extract(c, key, blank).status_code == 429
+    # editing the quota takes effect immediately; empty = unlimited
+    atok = _admin_tok(c)
+    assert c.put(f'/admin/api-tokens/{tid}', headers=H(atok), json={'quota_hourly': None}).status_code == 200
+    assert _extract(c, key, blank).status_code == 200
