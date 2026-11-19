@@ -3,7 +3,9 @@ import logging
 from flask import Flask, jsonify
 
 from config import Config
-from .extensions import db, migrate, bcrypt, jwt, cors
+import click
+
+from .extensions import db, migrate, bcrypt, jwt, cors, limiter
 
 
 def create_app(config_class=Config):
@@ -16,6 +18,7 @@ def create_app(config_class=Config):
     migrate.init_app(app, db)
     bcrypt.init_app(app)
     jwt.init_app(app)
+    limiter.init_app(app)
     cors.init_app(
         app,
         supports_credentials=True,
@@ -44,14 +47,42 @@ def create_app(config_class=Config):
         max_mb = app.config['MAX_CONTENT_LENGTH'] // (1024 * 1024)
         return jsonify({'error': f'Fichier trop volumineux (max {max_mb} Mo)'}), 413
 
+    @app.errorhandler(429)
+    def too_many_requests(e):
+        return jsonify({'error': 'Trop de requêtes, réessayez dans quelques instants'}), 429
+
     # Register blueprints
     from app.auth.routes import auth_bp
-    from app.scans.routes import scans_bp
+    from app.scans.routes import public_bp
     from app.admin.routes import admin_bp
     from app.api.routes import api_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
-    app.register_blueprint(scans_bp, url_prefix='/scans')
+    app.register_blueprint(public_bp, url_prefix='/public')
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(api_bp, url_prefix='/api/v1')
+
+    @app.cli.command('create-admin')
+    @click.option('--email', prompt=True)
+    @click.option('--password', prompt=True, hide_input=True, confirmation_prompt=True)
+    def create_admin(email, password):
+        """Creates an administrator (or resets the password of an existing one)."""
+        from .models.user import User
+        email = email.strip().lower()
+        min_len = app.config['PASSWORD_MIN_LENGTH']
+        if '@' not in email:
+            raise click.ClickException('Adresse email invalide')
+        if len(password) < min_len:
+            raise click.ClickException(f'Le mot de passe doit contenir au moins {min_len} caractères')
+
+        user = User.query.filter_by(email=email).first()
+        created = user is None
+        if created:
+            user = User(email=email)
+            db.session.add(user)
+        user.role = 'admin'
+        user.is_active = True
+        user.set_password(password)
+        db.session.commit()
+        click.echo(f"Administrateur {'créé' if created else 'mis à jour'} : {email}")
 
     return app

@@ -9,8 +9,6 @@ from PIL import Image, UnidentifiedImageError
 from pylibdmtx.pylibdmtx import decode
 from pyzbar import pyzbar
 
-from ..extensions import db
-from ..models.scan_history import ScanHistory
 
 
 class InvalidImageError(Exception):
@@ -135,12 +133,13 @@ def extract_document(data, allowed_types=None):
     return {'file_type': file_type, 'page_count': len(images), 'barcodes': barcodes}
 
 
-def process_document(data, user_id):
-    """Decodes an image (PNG/JPG) or a PDF (every page).
+def process_document(data):
+    """Decodes an image (PNG/JPG) or a PDF (every page) for the public web page.
 
-    Returns {'barcodes': [...all codes, each with its page...],
-             'pages': [{'page', 'image', 'barcodes'}, ...],
-             'image': first page image (kept for older clients)}.
+    Returns {'file_type', 'page_count',
+             'barcodes': [...all codes, each with its page...],
+             'pages': [{'page', 'image' (base64 jpeg with boxes), 'barcodes'}, ...]}.
+    Nothing is stored.
     """
     file_type, images = _load_pages(data)
 
@@ -148,26 +147,16 @@ def process_document(data, user_id):
     all_results = []
     for number, img_np in enumerate(images, start=1):
         results, image_bytes = _decode_page(img_np, number)
-        for result in results:
-            db.session.add(ScanHistory(
-                user_id=user_id,
-                code_type=result['type'],
-                code_data=result['data'],
-                page=number,
-                image_data=image_bytes,
-            ))
         all_results.extend(results)
         pages.append({
             'page': number,
             'image': base64.b64encode(image_bytes).decode('utf-8'),
             'barcodes': results,
         })
-    db.session.commit()  # one commit for the whole document
 
     return {
         'file_type': file_type,
         'page_count': len(pages),
         'barcodes': all_results,
         'pages': pages,
-        'image': pages[0]['image'],
     }

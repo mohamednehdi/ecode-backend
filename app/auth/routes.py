@@ -27,32 +27,6 @@ def _password_error(password):
 
 ###############################################################################################################################
 
-@auth_bp.route('/register', methods=['POST'])
-def register():
-    data = _json()
-    firstname = (data.get('first_name') or '').strip()
-    lastname = (data.get('last_name') or '').strip()
-    email = (data.get('email') or '').strip().lower()
-    password = data.get('password') or ''
-
-    if not email or '@' not in email:
-        return jsonify({'message': 'Adresse email invalide'}), 400
-    error = _password_error(password)
-    if error:
-        return jsonify({'message': error}), 400
-
-    if User.query.filter_by(email=email).first():
-        return jsonify({'message': 'User already exists'}), 400
-
-    user = User(email=email, firstname=firstname, lastname=lastname)
-    user.set_password(password)
-    db.session.add(user)
-    db.session.commit()
-
-    return jsonify({'message': 'User registered successfully'}), 201
-
-###############################################################################################################################
-
 @auth_bp.route('/login', methods=['POST'])
 def login():
     data = _json()
@@ -63,9 +37,9 @@ def login():
     if not user or not user.check_password(password):
         return jsonify({'message': 'Invalid credentials'}), 401
 
-    # Accounts must be approved by an admin first (admins are never blocked)
-    if not user.is_active and user.role != 'admin':
-        return jsonify({'message': 'Compte en attente de validation par un administrateur'}), 403
+    # Only administrators have accounts: the public page and the web service need no login
+    if user.role != 'admin':
+        return jsonify({'message': 'Accès réservé aux administrateurs'}), 403
 
     access_token = create_access_token(identity=str(user.id), additional_claims={'role': user.role})
     claims = decode_token(access_token)

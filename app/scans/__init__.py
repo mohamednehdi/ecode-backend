@@ -1,3 +1,3 @@
-from .routes import scans_bp
+from .routes import public_bp
 
-__all__ = ['scans_bp']
+__all__ = ['public_bp']

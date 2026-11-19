@@ -11,7 +11,7 @@ import tempfile
 # Test settings are set before the app is imported, so they win over .env
 _DB = os.path.join(tempfile.gettempdir(), 'barcode_test.db')
 os.environ.update(SECRET_KEY='t' * 64, JWT_SECRET_KEY='j' * 64, DATABASE_URL='sqlite:///' + _DB,
-                  SMTP_USERNAME='test@example.com', SMTP_PASSWORD='x')
+                  SMTP_USERNAME='test@example.com', SMTP_PASSWORD='x', PUBLIC_RATE_LIMIT='1000 per minute')
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 import pytest
@@ -45,26 +45,58 @@ def ctx(monkeypatch):
 def login(c, e, p): return c.post('/auth/login', json={'email': e, 'password': p})
 def H(t): return {'Authorization': f'Bearer {t}'}
 
-def test_register_validation_and_pending_login(ctx):
-    c, _, _ = ctx
-    assert c.post('/auth/register', json={'email':'u@t.com','password':'short'}).status_code == 400
-    assert c.post('/auth/register', json={'email':'u@t.com','password':'goodpass1'}).status_code == 201
-    r = login(c, 'u@t.com', 'goodpass1'); assert r.status_code == 403, r.json   # not approved yet
-    assert login(c, 'u@t.com', 'wrongpass').status_code == 401
+def _user_jwt(app):
+    """A valid session token of a NON-admin user (such sessions can no longer be created by login)."""
+    from datetime import datetime
+    from flask_jwt_extended import create_access_token, decode_token
+    from app.extensions import db
+    from app.models.token import Token
+    from app.models.user import User
+    with app.app_context():
+        u = User(email='plain@t.com', role='user', is_active=True); u.set_password('goodpass1')
+        db.session.add(u); db.session.commit()
+        t = create_access_token(identity=str(u.id)); claims = decode_token(t)
+        db.session.add(Token(user_id=u.id, token=t, jti=claims['jti'], expires_at=datetime.utcfromtimestamp(claims['exp'])))
+        db.session.commit()
+        return t
 
-def test_admin_approve_delete_and_guards(ctx):
+def test_login_is_for_admins_only(ctx):
+    c, _, app = ctx
+    with app.app_context():
+        from app.extensions import db
+        from app.models.user import User
+        u = User(email='u@t.com', role='user', is_active=True); u.set_password('goodpass1')
+        db.session.add(u); db.session.commit()
+    assert login(c, 'admin@t.com', 'adminpass1').status_code == 200
+    assert login(c, 'admin@t.com', 'wrongpass').status_code == 401
+    assert login(c, 'u@t.com', 'wrongpass').status_code == 401        # no hint about the role without the password
+    assert login(c, 'u@t.com', 'goodpass1').status_code == 403        # right password, but not an admin
+    assert c.post('/auth/register', json={'email': 'n@t.com', 'password': 'goodpass1'}).status_code == 404  # no signup
+
+def test_removed_user_features_are_gone(ctx):
     c, _, _ = ctx
-    c.post('/auth/register', json={'email':'u@t.com','password':'goodpass1'})
     tok = login(c, 'admin@t.com', 'adminpass1').json['access_token']
-    pending = c.get('/admin/users', headers=H(tok)).json
-    assert [u['email'] for u in pending] == ['u@t.com']
-    uid = pending[0]['id']
-    assert c.post(f'/admin/approve-user/{uid}', headers=H(tok)).status_code == 200
-    utok = login(c, 'u@t.com', 'goodpass1').json['access_token']
-    assert c.get('/admin/users', headers=H(utok)).status_code == 403          # user can't use admin API
-    assert c.delete('/admin/delete-user/1', headers=H(tok)).status_code == 400 # can't delete admin/self
-    assert c.delete(f'/admin/delete-user/{uid}', headers=H(tok)).status_code == 200  # has a token row -> cascade
-    assert c.get('/auth/me', headers=H(utok)).status_code == 401              # their session is gone
+    for method, url in (('get', '/admin/users'), ('get', '/admin/active-users'), ('post', '/admin/approve-user/1'),
+                        ('delete', '/admin/delete-user/1'), ('get', '/scans/history'), ('post', '/scans/upload')):
+        assert getattr(c, method)(url, headers=H(tok)).status_code == 404, url
+
+def test_admin_routes_need_an_admin_token(ctx):
+    c, _, app = ctx
+    assert c.get('/admin/api-tokens').status_code == 401
+    assert c.get('/admin/api-tokens', headers=H('garbage')).status_code in (401, 422)
+    assert c.get('/admin/api-tokens', headers=H(_user_jwt(app))).status_code == 403   # a non-admin session is refused
+
+def test_create_admin_command(ctx):
+    c, _, app = ctx
+    runner = app.test_cli_runner()
+    r = runner.invoke(args=['create-admin', '--email', 'New@T.com', '--password', 'longenough1'])
+    assert r.exit_code == 0 and 'créé' in r.output, r.output
+    assert login(c, 'new@t.com', 'longenough1').json['role'] == 'admin'
+    r = runner.invoke(args=['create-admin', '--email', 'new@t.com', '--password', 'another-pass1'])
+    assert 'mis à jour' in r.output
+    assert login(c, 'new@t.com', 'another-pass1').status_code == 200
+    assert runner.invoke(args=['create-admin', '--email', 'x@t.com', '--password', 'short']).exit_code != 0
+    assert runner.invoke(args=['create-admin', '--email', 'bad', '--password', 'longenough1']).exit_code != 0
 
 def test_logout_revokes_token(ctx):
     c, _, _ = ctx
@@ -113,22 +145,30 @@ def _sample_image():
     canvas.paste(dm, (100, 600))
     out = io.BytesIO(); canvas.save(out, 'PNG'); return out.getvalue(), (100, 600, dm.size)
 
-def test_upload(ctx):
+def _public(c, data, name):
+    return c.post('/public/extract', data={'file': (io.BytesIO(data), name)}, content_type='multipart/form-data')
+
+def test_public_extract_image(ctx):
     c, _, _ = ctx
-    tok = login(c, 'admin@t.com', 'adminpass1').json['access_token']
     png, (dx, dy, (dw, dh)) = _sample_image()
-    r = c.post('/scans/upload', headers=H(tok), data={'file': (io.BytesIO(png), 'doc.png')}, content_type='multipart/form-data')
+    r = _public(c, png, 'doc.png')          # no login needed
     assert r.status_code == 200, r.json
     found = {b['type']: b for b in r.json['barcodes']}
-    print({k: (v['data'], v['coordinates']) for k, v in found.items()}, 'DM placed at', dx, dy, dw, dh)
     assert found['QRCODE']['data'] == 'HELLO-QR' and found['CODE128']['data'] == 'ABC-123' and found['DataMatrix']['data'] == 'HELLO-DM'
     assert abs(found['DataMatrix']['coordinates']['y'] - dy) < 40   # box is where the code really is
-    assert len(c.get('/scans/history', headers=H(tok)).json) == 3
-    assert c.post('/scans/upload', headers=H(tok), data={'file': (io.BytesIO(b'x'), 'a.exe')}, content_type='multipart/form-data').status_code == 415
-    assert c.post('/scans/upload', headers=H(tok), data={'file': (io.BytesIO(b'notanimage'), 'a.png')}, content_type='multipart/form-data').status_code == 400
-    big = io.BytesIO(b'0' * (11 * 1024 * 1024))
-    assert c.post('/scans/upload', headers=H(tok), data={'file': (big, 'big.png')}, content_type='multipart/form-data').status_code == 413
+    assert r.json['page_count'] == 1 and r.json['pages'][0]['image']
+    assert _public(c, b'x', 'a.exe').status_code == 415
+    assert _public(c, b'notanimage', 'a.png').status_code == 400
+    assert c.post('/public/extract').status_code == 400
+    big = b'0' * (11 * 1024 * 1024)
+    assert _public(c, big, 'big.png').status_code == 413
 
+def test_public_extract_is_rate_limited_per_ip(ctx):
+    c, _, app = ctx
+    app.config['PUBLIC_RATE_LIMIT'] = '2 per hour'
+    blank = _blank_png()
+    assert [_public(c, blank, 'a.png').status_code for _ in range(3)] == [200, 200, 429]
+    assert 'requêtes' in _public(c, blank, 'a.png').json['error']
 
 def _sample_pdf():
     """Page 1: QR + Code128 + DataMatrix, page 2: empty, page 3: a QR code."""
@@ -143,8 +183,7 @@ def _sample_pdf():
 
 def test_upload_pdf_multipage(ctx):
     c, _, _ = ctx
-    tok = login(c, 'admin@t.com', 'adminpass1').json['access_token']
-    up = lambda data, name: c.post('/scans/upload', headers=H(tok), data={'file': (io.BytesIO(data), name)}, content_type='multipart/form-data')
+    up = lambda data, name: _public(c, data, name)
     r = up(_sample_pdf(), 'doc.pdf')
     assert r.status_code == 200, r.json
     j = r.json
@@ -153,8 +192,6 @@ def test_upload_pdf_multipage(ctx):
     assert {(1, 'QRCODE', 'HELLO-QR'), (1, 'CODE128', 'ABC-123'), (1, 'DataMatrix', 'HELLO-DM'), (3, 'QRCODE', 'PAGE-3')} <= found
     assert j['pages'][1]['barcodes'] == []
     assert all(p['image'] for p in j['pages'])
-    hist = c.get('/scans/history', headers=H(tok)).json
-    assert {h['page'] for h in hist} == {1, 3}
     # renamed / broken files are rejected
     png, _ = _sample_image()
     assert up(png, 'fake.pdf').status_code == 400
@@ -166,8 +203,7 @@ def test_upload_pdf_too_many_pages(ctx):
     import pymupdf
     doc = pymupdf.open()
     for _ in range(app.config['PDF_MAX_PAGES'] + 1): doc.new_page()
-    tok = login(c, 'admin@t.com', 'adminpass1').json['access_token']
-    r = c.post('/scans/upload', headers=H(tok), data={'file': (io.BytesIO(doc.tobytes()), 'big.pdf')}, content_type='multipart/form-data')
+    r = _public(c, doc.tobytes(), 'big.pdf')
     assert r.status_code == 400 and 'pages' in r.json['error']
 
 
@@ -189,12 +225,9 @@ def _blank_png():
     out = io.BytesIO(); Image.new('RGB', (80, 80), 'white').save(out, 'PNG'); return out.getvalue()
 
 def test_api_token_admin_rules(ctx):
-    c, _, _ = ctx
+    c, _, app = ctx
     atok = _admin_tok(c)
-    c.post('/auth/register', json={'email': 'u@t.com', 'password': 'goodpass1'})
-    uid = c.get('/admin/users', headers=H(atok)).json[0]['id']
-    c.post(f'/admin/approve-user/{uid}', headers=H(atok))
-    utok = login(c, 'u@t.com', 'goodpass1').json['access_token']
+    utok = _user_jwt(app)
     assert c.post('/admin/api-tokens', headers=H(utok), json={'name': 'x'}).status_code == 403   # admins only
     assert c.get('/admin/api-tokens', headers=H(utok)).status_code == 403
     for bad in ({}, {'name': 'x', 'allowed_ips': ['not-an-ip']}, {'name': 'x', 'allowed_types': ['NOPE']},

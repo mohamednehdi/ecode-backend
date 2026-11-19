@@ -31,6 +31,9 @@ class Config:
     PDF_DPI = int(os.environ.get('PDF_DPI', 200))
     PDF_MAX_PAGES = int(os.environ.get('PDF_MAX_PAGES', 20))
 
+    # Free public upload page: limit per IP address (Flask-Limiter syntax)
+    PUBLIC_RATE_LIMIT = os.environ.get('PUBLIC_RATE_LIMIT', '10 per minute;60 per hour')
+
     # Frontend allowed by CORS
     FRONTEND_ORIGIN = os.environ.get('FRONTEND_ORIGIN', 'http://localhost:4200')
 

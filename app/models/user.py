@@ -20,9 +20,8 @@ class User(db.Model):
     is_active = db.Column(db.Boolean, default=False)
     role = db.Column(db.String(50), default="user")
 
-    # Deleting a user also deletes their sessions and scan history
+    # Deleting an admin also deletes their login sessions
     tokens = db.relationship('Token', backref='user', lazy=True, cascade='all, delete-orphan')
-    scans = db.relationship('ScanHistory', backref='user', lazy=True, cascade='all, delete-orphan')
 
     def set_password(self, password):
         self.password = generate_password_hash(password).decode('utf-8')
