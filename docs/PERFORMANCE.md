@@ -99,12 +99,44 @@ Lecture :
 La base de données n'est **pas** le goulot : MySQL local accepte ≈ **2 700 insertions/s** (un COMMIT par
 insertion, réglage de durabilité par défaut), soit plus que les 1000 req/s visés.
 
+### Montée en charge avec Docker : 1, 2 et 4 conteneurs (F1c)
+
+Mesure faite le 19/11/2026 sur le même portable (4 cœurs, i5-7300HQ), avec la pile Docker de `docs/DEPLOYMENT.md`
+(Nginx, 1 à 4 conteneurs `app` de 2 processus × 4 threads, Redis, MySQL ; Docker Desktop / WSL 2, 4 cœurs et 3,8 Go de
+mémoire alloués). 16 utilisateurs Locust envoient des requêtes sans pause pendant 45 s par palier, clé sans quota.
+Le générateur de charge tourne sur la même machine. Script : `stress/run_scaling.ps1`.
+
+| Charge | Conteneurs | Requêtes | Échecs | Req/s | Médiane | p95 | p99 |
+|---|---|---|---|---|---|---|---|
+| Image 1200×900 | 1 | 1974 | 0 | 45,6 | 340 ms | 600 ms | 670 ms |
+| Image 1200×900 | 2 | 1649 | 0 | 37,1 | 370 ms | 900 ms | 1100 ms |
+| Image 1200×900 | 4 | 1540 | 0 | 35,5 | 350 ms | 850 ms | 3600 ms |
+| Recadrage 300×300 | 1 | 3724 | 0 | 86,2 | 170 ms | 330 ms | 550 ms |
+| Recadrage 300×300 | 2 | 3645 | 0 | 84,3 | 170 ms | 360 ms | 650 ms |
+| Recadrage 300×300 | 4 | 3702 | 0 | 85,6 | 150 ms | 310 ms | 1300 ms |
+
+Lecture :
+- **Aucun échec** à aucun palier : la pile reste stable sous charge.
+- **Le débit ne croît pas avec le nombre de conteneurs sur cette machine** (courbe plate, légère baisse pour les images).
+  Un seul conteneur (8 threads de décodage, qui libèrent le GIL) occupe déjà les 4 cœurs ; ajouter des conteneurs sur les
+  mêmes cœurs ne crée pas de capacité, seulement de la concurrence entre processus. L'application est limitée par le
+  processeur, pas par MySQL, Redis ou Nginx.
+- **La latence mesurée est surtout de l'attente** : 16 utilisateurs sans pause sur 4 cœurs, chaque requête attend un cœur
+  libre. Une requête isolée reste autour de 50 ms (mesure native, §3).
+- **Coût de la pile Docker** : en natif (§3) on mesurait ≈ 54 req/s (images 1 Mpx, 4 utilisateurs) et ≈ 153 req/s
+  (recadrages) ; ici 45,6 et 86,2 req/s. La part due à Docker/WSL 2, Nginx, gunicorn (au lieu de waitress) et au
+  nombre d'utilisateurs différent (16 au lieu de 4) n'a pas été isolée.
+- **Ce que ces mesures ne démontrent pas** : que la capacité augmente avec des conteneurs sur des machines
+  supplémentaires. La conception le permet (conteneurs sans état, quotas partagés dans Redis, vérifié avec deux conteneurs),
+  mais il faudrait plusieurs machines, ou une machine avec beaucoup plus de cœurs, pour le mesurer. La cible de
+  1000 req/s reste donc **non démontrée**.
+
 ## 4. Verdict par rapport au cahier des charges
 
 | Exigence | Résultat |
 |---|---|
 | Réponse en moins de 100 ms | **Atteint** pour les images jusqu'à ≈ 1 mégapixel (médiane 47 ms, p95 60 ms sans file d'attente) et les recadrages (p95 33 ms). **Non atteint** pour les scans A4 complets (médiane 190 ms) et les PDF (350 ms) sur cette machine : décoder 3,9 mégapixels prend ≈ 85 ms de calcul pur. Leviers : `DECODE_MAX_SIDE` plus petit, `PDF_DPI` plus bas (150), processeur plus rapide, ou envoi du seul recadrage du code. |
-| 1000 demandes par seconde | **Non atteint sur cette machine** (≈ 150 req/s au mieux, 54 req/s pour des images 1 Mpx), et **non démontré** : aucun matériel de cette taille n'était disponible. L'architecture est sans état et le débit croît avec le nombre de cœurs (mesuré) : la cible se vise en ajoutant des cœurs, voir §5. |
+| 1000 demandes par seconde | **Non atteint sur cette machine** (≈ 150 req/s au mieux, 54 req/s pour des images 1 Mpx), et **non démontré** : aucun matériel de cette taille n'était disponible. L'architecture est sans état et le débit croît avec le nombre de threads/cœurs (1 → 4 threads : ×3,5, mesuré) ; en revanche, ajouter des conteneurs sur les mêmes 4 cœurs n'augmente pas le débit (§3, F1c). La cible se vise en ajoutant des cœurs ou des machines, voir §5. |
 | Stress test | Réalisé (§3), reproductible (§7). |
 | Configuration matérielle | Proposée (§5), calculée à partir des mesures. |
 
@@ -167,9 +199,9 @@ Autres points de dimensionnement :
 
 - Le test à 1000 req/s n'a pas été exécuté (matériel indisponible) ; les chiffres de §5 sont des
   extrapolations de mesures à 4 cœurs.
-- Compteurs de quota : lus dans MySQL à chaque requête (2 requêtes SQL). Acceptable jusqu'à plusieurs
-  centaines de req/s ; au-delà, passer à des compteurs Redis (`INCR` avec expiration) écrits dans MySQL par
-  lots.
+- Compteurs de quota : avec `REDIS_URL` ils sont dans Redis (fait, `docs/DEPLOYMENT.md`) ; sans Redis ils sont lus
+  dans MySQL à chaque requête (2 requêtes SQL). Le journal `api_usage` est encore écrit pour chaque requête
+  acceptée ; le passer par lots serait l'étape suivante à très forte charge.
 - Les passes de nettoyage ne s'appliquent que si la passe rapide ne trouve aucun code (§2).
 - Un code incliné à 30° ou 45° est moins bien lu qu'un code droit ; les très petits codes (quelques pixels
   par module) restent illisibles.

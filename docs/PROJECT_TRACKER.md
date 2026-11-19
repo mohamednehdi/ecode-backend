@@ -61,16 +61,17 @@ Why: closes the only unmet item of the cahier and gives the report a real archit
 |---|---|---|
 | F1a | Dockerfile (gunicorn), Nginx config, compose file, `init-db`, `/health`, proxy IP handling | DONE: stack built and run with Docker Desktop (2026-11-19), end-to-end test through Nginx passed |
 | F1b | Redis quota counters (hourly window, monthly counter, refund, fallback) | DONE: unit tests with `fakeredis`, and checked on the real Redis container (quota shared by 2 app containers) |
-| F1c | Scaling benchmark 1/2/4/8 containers | TODO: script ready (`stress/run_scaling.ps1`), needs Docker, then numbers |
+| F1c | Scaling benchmark 1/2/4 containers | DONE: measured 2026-11-19, flat curve on a 4-core laptop (CPU-bound); table in `docs/PERFORMANCE.md` §3. 8 containers skipped (4 cores, 3.8 GB) |
 
 - Acceptance criteria:
   - [x] `docker compose up` starts the whole platform (MySQL, Redis, init-db, 2 app containers, Nginx): all healthy, `/health` answers through Nginx
   - [x] Quotas stay correct across several workers (8 concurrent workers, 50 slots: exactly 50 admitted)
-  - [ ] Scaling curve (throughput and p95 vs number of workers) in `docs/PERFORMANCE.md`
-  - [ ] Honest conclusion: what throughput was reached and on which hardware
+  - [x] Scaling curve (throughput and p95 vs number of workers) in `docs/PERFORMANCE.md`
+  - [x] Honest conclusion: 36 to 46 req/s (1200x900) and about 85 req/s (300x300) on a 4-core laptop; 1000 req/s NOT demonstrated, needs more cores/machines
 - Found while doing it: the old migrations cannot build an empty database (the `user` table was never created by a
   migration). Fixed with the `init-db` command, tested on an empty MySQL database.
-- Size: 8. Status: IN PROGRESS
+- Lesson from the first attempt: the script pointed at port 8080 (an Oracle listener) and logged 33,000 failures; it now reads HTTP_PORT and checks `/health` before running.
+- Size: 8. Status: DONE (target 1000 req/s still to be shown on bigger hardware)
 
 ### F2. Decoder comparison study (priority 2)
 Why: turns "I chose zxing-cpp" into a measured, defensible engineering decision.
@@ -188,3 +189,4 @@ Short notes after each work session (date, what was done, what was learned, what
 |---|---|---|
 | 2026-11-19 | Tracker created. F1a/F1b written: Redis quota counters (29 tests pass), Docker/Nginx/compose files, `init-db` (fixes fresh-database setup), `/health`, trusted-proxy IP handling. | Install Docker Desktop, run `docker compose up`, fix what breaks, then F1c measurements |
 | 2026-11-19 | Docker Desktop installed (WSL updated). `docker compose up -d --build` works. End-to-end through Nginx: admin login, key creation, PDF with 5 codes read, quota 2 -> 200/200/429 with both app containers serving (Redis key holds the count), wrong key 401. | F1c: scaling measurements, then F2 |
+| 2026-11-19 | F1c benchmark: 1/2/4 containers, two workloads, 0 failures; throughput flat (CPU-bound on 4 cores). First run invalid (wrong port) and discarded; script now checks `/health`. Results in `docs/PERFORMANCE.md`. | F2: decoder comparison study |

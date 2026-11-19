@@ -12,8 +12,18 @@ param(
     [int]$Users = 64,
     [int]$Seconds = 60,
     [int[]]$Replicas = @(1, 2, 4, 8),
-    [string]$BaseUrl = 'http://localhost:8080'
+    [string]$BaseUrl = ''
 )
+# Default address = Nginx port from .env (HTTP_PORT), like docker-compose.yml
+if (-not $BaseUrl) {
+    $port = '8080'
+    $line = Select-String -Path .env -Pattern '^HTTP_PORT=(\d+)' -ErrorAction SilentlyContinue | Select-Object -First 1
+    if ($line) { $port = $line.Matches[0].Groups[1].Value }
+    $BaseUrl = "http://localhost:$port"
+}
+# Safety check: the address must answer like OUR platform, otherwise the whole run would hit another program
+$health = (curl.exe -s -m 5 "$BaseUrl/health")
+if ($health -notmatch '"status"\s*:\s*"ok"') { throw "$BaseUrl/health did not answer like the platform (got: $health). Check the port (HTTP_PORT) or pass -BaseUrl." }
 if (-not $env:API_KEY) { throw 'Set $env:API_KEY first (key without quota)' }
 $env:WORKLOAD = $Workload
 New-Item -ItemType Directory -Force -Path stress/results | Out-Null
