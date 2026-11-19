@@ -60,9 +60,8 @@ client). Sans proxy, la valeur reste `0` : un en-tête forgé est alors ignoré 
 | 8 « workers » concurrents se disputant 50 places : exactement 50 acceptées | Testé (`fakeredis`) |
 | `X-Forwarded-For` ignoré sans proxy, utilisé avec proxy | Testé |
 | `init-db` sur une base **vide** (4 tables + version de migration), puis relancé | Testé sur MySQL |
-| Syntaxe de `docker-compose.yml` | Lue par un parseur YAML ; **non exécutée** |
-| `Dockerfile`, `nginx.conf`, démarrage complet des conteneurs | **Non exécutés** : Docker n'est pas installé sur le poste de développement |
-| Redis réel (au lieu de `fakeredis`) | **Non exécuté** : aucun serveur Redis sur le poste |
+| `Dockerfile`, `docker-compose.yml`, `nginx.conf` : construction et démarrage complet (MySQL, Redis, init-db, 2 conteneurs `app`, Nginx) | Exécutés sous Docker Desktop : tous les services sains, `/health` répond via Nginx |
+| Test bout en bout via Nginx : connexion admin, création d'une clé (quota 2/heure), PDF de 3 pages lu (5 codes), 3 requêtes → 200, 200, 429, clé erronée → 401 | Réussi ; les 2 conteneurs `app` ont servi des requêtes et le quota est resté exact (compteur dans le Redis réel) |
 | Courbe de montée en charge (1, 2, 4, 8 conteneurs) | **Non mesurée** (voir ci-dessous) |
 
 ## Mesure de la montée en charge (F1c)

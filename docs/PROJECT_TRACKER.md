@@ -59,12 +59,12 @@ Why: closes the only unmet item of the cahier and gives the report a real archit
 
 | Part | What | Status |
 |---|---|---|
-| F1a | Dockerfile (gunicorn), Nginx config, compose file, `init-db`, `/health`, proxy IP handling | CODE WRITTEN, containers NOT RUN (Docker not installed on the dev machine) |
-| F1b | Redis quota counters (hourly window, monthly counter, refund, fallback) | DONE, tested with `fakeredis` (not with a real Redis server) |
+| F1a | Dockerfile (gunicorn), Nginx config, compose file, `init-db`, `/health`, proxy IP handling | DONE: stack built and run with Docker Desktop (2026-11-19), end-to-end test through Nginx passed |
+| F1b | Redis quota counters (hourly window, monthly counter, refund, fallback) | DONE: unit tests with `fakeredis`, and checked on the real Redis container (quota shared by 2 app containers) |
 | F1c | Scaling benchmark 1/2/4/8 containers | TODO: script ready (`stress/run_scaling.ps1`), needs Docker, then numbers |
 
 - Acceptance criteria:
-  - [ ] `docker compose up` starts the whole platform from a clean machine (to run once Docker is installed)
+  - [x] `docker compose up` starts the whole platform (MySQL, Redis, init-db, 2 app containers, Nginx): all healthy, `/health` answers through Nginx
   - [x] Quotas stay correct across several workers (8 concurrent workers, 50 slots: exactly 50 admitted)
   - [ ] Scaling curve (throughput and p95 vs number of workers) in `docs/PERFORMANCE.md`
   - [ ] Honest conclusion: what throughput was reached and on which hardware
@@ -187,3 +187,4 @@ Short notes after each work session (date, what was done, what was learned, what
 | Date | Done | Next |
 |---|---|---|
 | 2026-11-19 | Tracker created. F1a/F1b written: Redis quota counters (29 tests pass), Docker/Nginx/compose files, `init-db` (fixes fresh-database setup), `/health`, trusted-proxy IP handling. | Install Docker Desktop, run `docker compose up`, fix what breaks, then F1c measurements |
+| 2026-11-19 | Docker Desktop installed (WSL updated). `docker compose up -d --build` works. End-to-end through Nginx: admin login, key creation, PDF with 5 codes read, quota 2 -> 200/200/429 with both app containers serving (Redis key holds the count), wrong key 401. | F1c: scaling measurements, then F2 |
