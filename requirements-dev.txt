@@ -1,5 +1,6 @@
 -r requirements.txt
 pytest
+fakeredis  # tests of the Redis quota counters without a Redis server
 segno
 python-barcode[images]
 pylibdmtx  # only used by the tests to generate DataMatrix images

@@ -1,0 +1,15 @@
+.env
+.git
+.gitignore
+.vscode
+venv
+__pycache__
+*.pyc
+instance
+_backup_before_step1
+docs
+sql
+stress
+tests
+sample_barcodes.pdf
+*.bat

@@ -309,6 +309,123 @@ def test_api_quotas(ctx):
     assert _extract(c, key, blank).status_code == 200
 
 
+# ---------------------------------------------------------------- quotas in Redis (several workers) + reverse proxy
+
+def _use_redis_quota(app, server=None, **kw):
+    import fakeredis
+    from app.quota import RedisQuota
+    client = fakeredis.FakeRedis(server=server or fakeredis.FakeServer())
+    app.extensions['quota'] = RedisQuota(client, **kw)
+    return client
+
+
+def test_redis_quota_hourly_monthly_and_unlimited(ctx):
+    c, _, app = ctx
+    _use_redis_quota(app)
+    blank = _blank_png()
+    key, tid = _new_key(c, quota_hourly=2)
+    assert [_extract(c, key, blank).status_code for _ in range(3)] == [200, 200, 429]
+    key, tid = _new_key(c, quota_monthly=1)
+    assert [_extract(c, key, blank).status_code for _ in range(2)] == [200, 429]
+    key, tid = _new_key(c, quota_hourly=0)
+    assert _extract(c, key, blank).status_code == 429
+    key, tid = _new_key(c)                                               # no quota: never refused
+    assert [_extract(c, key, blank).status_code for _ in range(5)] == [200] * 5
+
+
+def test_redis_quota_is_given_back_when_the_file_is_refused(ctx):
+    c, _, app = ctx
+    _use_redis_quota(app)
+    blank = _blank_png()
+    key, _ = _new_key(c, quota_hourly=1, quota_monthly=1)
+    assert _extract(c, key, blank, 'a.gif').status_code == 415           # refused: must not use the quota
+    assert _extract(c, key, b'not an image', 'a.pdf').status_code == 400
+    assert _extract(c, key, blank).status_code == 200
+    assert _extract(c, key, blank).status_code == 429
+
+
+def test_redis_quota_never_admits_more_than_the_quota_under_concurrency(ctx, monkeypatch):
+    """Eight workers share one Redis and fight for 50 slots: exactly 50 must get through."""
+    import threading
+    from types import SimpleNamespace
+    import fakeredis
+    import app.quota as quota_module
+    from app.quota import RedisQuota
+    from datetime import datetime
+
+    monkeypatch.setattr(quota_module, '_db_count', lambda token, since: 0)
+    server = fakeredis.FakeServer()
+    token = SimpleNamespace(id=7, quota_hourly=50, quota_monthly=50)
+    admitted, lock = [], threading.Lock()
+
+    def worker():
+        store = RedisQuota(fakeredis.FakeRedis(server=server))           # each worker has its own connection
+        for _ in range(25):
+            message, _ = store.reserve(token, datetime.utcnow())
+            if message is None:
+                with lock:
+                    admitted.append(1)
+
+    threads = [threading.Thread(target=worker) for _ in range(8)]
+    [t.start() for t in threads]
+    [t.join() for t in threads]
+    assert len(admitted) == 50
+
+
+def test_redis_monthly_counter_restarts_from_the_request_log(ctx):
+    """If Redis loses its data, the monthly count is rebuilt from api_usage instead of starting from zero."""
+    c, _, app = ctx
+    blank = _blank_png()
+    key, _ = _new_key(c, quota_monthly=3)
+    assert [_extract(c, key, blank).status_code for _ in range(2)] == [200, 200]   # database counters
+    _use_redis_quota(app)                                                          # fresh, empty Redis
+    assert [_extract(c, key, blank).status_code for _ in range(2)] == [200, 429]
+
+
+def test_quota_falls_back_to_the_database_when_redis_is_down(ctx):
+    import redis
+    from app.quota import RedisQuota
+
+    class DeadRedis:
+        def pipeline(self, *a, **k): raise redis.ConnectionError('down')
+        def incrby(self, *a, **k): raise redis.ConnectionError('down')
+
+    c, _, app = ctx
+    app.extensions['quota'] = RedisQuota(DeadRedis())
+    blank = _blank_png()
+    key, _ = _new_key(c, quota_hourly=2)
+    assert [_extract(c, key, blank).status_code for _ in range(3)] == [200, 200, 429]
+
+
+def test_health_probe_for_docker_and_load_balancer(ctx):
+    c, _, _ = ctx
+    r = c.get('/health')
+    assert r.status_code == 200 and r.json == {'status': 'ok'}
+
+
+def test_client_ip_comes_from_the_proxy_only_when_a_proxy_is_trusted(ctx):
+    from config import Config
+    from app import create_app
+
+    class BehindNginx(Config):
+        TRUSTED_PROXIES = 1
+
+    c, _, _ = ctx
+    key, _ = _new_key(c, allowed_ips=['203.0.113.9'])
+    blank = _blank_png()
+
+    def call(client, forwarded):
+        return client.post('/api/v1/extract', headers={'X-API-Key': key, 'X-Forwarded-For': forwarded},
+                           data={'file': (io.BytesIO(blank), 'a.png')}, content_type='multipart/form-data')
+
+    # Directly reachable app: a forged header must NOT let a stranger in
+    assert call(c, '203.0.113.9').status_code == 403
+    # Behind the proxy: the address written by Nginx is the client address
+    proxied = create_app(BehindNginx).test_client()
+    assert call(proxied, '203.0.113.9').status_code == 200
+    assert call(proxied, '198.51.100.1').status_code == 403
+
+
 # ---------------------------------------------------------------- decoder: poor quality scans, speed, coordinates
 
 def _big_codes_page(w=1400, h=1000):

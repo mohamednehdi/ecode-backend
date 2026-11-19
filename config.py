@@ -45,8 +45,15 @@ class Config:
 
     # Free public upload page: limit per IP address (Flask-Limiter syntax)
     PUBLIC_RATE_LIMIT = os.environ.get('PUBLIC_RATE_LIMIT', '10 per minute;60 per hour')
+    # Redis (optional): when set, API quotas and the public rate limit are counted there, so that several
+    # workers / servers share the same counters. Empty = counted in the database / in memory (one server).
+    REDIS_URL = os.environ.get('REDIS_URL', '')
     # Where the rate-limit counters live: memory:// (one process) or redis://host:6379 (several workers/servers)
-    RATELIMIT_STORAGE_URI = os.environ.get('RATELIMIT_STORAGE_URI', 'memory://')
+    RATELIMIT_STORAGE_URI = os.environ.get('RATELIMIT_STORAGE_URI') or REDIS_URL or 'memory://'
+
+    # Number of reverse proxies (Nginx...) in front of the app. With 1, the client IP is read from the
+    # X-Forwarded-For header set by the proxy. Keep 0 when the app is reachable directly: the header is forgeable.
+    TRUSTED_PROXIES = int(os.environ.get('TRUSTED_PROXIES', 0))
 
     # Frontend allowed by CORS
     FRONTEND_ORIGIN = os.environ.get('FRONTEND_ORIGIN', 'http://localhost:4200')

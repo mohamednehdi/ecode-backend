@@ -3,7 +3,7 @@ import logging
 import os
 from datetime import datetime, timedelta
 
-from flask import Blueprint, request, jsonify
+from flask import Blueprint, current_app, request, jsonify
 
 from ..extensions import db
 from ..models.api_token import ApiToken, ApiUsage, hash_key
@@ -22,20 +22,18 @@ def _error(message, status):
     return jsonify({'error': message}), status
 
 
-def _usage_since(token, since):
-    return ApiUsage.query.filter(ApiUsage.token_id == token.id, ApiUsage.created_at >= since).count()
-
-
-def _quota_error(token, now):
-    """Returns an error message when a quota is used up, otherwise None."""
-    if token.quota_hourly is not None:
-        if _usage_since(token, now - timedelta(hours=1)) >= token.quota_hourly:
-            return f'Quota horaire dépassé ({token.quota_hourly} requêtes par heure)'
-    if token.quota_monthly is not None:
-        month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
-        if _usage_since(token, month_start) >= token.quota_monthly:
-            return f'Quota mensuel dépassé ({token.quota_monthly} requêtes par mois)'
-    return None
+def _read_upload():
+    """Returns (file bytes, None), or (None, error response) when the upload is not acceptable."""
+    file = request.files.get('file')
+    if not file or not file.filename:
+        return None, _error('Aucun fichier reçu (champ multipart "file")', 400)
+    ext = os.path.splitext(file.filename)[1].lower()
+    if ext not in ALLOWED_EXTENSIONS:
+        return None, _error('Format non supporté (PDF, PNG ou JPG uniquement)', 415)
+    data = file.read()
+    if (ext == '.pdf') != is_pdf(data):
+        return None, _error('Le contenu du fichier ne correspond pas à son extension', 400)
+    return data, None
 
 
 @api_bp.route('/extract', methods=['POST'])
@@ -59,19 +57,16 @@ def extract():
     if not token.ip_allowed(request.remote_addr):
         return _error('Adresse IP non autorisée pour cette clé', 403)
 
-    quota_message = _quota_error(token, now)
+    # Quota: checked and counted in one atomic step (shared by every worker), given back if the file is refused
+    quota = current_app.extensions['quota']
+    quota_message, reservation = quota.reserve(token, now)
     if quota_message:
         return _error(quota_message, 429)
 
-    file = request.files.get('file')
-    if not file or not file.filename:
-        return _error('Aucun fichier reçu (champ multipart "file")', 400)
-    ext = os.path.splitext(file.filename)[1].lower()
-    if ext not in ALLOWED_EXTENSIONS:
-        return _error('Format non supporté (PDF, PNG ou JPG uniquement)', 415)
-    data = file.read()
-    if (ext == '.pdf') != is_pdf(data):
-        return _error('Le contenu du fichier ne correspond pas à son extension', 400)
+    data, upload_error = _read_upload()
+    if upload_error:
+        quota.release(reservation)
+        return upload_error
 
     # The request is counted before processing so that failing files cannot bypass the quota
     db.session.add(ApiUsage(token_id=token.id, created_at=now, ip_address=request.remote_addr))

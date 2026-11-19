@@ -14,6 +14,15 @@ def create_app(config_class=Config):
 
     logging.basicConfig(level=logging.INFO, format='%(asctime)s %(levelname)s %(name)s: %(message)s')
 
+    if app.config['TRUSTED_PROXIES']:
+        # Behind Nginx: request.remote_addr must be the real client, not the proxy (IP rules, rate limits)
+        from werkzeug.middleware.proxy_fix import ProxyFix
+        hops = app.config['TRUSTED_PROXIES']
+        app.wsgi_app = ProxyFix(app.wsgi_app, x_for=hops, x_proto=hops, x_host=0, x_port=0, x_prefix=0)
+
+    from .quota import make_quota
+    app.extensions['quota'] = make_quota(app.config)
+
     db.init_app(app)
     migrate.init_app(app, db)
     bcrypt.init_app(app)
@@ -51,6 +60,11 @@ def create_app(config_class=Config):
     def too_many_requests(e):
         return jsonify({'error': 'Trop de requêtes, réessayez dans quelques instants'}), 429
 
+    @app.get('/health')
+    def health():
+        """Liveness probe for Docker / the load balancer (does not touch the database)."""
+        return jsonify({'status': 'ok'})
+
     # Register blueprints
     from app.auth.routes import auth_bp
     from app.scans.routes import public_bp
@@ -60,6 +74,24 @@ def create_app(config_class=Config):
     app.register_blueprint(public_bp, url_prefix='/public')
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(api_bp, url_prefix='/api/v1')
+
+    @app.cli.command('init-db')
+    def init_db():
+        """Prepares the database: builds it on first start, upgrades it afterwards (used by Docker).
+
+        The first migrations of this project never created the base tables (they were created from the
+        models), so `db upgrade` cannot build an EMPTY database: it is created from the models and every
+        migration is marked as applied. A database that already has tables is upgraded normally.
+        """
+        from flask_migrate import stamp, upgrade
+        from sqlalchemy import inspect
+        if inspect(db.engine).get_table_names():
+            upgrade()
+            click.echo('Base de données mise à jour')
+        else:
+            db.create_all()
+            stamp()
+            click.echo('Base de données créée')
 
     @app.cli.command('create-admin')
     @click.option('--email', prompt=True)

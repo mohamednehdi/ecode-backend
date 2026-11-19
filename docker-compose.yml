@@ -1,0 +1,90 @@
+# Whole platform in one command:
+#     docker compose up -d --build
+#     docker compose run --rm app flask --app run create-admin      (first start: creates the admin account)
+# More application containers:
+#     docker compose up -d --scale app=4
+# Public entry point: http://localhost:${HTTP_PORT:-8080}   (/public, /api/v1, /auth, /admin)
+#
+# Required in .env: SECRET_KEY, JWT_SECRET_KEY, MYSQL_ROOT_PASSWORD (letters and digits only: used in a URL)
+
+services:
+  mysql:
+    image: mysql:8.4
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:?Set MYSQL_ROOT_PASSWORD in .env}
+      MYSQL_DATABASE: barcodedb
+    # The request log is an audit trail, not money: flushing the redo log once a second (instead of at every
+    # commit) multiplies the write throughput, at the price of at most ~1 s of log on a server crash.
+    command: >
+      --max-connections=800
+      --innodb-flush-log-at-trx-commit=2
+      --character-set-server=utf8mb4
+    volumes:
+      - mysql-data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD-SHELL", "mysqladmin ping -h 127.0.0.1 -p$$MYSQL_ROOT_PASSWORD --silent"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  redis:
+    image: redis:7-alpine
+    restart: unless-stopped
+    # Counters only: no disk persistence. If Redis restarts, monthly quotas are rebuilt from the request log.
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  # One-shot job: creates the tables on first start, applies migrations afterwards, then exits
+  init-db:
+    build: .
+    command: ["flask", "--app", "run", "init-db"]
+    environment: &app-env
+      SECRET_KEY: ${SECRET_KEY:?Set SECRET_KEY in .env}
+      JWT_SECRET_KEY: ${JWT_SECRET_KEY:?Set JWT_SECRET_KEY in .env}
+      DATABASE_URL: mysql+pymysql://root:${MYSQL_ROOT_PASSWORD}@mysql:3306/barcodedb
+      REDIS_URL: redis://redis:6379/0
+      TRUSTED_PROXIES: "1"                       # Nginx is the only way in
+      FRONTEND_ORIGIN: ${FRONTEND_ORIGIN:-http://localhost:4200}
+      DB_POOL_SIZE: ${DB_POOL_SIZE:-8}           # per process: keep (workers x replicas x this) under max-connections
+      DB_POOL_OVERFLOW: "4"
+      WEB_WORKERS: ${WEB_WORKERS:-2}
+      WEB_THREADS: ${WEB_THREADS:-4}
+      PUBLIC_RATE_LIMIT: ${PUBLIC_RATE_LIMIT:-10 per minute;60 per hour}
+      SMTP_USERNAME: ${SMTP_USERNAME:-}
+      SMTP_PASSWORD: ${SMTP_PASSWORD:-}
+    depends_on:
+      mysql:
+        condition: service_healthy
+    restart: "no"
+
+  app:
+    build: .
+    restart: unless-stopped
+    environment: *app-env
+    expose:
+      - "5000"
+    depends_on:
+      init-db:
+        condition: service_completed_successfully
+      redis:
+        condition: service_healthy
+    deploy:
+      replicas: ${APP_REPLICAS:-2}
+
+  nginx:
+    image: nginx:1.27-alpine
+    restart: unless-stopped
+    ports:
+      - "${HTTP_PORT:-8080}:80"
+    volumes:
+      - ./docker/nginx.conf:/etc/nginx/nginx.conf:ro
+    depends_on:
+      - app
+
+volumes:
+  mysql-data:
