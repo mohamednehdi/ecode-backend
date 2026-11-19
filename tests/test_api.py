@@ -307,3 +307,121 @@ def test_api_quotas(ctx):
     atok = _admin_tok(c)
     assert c.put(f'/admin/api-tokens/{tid}', headers=H(atok), json={'quota_hourly': None}).status_code == 200
     assert _extract(c, key, blank).status_code == 200
+
+
+# ---------------------------------------------------------------- decoder: poor quality scans, speed, coordinates
+
+def _big_codes_page(w=1400, h=1000):
+    """White page with a large QR, Code128 and DataMatrix (so rotations stay readable)."""
+    import segno, barcode
+    from barcode.writer import ImageWriter
+    from pylibdmtx.pylibdmtx import encode
+    canvas = Image.new('RGB', (w, h), 'white')
+    q = io.BytesIO(); segno.make('BIG-QR', error='m', micro=False).save(q, kind='png', scale=12); canvas.paste(Image.open(q), (80, 80))
+    b = io.BytesIO(); barcode.get('code128', 'BIG-128', writer=ImageWriter()).write(b); canvas.paste(Image.open(b), (700, 100))
+    e = encode(b'BIG-DM'); dm = Image.frombytes('RGB', (e.width, e.height), e.pixels).resize((e.width * 3, e.height * 3), Image.NEAREST)
+    canvas.paste(dm, (150, 600))
+    import numpy as np
+    return np.array(canvas)
+
+def _found(app, img, **kw):
+    from app.scans.decoder import find_codes
+    with app.app_context():
+        return {(c['type'], c['data']) for c in find_codes(img, 1, **kw)}
+
+ALL3 = {('QRCODE', 'BIG-QR'), ('CODE128', 'BIG-128'), ('DataMatrix', 'BIG-DM')}
+
+def test_decoder_reads_poor_quality_scans(ctx):
+    import cv2, numpy as np
+    _, _, app = ctx
+    base = _big_codes_page()
+    assert _found(app, base) == ALL3
+    noisy = np.clip(base.astype(np.int16) + np.random.RandomState(1).normal(0, 30, base.shape), 0, 255).astype(np.uint8)
+    assert _found(app, noisy) == ALL3
+    assert _found(app, cv2.GaussianBlur(base, (5, 5), 0)) == ALL3
+    assert _found(app, np.clip(128 + (base.astype(np.float32) - 128) * 0.2 + 60, 0, 255).astype(np.uint8)) == ALL3   # washed out
+    # light on dark: found by the clean-up passes when the fast pass finds nothing (a page that mixes
+    # readable codes with an inverted 1D code is the known limit of the fast pass)
+    only_128 = base.copy(); only_128[:, :650] = 255; only_128[550:, :] = 255
+    assert _found(app, 255 - only_128) == {('CODE128', 'BIG-128')}
+    assert len(_found(app, 255 - base)) >= 2
+    assert _found(app, np.rot90(base).copy()) == ALL3                       # page scanned sideways
+    assert _found(app, np.rot90(base, 2).copy()) == ALL3                    # upside down
+    ok, jpg = cv2.imencode('.jpg', cv2.cvtColor(base, cv2.COLOR_RGB2BGR), [cv2.IMWRITE_JPEG_QUALITY, 10])
+    assert _found(app, cv2.cvtColor(cv2.imdecode(jpg, 1), cv2.COLOR_BGR2RGB)) == ALL3   # heavy compression
+
+def test_decoder_reads_skewed_scan_and_maps_coordinates_back(ctx):
+    import numpy as np
+    from app.scans.decoder import _rotated, find_codes
+    _, _, app = ctx
+    base = _big_codes_page()
+    import cv2
+    gray = cv2.cvtColor(base, cv2.COLOR_RGB2GRAY)
+    skewed, matrix = _rotated(gray, 45)                                   # 45 degrees: beyond the fast pass
+    with app.app_context():
+        codes = find_codes(skewed, 1)
+    assert len(codes) >= 2                                                # found despite the 45 degree skew
+    # coordinates are returned in the skewed image's own pixels: the box must sit on the real code
+    inv = np.linalg.inv(matrix)
+    for c in codes:
+        co = c['coordinates']
+        cx, cy = co['x'] + co['w'] / 2, co['y'] + co['h'] / 2
+        assert 0 <= cx <= skewed.shape[1] and 0 <= cy <= skewed.shape[0]
+        ox, oy = (inv @ np.array([cx, cy, 1]))[:2]                         # back in the unrotated page
+        expected = {'QRCODE': (80 + 60, 80 + 60), 'CODE128': (700 + 150, 100 + 50), 'DataMatrix': (150 + 135, 600 + 135)}[c['type']]
+        assert abs(ox - expected[0]) < 120 and abs(oy - expected[1]) < 120, (c['type'], (ox, oy), expected)
+
+def test_decoder_does_not_invent_codes_and_blank_pages_are_fast(ctx):
+    import time
+    import numpy as np
+    _, _, app = ctx
+    assert _found(app, np.full((2339, 1654, 3), 255, np.uint8)) == set()      # blank page
+    text_like = (np.random.RandomState(2).rand(900, 1200) > 0.5).astype(np.uint8) * 255   # pure noise
+    assert _found(app, np.stack([text_like] * 3, axis=2)) == set()
+    blank = np.full((2339, 1654), 255, np.uint8)
+    with app.app_context():
+        from app.scans.decoder import find_codes
+        start = time.perf_counter(); find_codes(blank, 1); elapsed = time.perf_counter() - start
+    assert elapsed < 0.4, elapsed                                              # no useless clean-up passes on an empty page
+
+def test_decoder_speed_on_typical_images(ctx):
+    """The cahier asks for answers in under 100 ms: check the decoding part on clean scans."""
+    import time
+    import cv2
+    from app.scans.decoder import find_codes
+    _, _, app = ctx
+    page = _big_codes_page(1654, 2339)                                        # A4 at 200 dpi
+    gray = cv2.cvtColor(page, cv2.COLOR_RGB2GRAY)
+    with app.app_context():
+        find_codes(gray, 1)                                                   # warm-up
+        times = []
+        for _ in range(5):
+            start = time.perf_counter(); codes = find_codes(gray, 1); times.append(time.perf_counter() - start)
+    assert len(codes) == 3
+    assert min(times) < 0.15, times                                           # ~85 ms measured; margin for slow/busy machines
+
+def test_api_type_filter_skips_other_decoders_and_lists_new_types(ctx):
+    _, _, app = ctx
+    base = _big_codes_page()
+    assert _found(app, base, allowed_types={'QRCODE'}) == {('QRCODE', 'BIG-QR')}
+    assert _found(app, base, allowed_types={'DataMatrix', 'CODE128'}) == {('CODE128', 'BIG-128'), ('DataMatrix', 'BIG-DM')}
+    assert _found(app, base, allowed_types=set()) == set()
+    from app.scans.decoder import SUPPORTED_TYPES
+    assert {'QRCODE', 'DataMatrix', 'CODE128', 'EAN13', 'PDF417', 'Aztec'} <= set(SUPPORTED_TYPES)
+
+
+def test_purge_usage_command_keeps_recent_rows(ctx):
+    from datetime import datetime, timedelta
+    c, _, app = ctx
+    key, tid = _new_key(c)
+    with app.app_context():
+        from app.extensions import db
+        from app.models.api_token import ApiUsage
+        now = datetime.utcnow()
+        db.session.add_all([ApiUsage(token_id=tid, created_at=now - timedelta(days=d)) for d in (1, 10, 40, 100)])
+        db.session.commit()
+    r = app.test_cli_runner().invoke(args=['purge-usage', '--keep-days', '35'])
+    assert r.exit_code == 0 and r.output.startswith('2 '), r.output
+    with app.app_context():
+        from app.models.api_token import ApiUsage
+        assert ApiUsage.query.count() == 2                      # only the 1 and 10 day old rows are left

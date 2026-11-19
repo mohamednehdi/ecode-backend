@@ -6,8 +6,8 @@ import numpy as np
 import pymupdf
 from flask import current_app
 from PIL import Image, UnidentifiedImageError
-from pylibdmtx.pylibdmtx import decode
-from pyzbar import pyzbar
+
+from .decoder import SUPPORTED_TYPES, draw_boxes, find_codes, new_fallback_deadline  # noqa: F401 (SUPPORTED_TYPES is re-exported)
 
 
 
@@ -31,15 +31,19 @@ def is_pdf(data):
     return data[:5] == b'%PDF-'
 
 
-def _load_image(data):
+def _load_image(data, gray=False):
+    """Image bytes -> numpy array. gray=True is faster and enough when no result image is drawn."""
     try:
-        return np.array(Image.open(io.BytesIO(data)).convert('RGB'))
+        image = Image.open(io.BytesIO(data))
+        if gray:
+            image.draft('L', image.size)  # JPEG: decode only the luminance (faster); ignored by other formats
+        return np.array(image.convert('L' if gray else 'RGB'))
     except (UnidentifiedImageError, OSError) as e:
         raise InvalidImageError() from e
 
 
-def _render_pdf_pages(data):
-    """Renders every page of the PDF to an RGB numpy array."""
+def _render_pdf_pages(data, gray=False):
+    """Renders every page of the PDF to a numpy array (RGB, or grayscale when gray=True: faster)."""
     dpi = current_app.config['PDF_DPI']
     max_pages = current_app.config['PDF_MAX_PAGES']
     try:
@@ -57,79 +61,37 @@ def _render_pdf_pages(data):
 
         pages = []
         for page in doc:
-            pix = page.get_pixmap(dpi=dpi, colorspace=pymupdf.csRGB, alpha=False)
-            img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(pix.height, pix.width, 3)
+            pix = page.get_pixmap(dpi=dpi, colorspace=pymupdf.csGRAY if gray else pymupdf.csRGB, alpha=False)
+            shape = (pix.height, pix.width) if gray else (pix.height, pix.width, 3)
+            img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(shape)
             pages.append(img.copy())  # copy: the pixmap buffer is freed with the page
         return pages
 
 
-# Every barcode type the platform can return (pyzbar types + DataMatrix)
-SUPPORTED_TYPES = sorted(
-    {symbol.name for symbol in pyzbar.ZBarSymbol if symbol.name not in ('NONE', 'PARTIAL')} | {'DataMatrix'}
-)
-
-
-def _find_codes(img_np, page_number, allowed_types=None):
-    """Locates and decodes every barcode on one page (no drawing).
-
-    allowed_types: set of type names to look for, None = all. Unwanted decoders are skipped (faster).
-    """
-    results = []
-
-    zbar_types = [pyzbar.ZBarSymbol[t] for t in (allowed_types if allowed_types is not None else SUPPORTED_TYPES)
-                  if t != 'DataMatrix']
-    if zbar_types:
-        for barcode in pyzbar.decode(img_np, symbols=zbar_types):
-            (x, y, w, h) = barcode.rect
-            results.append({
-                'page': page_number,
-                'type': barcode.type,
-                'data': barcode.data.decode('utf-8', errors='replace'),
-                'coordinates': {'x': x, 'y': y, 'w': w, 'h': h}
-            })
-
-    if allowed_types is None or 'DataMatrix' in allowed_types:
-        for code in decode(img_np):
-            (x, y, w, h) = code.rect
-            # pylibdmtx measures y from the bottom of the image; convert to top-left origin
-            top = img_np.shape[0] - y - h
-            results.append({
-                'page': page_number,
-                'type': 'DataMatrix',
-                'data': code.data.decode('utf-8', errors='replace'),
-                'coordinates': {'x': x, 'y': top, 'w': w, 'h': h}
-            })
-    return results
-
-
-def _decode_page(img_np, page_number):
+def _decode_page(img_np, page_number, deadline=None):
     """Finds every barcode on one page, draws a box around each one and returns (results, jpeg bytes)."""
-    results = _find_codes(img_np, page_number)
-
-    # Draw rectangles (image is RGB here): red for 1D/QR, green for DataMatrix
-    for result in results:
-        c = result['coordinates']
-        color = (0, 255, 0) if result['type'] == 'DataMatrix' else (255, 0, 0)
-        cv2.rectangle(img_np, (c['x'], c['y']), (c['x'] + c['w'], c['y'] + c['h']), color, 2)
+    results = find_codes(img_np, page_number, deadline=deadline)
+    draw_boxes(img_np, results)
 
     # OpenCV encodes BGR: convert, otherwise red and blue are swapped in the result image
     _, buffer = cv2.imencode('.jpg', cv2.cvtColor(img_np, cv2.COLOR_RGB2BGR))
     return results, buffer.tobytes()
 
 
-def _load_pages(data):
-    """Returns (file_type, [RGB arrays]) for an image or a PDF."""
+def _load_pages(data, gray=False):
+    """Returns (file_type, [arrays]) for an image or a PDF."""
     if is_pdf(data):
-        return 'pdf', _render_pdf_pages(data)
-    return 'image', [_load_image(data)]
+        return 'pdf', _render_pdf_pages(data, gray)
+    return 'image', [_load_image(data, gray)]
 
 
 def extract_document(data, allowed_types=None):
     """Web-service extraction: JSON only, no result images, nothing saved in the database."""
-    file_type, images = _load_pages(data)
+    file_type, images = _load_pages(data, gray=True)
+    deadline = new_fallback_deadline()  # one clean-up time budget for the whole document
     barcodes = []
     for number, img_np in enumerate(images, start=1):
-        barcodes.extend(_find_codes(img_np, number, allowed_types))
+        barcodes.extend(find_codes(img_np, number, allowed_types, deadline))
     return {'file_type': file_type, 'page_count': len(images), 'barcodes': barcodes}
 
 
@@ -143,10 +105,11 @@ def process_document(data):
     """
     file_type, images = _load_pages(data)
 
+    deadline = new_fallback_deadline()  # one clean-up time budget for the whole document
     pages = []
     all_results = []
     for number, img_np in enumerate(images, start=1):
-        results, image_bytes = _decode_page(img_np, number)
+        results, image_bytes = _decode_page(img_np, number, deadline)
         all_results.extend(results)
         pages.append({
             'page': number,

@@ -85,4 +85,22 @@ def create_app(config_class=Config):
         db.session.commit()
         click.echo(f"Administrateur {'créé' if created else 'mis à jour'} : {email}")
 
+    @app.cli.command('purge-usage')
+    @click.option('--keep-days', default=35, show_default=True, type=int,
+                  help='Keep the request log of the last N days (monthly quotas need the current month)')
+    def purge_usage(keep_days):
+        """Deletes old rows of the API request log (api_usage), which grows with every request."""
+        from datetime import datetime, timedelta
+        from .models.api_token import ApiUsage
+        limit = datetime.utcnow() - timedelta(days=keep_days)
+        total = 0
+        while True:  # small batches: no long table lock on a busy server
+            ids = [r[0] for r in db.session.query(ApiUsage.id).filter(ApiUsage.created_at < limit).limit(5000)]
+            if not ids:
+                break
+            db.session.query(ApiUsage).filter(ApiUsage.id.in_(ids)).delete(synchronize_session=False)
+            db.session.commit()
+            total += len(ids)
+        click.echo(f'{total} lignes supprimées (plus anciennes que {keep_days} jours)')
+
     return app

@@ -75,7 +75,9 @@ def extract():
 
     # The request is counted before processing so that failing files cannot bypass the quota
     db.session.add(ApiUsage(token_id=token.id, created_at=now, ip_address=request.remote_addr))
-    token.last_used_at = now
+    # "last used" is informative only: refresh it at most once a minute to keep the write per request small
+    if token.last_used_at is None or now - token.last_used_at > timedelta(seconds=60):
+        token.last_used_at = now
     db.session.commit()
 
     allowed_types = set(token.type_list) or None

@@ -11,5 +11,5 @@ migrate = Migrate()
 bcrypt = Bcrypt()
 jwt = JWTManager()
 cors = CORS()
-# No default limit: only the public upload route is limited. Counters are kept in memory (per process).
-limiter = Limiter(key_func=get_remote_address, default_limits=[], storage_uri='memory://')
+# No default limit: only the public upload route is limited. Storage comes from RATELIMIT_STORAGE_URI.
+limiter = Limiter(key_func=get_remote_address, default_limits=[])

@@ -23,6 +23,13 @@ class Config:
     # Database
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL', 'mysql+pymysql://root:@localhost/barcodedb')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
+    # Database connection pool: keep at least as many connections as server threads (WAITRESS_THREADS)
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        'pool_size': int(os.environ.get('DB_POOL_SIZE', 20)),
+        'max_overflow': int(os.environ.get('DB_POOL_OVERFLOW', 10)),
+        'pool_pre_ping': True,    # drops dead connections instead of failing the request
+        'pool_recycle': 280,      # MySQL closes idle connections after a while
+    }
 
     # Uploads: anything bigger is rejected by Flask with 413
     MAX_CONTENT_LENGTH = int(os.environ.get('MAX_UPLOAD_MB', 10)) * 1024 * 1024
@@ -31,8 +38,15 @@ class Config:
     PDF_DPI = int(os.environ.get('PDF_DPI', 200))
     PDF_MAX_PAGES = int(os.environ.get('PDF_MAX_PAGES', 20))
 
+    # Decoding: scans larger than this (longest side, pixels) are decoded at reduced size
+    DECODE_MAX_SIDE = int(os.environ.get('DECODE_MAX_SIDE', 3000))
+    # Extra clean-up attempts on a poor scan when the fast pass finds nothing: time budget per document (ms), 0 = off
+    DECODE_FALLBACK_BUDGET_MS = int(os.environ.get('DECODE_FALLBACK_BUDGET_MS', 2000))
+
     # Free public upload page: limit per IP address (Flask-Limiter syntax)
     PUBLIC_RATE_LIMIT = os.environ.get('PUBLIC_RATE_LIMIT', '10 per minute;60 per hour')
+    # Where the rate-limit counters live: memory:// (one process) or redis://host:6379 (several workers/servers)
+    RATELIMIT_STORAGE_URI = os.environ.get('RATELIMIT_STORAGE_URI', 'memory://')
 
     # Frontend allowed by CORS
     FRONTEND_ORIGIN = os.environ.get('FRONTEND_ORIGIN', 'http://localhost:4200')
