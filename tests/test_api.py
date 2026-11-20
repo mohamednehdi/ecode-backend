@@ -604,6 +604,122 @@ def test_api_thorough_flag_finds_more_codes(ctx):
     assert fast.json['unread_regions'] == [] and isinstance(thorough.json['unread_regions'], list)
 
 
+# ---------------------------------------------------------------- admin statistics (F4)
+
+def _add_usage(app, token_id, count, days_ago=0, **fields):
+    """Inserts `count` request-log rows `days_ago` days back (fields can be callables of the row number)."""
+    from datetime import datetime, timedelta
+    from app.extensions import db
+    from app.models.api_token import ApiUsage
+    with app.app_context():
+        for i in range(count):
+            values = {k: (v(i) if callable(v) else v) for k, v in fields.items()}
+            db.session.add(ApiUsage(token_id=token_id, created_at=datetime.utcnow() - timedelta(days=days_ago, seconds=i),
+                                    ip_address='198.51.100.7', **values))
+        db.session.commit()
+
+
+def _stats(c, path, **params):
+    from urllib.parse import urlencode
+    return c.get(f'/admin/stats/{path}?{urlencode(params)}', headers=H(_admin_tok(c)))
+
+
+def test_request_log_records_the_outcome_of_each_request(ctx):
+    from app.models.api_token import ApiUsage
+    c, _, app = ctx
+    key, _ = _new_key(c)
+    assert _extract(c, key, _blank_png()).status_code == 200
+    broken = c.post('/api/v1/extract?thorough=1', headers={'X-API-Key': key}, data={'file': (io.BytesIO(b'not an image'), 'a.png')},
+                    content_type='multipart/form-data')
+    assert broken.status_code == 400
+    with app.app_context():
+        good, bad = ApiUsage.query.order_by(ApiUsage.id).all()
+    assert (good.status_code, good.codes_found, good.pages, good.file_type, good.thorough) == (200, 0, 1, 'image', False)
+    assert good.duration_ms >= 0 and good.file_bytes > 0
+    assert (bad.status_code, bad.codes_found, bad.thorough) == (400, 0, True)         # a failing file is logged, and counts
+
+
+def test_stats_overview_numbers(ctx):
+    from datetime import datetime, timedelta
+    c, _, app = ctx
+    _, a = _new_key(c)
+    _, b = _new_key(c)
+    ok = dict(status_code=200, codes_found=2, pages=1, file_type='image', file_bytes=1000, thorough=False)
+    _add_usage(app, a, 10, duration_ms=lambda i: 10 * (i + 1), **{**ok, 'status_code': lambda i: 500 if i == 9 else 200})
+    _add_usage(app, a, 5, days_ago=2, duration_ms=200, **{**ok, 'file_type': 'pdf', 'status_code': lambda i: 400 if i == 0 else 200})
+    _add_usage(app, b, 5, duration_ms=50, **ok)
+    _add_usage(app, b, 1, days_ago=20, duration_ms=999, **ok)                          # outside a 7-day window
+
+    r = _stats(c, 'overview', days=7)
+    assert r.status_code == 200
+    t = r.json['totals']
+    assert (t['requests'], t['errors'], t['error_rate']) == (20, 2, 0.1)
+    assert t['avg_ms'] == 90 and abs(t['p50_ms'] - 50) <= 5 and abs(t['p95_ms'] - 200) <= 5      # histogram bins of 10 ms
+    assert (t['codes_found'], t['pages'], t['bytes']) == (40, 20, 20000)
+
+    daily = r.json['daily']
+    today = datetime.utcnow().strftime('%Y-%m-%d')
+    two_days_ago = (datetime.utcnow() - timedelta(days=2)).strftime('%Y-%m-%d')
+    assert len(daily) == 7 and daily[-1]['date'] == today                              # every day is there, empty ones too
+    by_date = {d['date']: d for d in daily}
+    assert (by_date[today]['requests'], by_date[today]['errors']) == (15, 1)
+    assert (by_date[two_days_ago]['requests'], by_date[two_days_ago]['errors'], by_date[two_days_ago]['avg_ms']) == (5, 1, 200)
+    assert sum(d['requests'] for d in daily) == 20
+
+    assert [(x['id'], x['requests']) for x in r.json['tokens']] == [(a, 15), (b, 5)]
+    assert {x['type']: x['requests'] for x in r.json['file_types']} == {'image': 15, 'pdf': 5}
+    assert {x['status']: x['requests'] for x in r.json['statuses']} == {200: 18, 400: 1, 500: 1}
+    assert _stats(c, 'overview', days=60).json['totals']['requests'] == 21             # the older row is in a longer period
+
+
+def test_stats_filters_validation_and_access(ctx):
+    c, _, app = ctx
+    _, a = _new_key(c)
+    _, b = _new_key(c)
+    _add_usage(app, a, 4, duration_ms=30, status_code=200)
+    _add_usage(app, b, 2, duration_ms=30, status_code=200)
+    assert _stats(c, 'overview', days=7, token_id=a).json['totals']['requests'] == 4
+    assert _stats(c, 'overview', days=7, token_id=999).json['totals'] == {
+        'requests': 0, 'errors': 0, 'error_rate': 0, 'avg_ms': None, 'p50_ms': None, 'p95_ms': None,
+        'codes_found': 0, 'pages': 0, 'bytes': 0, 'thorough_requests': 0}              # no data: no division by zero
+    assert _stats(c, 'overview', days=0).status_code == 400 and _stats(c, 'overview', days=400).status_code == 400
+    assert _stats(c, 'recent', limit=0).status_code == 400
+    plain_user = _user_jwt(app)
+    for path in ('overview', 'recent', 'export.csv'):
+        assert c.get(f'/admin/stats/{path}').status_code == 401                        # no session
+        assert c.get(f'/admin/stats/{path}', headers=H(plain_user)).status_code == 403     # not an admin
+
+
+def test_stats_recent_requests_and_csv_export(ctx):
+    c, _, app = ctx
+    _, a = _new_key(c)
+    _add_usage(app, a, 6, duration_ms=lambda i: 100 + i, status_code=200, codes_found=1, pages=1, file_type='image', thorough=False)
+    recent = _stats(c, 'recent', limit=3).json
+    assert [x['duration_ms'] for x in recent] == [100, 101, 102]                       # newest first
+    assert recent[0]['token_name'] == 'App test' and recent[0]['status'] == 200
+
+    r = _stats(c, 'export.csv', days=30)
+    assert r.status_code == 200 and r.mimetype == 'text/csv' and 'attachment' in r.headers['Content-Disposition']
+    text = r.data.decode('utf-8')
+    assert text.startswith('\ufeff')                                                  # byte-order mark: Excel reads accents
+    lines = text.lstrip('\ufeff').strip().splitlines()
+    assert lines[0] == 'time_utc,token,status,duration_ms,codes_found,pages,file_type,file_bytes,thorough,ip'
+    assert len(lines) == 7 and lines[1].split(',')[1:4] == ['App test', '200', '100']
+
+
+def test_demo_data_commands(ctx):
+    from app.models.api_token import ApiToken, ApiUsage
+    c, _, app = ctx
+    runner = app.test_cli_runner()
+    assert 'créées' in runner.invoke(args=['seed-demo-usage', '--days', '5', '--per-day', '40']).output
+    r = _stats(c, 'overview', days=5).json
+    assert r['totals']['requests'] > 50 and len(r['tokens']) == 3 and all(t['name'].startswith('[DEMO] ') for t in r['tokens'])
+    assert r['totals']['errors'] >= 0 and 0 < r['totals']['p50_ms'] < 1000
+    assert 'supprimées' in runner.invoke(args=['clear-demo-usage']).output
+    with app.app_context():
+        assert ApiUsage.query.count() == 0 and ApiToken.query.count() == 0
+
+
 # ---------------------------------------------------------------- decoder: poor quality scans, speed, coordinates
 
 def _big_codes_page(w=1400, h=1000):

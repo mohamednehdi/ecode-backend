@@ -70,9 +70,11 @@ def create_app(config_class=Config):
     from app.scans.routes import public_bp
     from app.admin.routes import admin_bp
     from app.api.routes import api_bp
+    from app.admin.stats import stats_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(public_bp, url_prefix='/public')
     app.register_blueprint(admin_bp, url_prefix='/admin')
+    app.register_blueprint(stats_bp, url_prefix='/admin/stats')
     app.register_blueprint(api_bp, url_prefix='/api/v1')
 
     @app.cli.command('init-db')
@@ -116,6 +118,23 @@ def create_app(config_class=Config):
         user.set_password(password)
         db.session.commit()
         click.echo(f"Administrateur {'créé' if created else 'mis à jour'} : {email}")
+
+    @app.cli.command('seed-demo-usage')
+    @click.option('--days', default=30, show_default=True, type=int)
+    @click.option('--per-day', default=300, show_default=True, type=int, help='Requests on a weekday, all demo keys together')
+    def seed_demo_usage(days, per_day):
+        """Creates invented traffic (3 "[DEMO]" keys + request-log rows) so the statistics dashboard has something to show."""
+        from .demo_data import seed
+        count = seed(days, per_day)
+        click.echo(f'{count} lignes de démonstration créées (clés "[DEMO]", IP 203.0.113.x). Données INVENTÉES : '
+                   'à retirer avec `flask --app run clear-demo-usage`.')
+
+    @app.cli.command('clear-demo-usage')
+    def clear_demo_usage():
+        """Removes the demo keys and the demo request-log rows."""
+        from .demo_data import clear
+        rows, tokens = clear()
+        click.echo(f'{rows} lignes et {tokens} clés de démonstration supprimées')
 
     @app.cli.command('purge-usage')
     @click.option('--keep-days', default=35, show_default=True, type=int,

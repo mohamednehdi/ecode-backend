@@ -64,11 +64,23 @@ class ApiToken(db.Model):
 
 
 class ApiUsage(db.Model):
-    """One row per accepted request: quotas are computed by counting these rows."""
+    """One row per accepted request (the file was valid and was processed, or failed while being processed).
+
+    Quotas in database mode are computed by counting these rows; the admin statistics (docs/STATISTICS.md) read
+    the outcome columns. Rows written before the statistics existed have NULL outcome columns."""
     __tablename__ = 'api_usage'
-    __table_args__ = (db.Index('ix_api_usage_token_time', 'token_id', 'created_at'),)
+    __table_args__ = (db.Index('ix_api_usage_token_time', 'token_id', 'created_at'),
+                      db.Index('ix_api_usage_created', 'created_at'))
 
     id = db.Column(db.Integer, primary_key=True)
     token_id = db.Column(db.Integer, db.ForeignKey('api_token.id'), nullable=False)
-    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)     # when the request arrived (UTC)
     ip_address = db.Column(db.String(45), nullable=True)
+    # Outcome of the request
+    status_code = db.Column(db.SmallInteger, nullable=True)          # HTTP status sent back: 200, 400, 500
+    duration_ms = db.Column(db.Integer, nullable=True)               # processing time of the extraction
+    codes_found = db.Column(db.Integer, nullable=True)
+    pages = db.Column(db.SmallInteger, nullable=True)
+    file_type = db.Column(db.String(8), nullable=True)               # 'image' or 'pdf'
+    file_bytes = db.Column(db.Integer, nullable=True)
+    thorough = db.Column(db.Boolean, nullable=True)                  # request made with ?thorough=1

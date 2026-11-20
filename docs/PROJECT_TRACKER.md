@@ -118,13 +118,17 @@ Why: the project title says "localisation et extraction"; localisation is curren
 
 ### F4. Admin statistics dashboard (priority 4)
 Why: makes the back office more than a CRUD screen; needs per-request latency data.
-- Store per request: status code, duration in ms, number of codes, file type and size.
-- Pages: requests per day, error rate, average and p95 latency, top tokens, types found; CSV export.
+- The request log now records the outcome of each request: status, duration, codes found, pages, file type and size, thorough mode.
+- Endpoints `/admin/stats/overview`, `/recent`, `/export.csv`; Angular page `/dashboard/statistics` (filters, 5 key figures, 4 charts, table, CSV).
+- Demo data commands (`seed-demo-usage`, `clear-demo-usage`): the numbers are INVENTED and must be labelled as such. Details: `docs/STATISTICS.md`.
 - Acceptance criteria:
-  - [ ] New columns + migration, written without slowing the request (measured)
-  - [ ] Dashboard page with at least 4 charts
-  - [ ] Filter by token and by period
-- Size: 5. Status: TODO
+  - [x] New columns + migration `d4b7a1e90c53`; still one insert per request (the row is written after processing)
+  - [x] Dashboard page with at least 4 charts (daily requests with errors, daily latency with p95, requests per key, file types and results)
+  - [x] Filter by key and by period; CSV export
+  - [x] Tests (5 new, 44 in total); queries run on a real MySQL; page checked in a browser at 1440 px
+  - [ ] Not measured: the cost of the extra write per request (the log was already written once per request, now after the work)
+- Limits: rejected requests (401/403/429) are not logged; no Angular unit tests; not checked on a phone or with real traffic.
+- Size: 5. Status: DONE
 
 ### F5. API documentation (priority 5)
 - OpenAPI/Swagger page for `/api/v1/extract` (parameters, errors, examples), README for API users.
@@ -217,3 +221,4 @@ Short notes after each work session (date, what was done, what was learned, what
 | 2026-11-20 | F3a: true boxes in the datasets, 240 realistic document pages, density-based localiser + 12-weight logistic scoring, trimming, speed-ups (296 ms -> 64 ms), 4 new tests (33 pass). Final exam run once on untouched sets: documents recall 80.6 % / precision 73.1 %. Honest limits written in docs/LOCALIZER_STUDY.md. | F3b: use the regions to decode better and show unreadable codes |
 | 2026-11-20 | F3b: region decoding (crop, straighten, enlarge, 5 variants), thorough mode, unread regions in the JSON and in orange on the public page (Angular), API `?thorough=1`. 5 strategies compared; final exam run once. 38 tests pass. Misreads NOT fixed (come from the quick read). | F4 admin dashboard, or F2b |
 | 2026-11-20 | Looked at the public page: 1D codes had thin/partial boxes (zxing reports only the scanned line). Fixed: every code has its real outline (`polygon`), 1D codes get the located region's box in thorough mode, page draws polygons. Orange image frame made neutral grey (orange now means unreadable region). Speed test made robust (best of 15). 39 tests pass. | F4 or F2b |
+| 2026-11-20 | F4: request outcome logged (status, duration, codes, pages, type, size), statistics endpoints + CSV, demo-data commands, Angular statistics page with 3 hand-made SVG/HTML chart components. Looked at it in a browser (scratch MySQL + scratch frontend copy, both removed): found and fixed unreadable horizontal-bar text. 44 tests pass. | Apply migration d4b7a1e90c53; then F2b or F5-F9 |

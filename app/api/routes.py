@@ -1,6 +1,7 @@
 """Public web service for third-party applications. Authenticated only by an API key."""
 import logging
 import os
+import time
 from datetime import datetime, timedelta
 
 from flask import Blueprint, current_app, request, jsonify
@@ -34,6 +35,20 @@ def _read_upload():
     if (ext == '.pdf') != is_pdf(data):
         return None, _error('Le contenu du fichier ne correspond pas à son extension', 400)
     return data, None
+
+
+def _log_usage(token, now, status, duration_ms, file_bytes, thorough, **outcome):
+    """Writes the request log row (quota counting + statistics). A logging failure never fails the request."""
+    try:
+        db.session.add(ApiUsage(token_id=token.id, created_at=now, ip_address=request.remote_addr, status_code=status,
+                                duration_ms=duration_ms, file_bytes=file_bytes, thorough=thorough, **outcome))
+        # "last used" is informative only: refresh it at most once a minute to keep the write per request small
+        if token.last_used_at is None or now - token.last_used_at > timedelta(seconds=60):
+            token.last_used_at = now
+        db.session.commit()
+    except Exception:
+        db.session.rollback()
+        logger.exception('Could not write the request log for token %s', token.id)
 
 
 @api_bp.route('/extract', methods=['POST'])
@@ -71,23 +86,24 @@ def extract():
         quota.release(reservation)
         return upload_error
 
-    # The request is counted before processing so that failing files cannot bypass the quota
-    db.session.add(ApiUsage(token_id=token.id, created_at=now, ip_address=request.remote_addr))
-    # "last used" is informative only: refresh it at most once a minute to keep the write per request small
-    if token.last_used_at is None or now - token.last_used_at > timedelta(seconds=60):
-        token.last_used_at = now
-    db.session.commit()
-
     allowed_types = set(token.type_list) or None
     thorough = request.args.get('thorough', '').lower() in ('1', 'true', 'yes')
+    outcome = {'codes_found': 0, 'pages': 0, 'file_type': 'pdf' if is_pdf(data) else 'image'}
+    started = time.perf_counter()
     try:
-        return jsonify(extract_document(data, allowed_types, thorough))
+        result = extract_document(data, allowed_types, thorough)
+        outcome.update(codes_found=len(result['barcodes']), pages=result['page_count'])
+        response = jsonify(result), 200
     except InvalidImageError:
-        return _error("Le fichier n'est pas une image valide", 400)
+        response = _error("Le fichier n'est pas une image valide", 400)
     except InvalidPdfError:
-        return _error('Le fichier PDF est invalide ou protégé par mot de passe', 400)
+        response = _error('Le fichier PDF est invalide ou protégé par mot de passe', 400)
     except TooManyPagesError as e:
-        return _error(f'Le PDF contient trop de pages (max {e.max_pages})', 400)
+        response = _error(f'Le PDF contient trop de pages (max {e.max_pages})', 400)
     except Exception:
         logger.exception('API extraction failed for token %s', token.id)
-        return _error('Erreur interne lors du traitement du fichier', 500)
+        response = _error('Erreur interne lors du traitement du fichier', 500)
+
+    # The request is logged whatever the outcome (a failing file counts against the quota too). One insert per request.
+    _log_usage(token, now, response[1], int((time.perf_counter() - started) * 1000), len(data), thorough, **outcome)
+    return response
