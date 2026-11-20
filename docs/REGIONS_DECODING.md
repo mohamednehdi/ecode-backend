@@ -70,6 +70,21 @@ Le trou de l'étude F2 est comblé : **code incliné de 30° : 68,8 → 93,8 %**
    est du texte gras ou des fragments. Le texte affiché le dit (« certaines peuvent être de fausses alertes »). Régler
    `UNREAD_MIN_SCORE` à 1,01 désactive le signalement.
 
+## 4 bis. Boîtes des codes : un défaut trouvé en regardant la page
+
+En utilisant la page publique, on voit que pour un code **1D** le cadre dessiné n'entoure pas le code : une fine bande au
+milieu des barres, ou un rectangle partiel pour un code incliné. zxing-cpp ne rend, pour un code linéaire, que la ligne de balayage
+qu'il a lue. Correction :
+- chaque code porte maintenant son contour réel (`polygon` : 4 coins, au pixel près de l'image d'origine) ; pour les codes 2D (QR,
+  DataMatrix) c'est le contour rendu par zxing-cpp, juste quelle que soit l'inclinaison ;
+- pour un code 1D, dès que la **région localisée** est connue (mode approfondi : page publique, ou `?thorough=1`), sa boîte
+  remplace la bande (`coordinates` = boîte englobante de la région, `polygon` = son contour incliné) ;
+- l'image de la page publique dessine le contour (polygone), plus un rectangle droit.
+
+En lecture rapide par défaut (API sans `?thorough=1`), la boîte d'un code 1D reste la bande balayée : la corriger demanderait de
+lancer la localisation (≈ 65 ms) à chaque requête. Aucune mesure de précision des boîtes n'a été faite après correction
+(contrôle visuel et test automatique seulement).
+
 ## 5. Réglages
 
 | Variable | Défaut | Effet |

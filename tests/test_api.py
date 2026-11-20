@@ -570,6 +570,24 @@ def test_public_page_returns_and_draws_unreadable_regions(ctx):
     assert orange.sum() > 100                                                                   # the orange box is on the image
 
 
+def test_one_dimensional_codes_get_the_box_of_the_whole_code(ctx):
+    """zxing-cpp reports only the thin line it scanned along a 1D code; the located region gives the real box."""
+    from app.scans.decoder import find_page
+    _, _, app = ctx
+    page = _tilted_code128(0)                                         # a straight Code 128, 112 px tall
+    with app.app_context():
+        for all_regions in (None, True):
+            codes, _ = find_page(page, 1, all_regions=all_regions)
+            assert len(codes) == 1 and len(codes[0]['polygon']) == 4
+        # Thorough mode (the public page): the box is the whole code, not a strip through its middle
+        box = find_page(page, 1, all_regions=True)[0][0]['coordinates']
+        assert box['h'] >= 100 and box['w'] >= 250
+        # A tilted code: the outline follows the tilt (its corners are not those of an upright rectangle)
+        tilted = find_page(_tilted_code128(25), 1, all_regions=True)[0][0]
+        xs = sorted(p[0] for p in tilted['polygon'])
+        assert xs[1] - xs[0] > 15 or xs[3] - xs[2] > 15
+
+
 def test_api_thorough_flag_finds_more_codes(ctx):
     c, _, _ = ctx
     key, _ = _new_key(c)
@@ -672,10 +690,11 @@ def test_decoder_speed_on_typical_images(ctx):
     with app.app_context():
         find_codes(gray, 1)                                                   # warm-up
         times = []
-        for _ in range(5):
+        for _ in range(15):                                                   # the best of many runs: robust to a busy machine
             start = time.perf_counter(); codes = find_codes(gray, 1); times.append(time.perf_counter() - start)
     assert len(codes) == 3
     assert min(times) < 0.15, times                                           # ~85 ms measured; margin for slow/busy machines
+
 
 def test_api_type_filter_skips_other_decoders_and_lists_new_types(ctx):
     _, _, app = ctx

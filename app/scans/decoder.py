@@ -146,6 +146,7 @@ def _read(image, formats, matrix, width, height, page_number, **options):
             'type': _SYMBOLOGY_TO_TYPE.get(r.symbology.name, r.format.name),
             'data': r.bytes.decode('utf-8', errors='replace'),
             'coordinates': {'x': x0, 'y': y0, 'w': x1 - x0, 'h': y1 - y0},
+            'polygon': [[int(round(px)), int(round(py))] for px, py in pts],     # the real outline, whatever the tilt
         })
     return sorted(results, key=lambda c: (c['coordinates']['y'], c['coordinates']['x']))
 
@@ -204,6 +205,37 @@ def _region_variants(view):
     yield _clahe(cv2.medianBlur(view, 3)), dict(try_invert=True)
 
 
+# 1D codes: zxing-cpp reports the thin strip it scanned along, not the whole code. The located region is the real box.
+_LINEAR_TYPES = {'CODE128', 'CODE39', 'CODE93', 'CODABAR', 'EAN13', 'EAN8', 'UPCA', 'UPCE', 'I25', 'DATABAR', 'DATABAR_EXP'}
+
+
+def _region_outline(region, matrix, width, height):
+    """(coordinates, polygon) of a located region, in original pixels."""
+    pts = _to_original([tuple(q) for q in region['box']], matrix)
+    x0, y0 = max(0, int(math.floor(pts[:, 0].min()))), max(0, int(math.floor(pts[:, 1].min())))
+    x1, y1 = min(width, int(math.ceil(pts[:, 0].max()))), min(height, int(math.ceil(pts[:, 1].max())))
+    return ({'x': x0, 'y': y0, 'w': x1 - x0, 'h': y1 - y0},
+            [[int(round(px)), int(round(py))] for px, py in pts])
+
+
+def _fit_linear_codes(codes, regions, matrix, width, height):
+    """Replaces the thin scan-line box of each 1D code by the box of the region that contains it."""
+    factor = matrix[0, 0]
+    for code in codes:
+        if code['type'] not in _LINEAR_TYPES or code.get('fitted'):
+            continue
+        c = code['coordinates']
+        cx, cy = (c['x'] + c['w'] / 2) * factor, (c['y'] + c['h'] / 2) * factor
+        best = None
+        for r in regions:                                           # best-scoring region that contains the code's centre
+            if r['x'] <= cx <= r['x'] + r['w'] and r['y'] <= cy <= r['y'] + r['h']:
+                best = r
+                break
+        if best is not None:
+            code['coordinates'], code['polygon'] = _region_outline(best, matrix, width, height)
+            code['fitted'] = True
+
+
 def _covers(region, codes, factor):
     """True when a decoded code already lies in this region (code boxes are in original pixels, regions in `gray`)."""
     rx, ry, rw, rh = region['x'], region['y'], region['w'], region['h']
@@ -230,6 +262,7 @@ def _decode_regions(gray, regions, formats, matrix, width, height, page_number, 
                 if codes:
                     break
         if codes:
+            _fit_linear_codes(codes, [region], matrix, width, height)
             new.extend(c for c in codes if not _is_duplicate(c, found + new))
         else:
             unread.append(region)
@@ -293,12 +326,12 @@ def find_page(img, page_number=1, allowed_types=None, deadline=None, all_regions
     if deadline is None:
         deadline = new_fallback_deadline()
 
-    unread = []
+    unread, located = [], []
 
     def with_regions(found):
-        nonlocal unread
-        regions = find_regions(gray)
-        new, unread = _decode_regions(gray, regions, formats, matrix, width, height, page_number, found, deadline)
+        nonlocal unread, located
+        located = find_regions(gray)
+        new, unread = _decode_regions(gray, located, formats, matrix, width, height, page_number, found, deadline)
         return found + new
 
     # 2a. regions first: locate the codes, then decode each one separately (cropped, straightened, enlarged)
@@ -327,6 +360,10 @@ def find_page(img, page_number=1, allowed_types=None, deadline=None, all_regions
     if strategy == 'last':
         results = with_regions(results)
 
+    if located:
+        _fit_linear_codes(results, located, matrix, width, height)
+    for code in results:
+        code.pop('fitted', None)
     results = sorted(results, key=lambda c: (c['coordinates']['y'], c['coordinates']['x']))
     report = _unread_report(unread, matrix, width, height, page_number, config.get('UNREAD_MIN_SCORE', 0.8))
     return results, report
@@ -344,6 +381,9 @@ def draw_boxes(img_rgb, results, unread=()):
         c = region['coordinates']
         cv2.rectangle(img_rgb, (c['x'], c['y']), (c['x'] + c['w'], c['y'] + c['h']), (255, 140, 0), 2)
     for result in results:
-        c = result['coordinates']
         color = (0, 255, 0) if result['type'] == 'DataMatrix' else (255, 0, 0)
-        cv2.rectangle(img_rgb, (c['x'], c['y']), (c['x'] + c['w'], c['y'] + c['h']), color, 2)
+        if result.get('polygon'):
+            cv2.polylines(img_rgb, [np.array(result['polygon'], dtype=np.int32)], True, color, 2)
+        else:
+            c = result['coordinates']
+            cv2.rectangle(img_rgb, (c['x'], c['y']), (c['x'] + c['w'], c['y'] + c['h']), color, 2)
