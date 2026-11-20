@@ -1,0 +1,61 @@
+﻿
+strategy                            codes read  misreads  mean ms  median     p95
+baseline: page-wide passes only          90.8%         3     71.6    17.6   339.0
+regions first, then page-wide            91.9%         3     47.3    17.4   201.1
+page-wide first, then regions            91.9%         3     77.2    17.2   381.3
+regions only                             88.1%         3     30.9    17.2    88.2
+regions always (all codes)               91.9%         3     64.0    41.4   199.6
+
+unread-region reports (regions that look like codes but were not read):
+  regions first, then page-wide      score >= 0.50:  124 reported,  36.3% point at a real unread code
+  regions first, then page-wide      score >= 0.70:  102 reported,  38.2% point at a real unread code
+  regions first, then page-wide      score >= 0.80:   90 reported,  36.7% point at a real unread code
+  regions first, then page-wide      score >= 0.90:   68 reported,  35.3% point at a real unread code
+  regions first, then page-wide      score >= 0.95:   56 reported,  37.5% point at a real unread code
+  page-wide first, then regions      score >= 0.50:  109 reported,  41.3% point at a real unread code
+  page-wide first, then regions      score >= 0.70:   87 reported,  44.8% point at a real unread code
+  page-wide first, then regions      score >= 0.80:   75 reported,  44.0% point at a real unread code
+  page-wide first, then regions      score >= 0.90:   54 reported,  44.4% point at a real unread code
+  page-wide first, then regions      score >= 0.95:   43 reported,  48.8% point at a real unread code
+  regions only                       score >= 0.50:  124 reported,  55.6% point at a real unread code
+  regions only                       score >= 0.70:  102 reported,  61.8% point at a real unread code
+  regions only                       score >= 0.80:   90 reported,  63.3% point at a real unread code
+  regions only                       score >= 0.90:   68 reported,  66.2% point at a real unread code
+  regions only                       score >= 0.95:   56 reported,  64.3% point at a real unread code
+  regions always (all codes)         score >= 0.50:  237 reported,  19.0% point at a real unread code
+  regions always (all codes)         score >= 0.70:  199 reported,  19.6% point at a real unread code
+  regions always (all codes)         score >= 0.80:  172 reported,  19.2% point at a real unread code
+  regions always (all codes)         score >= 0.90:  133 reported,  18.0% point at a real unread code
+  regions always (all codes)         score >= 0.95:  107 reported,  19.6% point at a real unread code
+
+read rate by code type
+type              baseline: page-wide pa  regions first, then pa  page-wide first, then             regions only  regions always (all co
+CODE128                      81.8% (176)             86.4% (176)             86.4% (176)             81.2% (176)             86.4% (176)
+DataMatrix                  100.0% (176)            100.0% (176)            100.0% (176)             96.0% (176)            100.0% (176)
+EAN13                        85.8% (176)             85.8% (176)             85.8% (176)             79.5% (176)             85.8% (176)
+QRCODE                       95.5% (176)             95.5% (176)             95.5% (176)             95.5% (176)             95.5% (176)
+
+read rate by condition / page kind
+group             baseline: page-wide pa  regions first, then pa  page-wide first, then             regions only  regions always (all co
+blur_1.0                    100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+blur_2.0                     50.0% ( 32)             50.0% ( 32)             50.0% ( 32)             50.0% ( 32)             50.0% ( 32)
+blur_3.0                     25.0% ( 32)             25.0% ( 32)             25.0% ( 32)             25.0% ( 32)             25.0% ( 32)
+clean                       100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+contrast_0.25               100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+contrast_0.5                100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+inverted                    100.0% ( 32)            100.0% ( 32)            100.0% ( 32)             71.9% ( 32)            100.0% ( 32)
+jpeg_15                     100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+jpeg_30                     100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+jpeg_8                      100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+noise_15                    100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+noise_30                    100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+noise_50                    100.0% ( 32)            100.0% ( 32)            100.0% ( 32)             93.8% ( 32)            100.0% ( 32)
+perspective                 100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+poor_scan                   100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+rotate_10                   100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+rotate_30                    68.8% ( 32)             93.8% ( 32)             93.8% ( 32)             90.6% ( 32)             93.8% ( 32)
+rotate_45                   100.0% ( 32)            100.0% ( 32)            100.0% ( 32)             93.8% ( 32)            100.0% ( 32)
+rotate_90                   100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)            100.0% ( 32)
+shading                     100.0% ( 32)            100.0% ( 32)            100.0% ( 32)             75.0% ( 32)            100.0% ( 32)
+small_0.35                   53.1% ( 32)             53.1% ( 32)             53.1% ( 32)             50.0% ( 32)             53.1% ( 32)
+small_0.5                   100.0% ( 32)            100.0% ( 32)            100.0% ( 32)             87.5% ( 32)            100.0% ( 32)

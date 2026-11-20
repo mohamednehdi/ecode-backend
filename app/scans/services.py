@@ -7,7 +7,7 @@ import pymupdf
 from flask import current_app
 from PIL import Image, UnidentifiedImageError
 
-from .decoder import SUPPORTED_TYPES, draw_boxes, find_codes, new_fallback_deadline  # noqa: F401 (SUPPORTED_TYPES is re-exported)
+from .decoder import SUPPORTED_TYPES, draw_boxes, find_page, new_fallback_deadline  # noqa: F401 (SUPPORTED_TYPES is re-exported)
 
 
 
@@ -69,13 +69,16 @@ def _render_pdf_pages(data, gray=False):
 
 
 def _decode_page(img_np, page_number, deadline=None):
-    """Finds every barcode on one page, draws a box around each one and returns (results, jpeg bytes)."""
-    results = find_codes(img_np, page_number, deadline=deadline)
-    draw_boxes(img_np, results)
+    """Finds every barcode on one page, draws a box around each one and returns (results, unread, jpeg bytes).
+
+    The public page is thorough: the codes are located and every region is decoded, so that the other codes of
+    the page are found too and the regions that cannot be read are shown (in orange)."""
+    results, unread = find_page(img_np, page_number, deadline=deadline, all_regions=True)
+    draw_boxes(img_np, results, unread)
 
     # OpenCV encodes BGR: convert, otherwise red and blue are swapped in the result image
     _, buffer = cv2.imencode('.jpg', cv2.cvtColor(img_np, cv2.COLOR_RGB2BGR))
-    return results, buffer.tobytes()
+    return results, unread, buffer.tobytes()
 
 
 def _load_pages(data, gray=False):
@@ -85,14 +88,20 @@ def _load_pages(data, gray=False):
     return 'image', [_load_image(data, gray)]
 
 
-def extract_document(data, allowed_types=None):
-    """Web-service extraction: JSON only, no result images, nothing saved in the database."""
+def extract_document(data, allowed_types=None, thorough=False):
+    """Web-service extraction: JSON only, no result images, nothing saved in the database.
+
+    thorough=True also locates and decodes the regions of pages where the quick read already found a code: finds the
+    other codes of the page (slower, about +65 ms per page). Regions that look like a code but cannot be read are
+    listed in 'unread_regions' (only when the regions were searched)."""
     file_type, images = _load_pages(data, gray=True)
     deadline = new_fallback_deadline()  # one clean-up time budget for the whole document
-    barcodes = []
+    barcodes, unread = [], []
     for number, img_np in enumerate(images, start=1):
-        barcodes.extend(find_codes(img_np, number, allowed_types, deadline))
-    return {'file_type': file_type, 'page_count': len(images), 'barcodes': barcodes}
+        codes, regions = find_page(img_np, number, allowed_types, deadline, all_regions=True if thorough else None)
+        barcodes.extend(codes)
+        unread.extend(regions)
+    return {'file_type': file_type, 'page_count': len(images), 'barcodes': barcodes, 'unread_regions': unread}
 
 
 def process_document(data):
@@ -100,7 +109,8 @@ def process_document(data):
 
     Returns {'file_type', 'page_count',
              'barcodes': [...all codes, each with its page...],
-             'pages': [{'page', 'image' (base64 jpeg with boxes), 'barcodes'}, ...]}.
+             'unread': [...regions that look like a code but could not be read, each with its page...],
+             'pages': [{'page', 'image' (base64 jpeg with boxes), 'barcodes', 'unread'}, ...]}.
     Nothing is stored.
     """
     file_type, images = _load_pages(data)
@@ -108,18 +118,22 @@ def process_document(data):
     deadline = new_fallback_deadline()  # one clean-up time budget for the whole document
     pages = []
     all_results = []
+    all_unread = []
     for number, img_np in enumerate(images, start=1):
-        results, image_bytes = _decode_page(img_np, number, deadline)
+        results, unread, image_bytes = _decode_page(img_np, number, deadline)
         all_results.extend(results)
+        all_unread.extend(unread)
         pages.append({
             'page': number,
             'image': base64.b64encode(image_bytes).decode('utf-8'),
             'barcodes': results,
+            'unread': unread,
         })
 
     return {
         'file_type': file_type,
         'page_count': len(pages),
         'barcodes': all_results,
+        'unread': all_unread,
         'pages': pages,
     }

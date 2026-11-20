@@ -481,6 +481,111 @@ def test_localizer_model_is_loaded_and_filters_candidates():
     assert len(find_regions(page, model=None)) >= len(find_regions(page)) >= 1     # the model only removes candidates
 
 
+# ---------------------------------------------------------------- decoding the located regions (F3b)
+
+def _bench_code(kind, text):
+    import numpy as np
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'bench'))
+    from make_dataset import _make_code
+    return np.array(_make_code(kind, text)[0])
+
+
+def _two_codes_page():
+    """A QR code (read by the quick pass) and a white-on-black Code 128 (which the quick pass does not read)."""
+    import numpy as np
+    page = np.full((600, 800, 3), 255, np.uint8)
+    qr, c128 = _bench_code('QRCODE', 'QR-TEST'), 255 - _bench_code('CODE128', 'C128-TEST1')
+    page[60:60 + qr.shape[0], 60:60 + qr.shape[1]] = qr
+    page[300:300 + c128.shape[0], 60:60 + c128.shape[1]] = c128
+    return page
+
+
+def _tilted_code128(degrees):
+    import cv2
+    import numpy as np
+    img = _bench_code('CODE128', 'C128-TILT25')
+    page = np.full((600, 800, 3), 255, np.uint8)
+    page[150:150 + img.shape[0], 100:100 + img.shape[1]] = img
+    return cv2.warpAffine(page, cv2.getRotationMatrix2D((400, 300), degrees, 1.0), (800, 600), borderValue=(255, 255, 255))
+
+
+def _unreadable_blob_page():
+    """A dense black/white square that looks like a code but holds nothing readable."""
+    import cv2
+    import numpy as np
+    cells = (np.random.default_rng(1).random((20, 20)) > 0.5).astype(np.uint8) * 255
+    page = np.full((600, 800), 255, np.uint8)
+    page[200:400, 300:500] = cv2.resize(cells, (200, 200), interpolation=cv2.INTER_NEAREST)
+    return page
+
+
+def _png_bytes(array):
+    out = io.BytesIO()
+    Image.fromarray(array).save(out, 'PNG')
+    return out.getvalue()
+
+
+def test_regions_read_a_code128_tilted_between_20_and_30_degrees(ctx, monkeypatch):
+    """The page-wide passes cannot read it (the gap found by the decoder study, F2); the located region, straightened, is read."""
+    from app.scans.decoder import find_page
+    _, _, app = ctx
+    with app.app_context():
+        for degrees in (22, 25, 28):
+            page = _tilted_code128(degrees)
+            monkeypatch.setitem(app.config, 'DECODE_REGIONS', 'off')
+            assert find_page(page, 1)[0] == []
+            monkeypatch.setitem(app.config, 'DECODE_REGIONS', 'first')
+            assert [c['data'] for c in find_page(page, 1)[0]] == ['C128-TILT25']
+
+
+def test_thorough_mode_reads_the_other_codes_of_a_page(ctx):
+    from app.scans.decoder import find_page
+    _, _, app = ctx
+    page = _two_codes_page()
+    with app.app_context():
+        assert [c['data'] for c in find_page(page, 1)[0]] == ['QR-TEST']                         # quick read stops at the QR
+        assert sorted(c['data'] for c in find_page(page, 1, all_regions=True)[0]) == ['C128-TEST1', 'QR-TEST']
+
+
+def test_unreadable_region_is_reported(ctx):
+    from app.scans.decoder import find_page
+    _, _, app = ctx
+    with app.app_context():
+        codes, unread = find_page(_unreadable_blob_page(), 1)
+    assert codes == [] and len(unread) == 1
+    box = unread[0]['coordinates']
+    assert abs(box['x'] - 300) < 20 and abs(box['y'] - 200) < 20 and unread[0]['score'] >= 0.9 and unread[0]['page'] == 1
+
+
+def test_public_page_returns_and_draws_unreadable_regions(ctx):
+    import base64
+    import numpy as np
+    c, _, _ = ctx
+    r = c.post('/public/extract', data={'file': (io.BytesIO(_png_bytes(_unreadable_blob_page())), 'blob.png')},
+               content_type='multipart/form-data')
+    assert r.status_code == 200 and r.json['barcodes'] == []
+    assert len(r.json['unread']) == 1 and len(r.json['pages'][0]['unread']) == 1
+    shown = np.array(Image.open(io.BytesIO(base64.b64decode(r.json['pages'][0]['image']))).convert('RGB')).astype(int)
+    orange = (shown[..., 0] > 200) & (shown[..., 1] > 90) & (shown[..., 1] < 190) & (shown[..., 2] < 90)
+    assert orange.sum() > 100                                                                   # the orange box is on the image
+
+
+def test_api_thorough_flag_finds_more_codes(ctx):
+    c, _, _ = ctx
+    key, _ = _new_key(c)
+    data = _png_bytes(_two_codes_page())
+
+    def call(query=''):
+        return c.post('/api/v1/extract' + query, headers={'X-API-Key': key}, data={'file': (io.BytesIO(data), 'a.png')},
+                      content_type='multipart/form-data')
+
+    fast, thorough = call(), call('?thorough=1')
+    assert fast.status_code == thorough.status_code == 200
+    assert [b['data'] for b in fast.json['barcodes']] == ['QR-TEST']
+    assert sorted(b['data'] for b in thorough.json['barcodes']) == ['C128-TEST1', 'QR-TEST']
+    assert fast.json['unread_regions'] == [] and isinstance(thorough.json['unread_regions'], list)
+
+
 # ---------------------------------------------------------------- decoder: poor quality scans, speed, coordinates
 
 def _big_codes_page(w=1400, h=1000):

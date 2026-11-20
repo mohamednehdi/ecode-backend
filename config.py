@@ -43,6 +43,17 @@ class Config:
     # Extra clean-up attempts on a poor scan when the fast pass finds nothing: time budget per document (ms), 0 = off
     DECODE_FALLBACK_BUDGET_MS = int(os.environ.get('DECODE_FALLBACK_BUDGET_MS', 2000))
 
+    # Regions (localisation, see docs/LOCALIZER_STUDY.md): when the quick read finds nothing, the codes are located
+    # first and each region is decoded separately (cropped, straightened, enlarged).
+    #   first = regions, then page-wide clean-up passes | last = the other way round | off = page-wide passes only
+    DECODE_REGIONS = os.environ.get('DECODE_REGIONS', 'first')
+    # 1 = locate and decode the regions of EVERY page, even after the quick read found a code: finds the other
+    # codes of a page (+18 points on pages with several codes) for about +65 ms. The public page always does it;
+    # the API does it when the request has ?thorough=1.
+    DECODE_ALL_REGIONS = os.environ.get('DECODE_ALL_REGIONS', '0') == '1'
+    # Regions that look like a code but could not be read are reported when the localiser is at least this sure
+    UNREAD_MIN_SCORE = float(os.environ.get('UNREAD_MIN_SCORE', 0.9))
+
     # Free public upload page: limit per IP address (Flask-Limiter syntax)
     PUBLIC_RATE_LIMIT = os.environ.get('PUBLIC_RATE_LIMIT', '10 per minute;60 per hour')
     # Redis (optional): when set, API quotas and the public rate limit are counted there, so that several

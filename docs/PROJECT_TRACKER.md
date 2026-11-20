@@ -89,8 +89,8 @@ Why: turns "I chose zxing-cpp" into a measured, defensible engineering decision.
 
 ### F2b. Fix the weaknesses found by F2 (new)
 - Misreads: on EAN-13 at 30 degrees, zxing-cpp and our pipeline return another valid EAN-13 (2 of 176 images, 1.1 %);
-  idea: accept an inclined 1D code only when two different passes agree.
-- Gap between 20 and 30 degrees for Code 128 (nobody reads it; ours from 35): add +-22 and +-30 degree passes.
+  they come from the quick read itself. Idea: check an inclined 1D read against the straightened region (F3b makes this possible).
+- Gap between 20 and 30 degrees for Code 128: FIXED by F3b (regions are straightened before decoding).
 - Rule: tune on NEW seeds (a separate tuning set), and keep the F2 dataset only for the final score.
 - Acceptance criteria:
   - [ ] Separate tuning dataset (different seeds)
@@ -104,16 +104,17 @@ Why: the project title says "localisation et extraction"; localisation is curren
 | Part | What | Status |
 |---|---|---|
 | F3a | Localiser (`app/scans/localizer.py`): finds code regions without decoding; true boxes added to the datasets; realistic document pages; scoring model trained on tuning sets only; final exam on untouched sets | DONE: documents recall 80.6 %, precision 73.1 %, 64 ms (`docs/LOCALIZER_STUDY.md`) |
-| F3b | Use the regions: decode each region (crop, deskew, enlarge), report unreadable regions in the JSON and show them in another colour on the public page, decode the other codes of a page when only some were read | TODO |
+| F3b | Use the regions: decode each region (crop, deskew, enlarge), report unreadable regions in the JSON and show them in another colour on the public page, decode the other codes of a page when only some were read | DONE: default mode reads +1.1 to +1.9 points and cuts p95 by 1.7-2.4x; thorough mode +16.7 points on multi-code pages (`docs/REGIONS_DECODING.md`) |
 
 - Acceptance criteria:
   - [x] Detection recall and precision measured on a dataset with true boxes (80.6 % / 73.1 % on document pages)
   - [x] Tests for the localiser (blank pages, large scans, model loaded)
-  - [ ] Improvement on poor scans vs the current fallback passes, measured on the final sets
-  - [ ] Public page shows undecoded regions in another colour
+  - [x] Improvement on poor scans vs the current fallback passes, measured on the final sets (documents 76.7 -> 78.6 % default, 93.4 % thorough; tilted 30 degrees 68.8 -> 93.8 %)
+  - [x] Public page shows undecoded regions in another colour (orange) - but only 18-24 % of the reported regions are real unread codes
 - Lessons: the single-code pages were far too easy (first detector: 100 % there, 36 % on realistic pages); tuning and final
   sets use different seeds and the final sets were scored once; limits (synthetic fonts and codes, no real scans) are in the study.
-- Size: 8. Status: IN PROGRESS (F3a done)
+- Not achieved: misreads did not go to 0 on the final set (3 and 3): they come from the quick read, which never reaches the region stage -> F2b.
+- Size: 8. Status: DONE
 
 ### F4. Admin statistics dashboard (priority 4)
 Why: makes the back office more than a CRUD screen; needs per-request latency data.
@@ -214,3 +215,4 @@ Short notes after each work session (date, what was done, what was learned, what
 | 2026-11-19 | F1c benchmark: 1/2/4 containers, two workloads, 0 failures; throughput flat (CPU-bound on 4 cores). First run invalid (wrong port) and discarded; script now checks `/health`. Results in `docs/PERFORMANCE.md`. | F2: decoder comparison study |
 | 2026-11-19 | F2 decoder study: dataset of 704 images, 7 decoders compared, tables + charts + study document. First dataset recalibrated (1D bars too thin: everybody at 0 %). Found 2 weaknesses of our own decoder (EAN-13 misreads at 30 degrees, gap at 20-30 degrees) -> F2b. | F2b or F3 (localisation) |
 | 2026-11-20 | F3a: true boxes in the datasets, 240 realistic document pages, density-based localiser + 12-weight logistic scoring, trimming, speed-ups (296 ms -> 64 ms), 4 new tests (33 pass). Final exam run once on untouched sets: documents recall 80.6 % / precision 73.1 %. Honest limits written in docs/LOCALIZER_STUDY.md. | F3b: use the regions to decode better and show unreadable codes |
+| 2026-11-20 | F3b: region decoding (crop, straighten, enlarge, 5 variants), thorough mode, unread regions in the JSON and in orange on the public page (Angular), API `?thorough=1`. 5 strategies compared; final exam run once. 38 tests pass. Misreads NOT fixed (come from the quick read). | F4 admin dashboard, or F2b |

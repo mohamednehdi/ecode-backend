@@ -38,7 +38,10 @@ def _read_upload():
 
 @api_bp.route('/extract', methods=['POST'])
 def extract():
-    """POST a PDF/PNG/JPG as multipart field `file` with header `X-API-Key`. Returns the codes as JSON."""
+    """POST a PDF/PNG/JPG as multipart field `file` with header `X-API-Key`. Returns the codes as JSON.
+
+    Optional `?thorough=1`: also locate and decode the other codes of a page where one code was already read
+    (slower). `unread_regions` lists regions that look like a code but could not be read."""
     raw_key = request.headers.get('X-API-Key', '').strip()
     if not raw_key:
         return _error('Clé API manquante (en-tête X-API-Key)', 401)
@@ -76,8 +79,9 @@ def extract():
     db.session.commit()
 
     allowed_types = set(token.type_list) or None
+    thorough = request.args.get('thorough', '').lower() in ('1', 'true', 'yes')
     try:
-        return jsonify(extract_document(data, allowed_types))
+        return jsonify(extract_document(data, allowed_types, thorough))
     except InvalidImageError:
         return _error("Le fichier n'est pas une image valide", 400)
     except InvalidPdfError:
