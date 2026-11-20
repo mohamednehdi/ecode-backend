@@ -1,0 +1,2641 @@
+decoder,type,condition,file,status,ms
+zxing-cpp,QRCODE,clean,QRCODE_clean_0.png,ok,12.89
+zxing-cpp,QRCODE,blur_1.0,QRCODE_blur_1.0_0.png,ok,13.51
+zxing-cpp,QRCODE,blur_2.0,QRCODE_blur_2.0_0.png,ok,13.41
+zxing-cpp,QRCODE,blur_3.0,QRCODE_blur_3.0_0.png,miss,12.72
+zxing-cpp,QRCODE,noise_15,QRCODE_noise_15_0.png,ok,61.18
+zxing-cpp,QRCODE,noise_30,QRCODE_noise_30_0.png,ok,92.21
+zxing-cpp,QRCODE,noise_50,QRCODE_noise_50_0.png,ok,102.73
+zxing-cpp,QRCODE,jpeg_30,QRCODE_jpeg_30_0.png,ok,13.55
+zxing-cpp,QRCODE,jpeg_15,QRCODE_jpeg_15_0.png,ok,12.37
+zxing-cpp,QRCODE,jpeg_8,QRCODE_jpeg_8_0.png,ok,12.86
+zxing-cpp,QRCODE,contrast_0.5,QRCODE_contrast_0.5_0.png,ok,13.30
+zxing-cpp,QRCODE,contrast_0.25,QRCODE_contrast_0.25_0.png,ok,12.03
+zxing-cpp,QRCODE,rotate_10,QRCODE_rotate_10_0.png,ok,18.71
+zxing-cpp,QRCODE,rotate_30,QRCODE_rotate_30_0.png,ok,23.57
+zxing-cpp,QRCODE,rotate_45,QRCODE_rotate_45_0.png,ok,25.75
+zxing-cpp,QRCODE,rotate_90,QRCODE_rotate_90_0.png,ok,13.23
+zxing-cpp,QRCODE,perspective,QRCODE_perspective_0.png,ok,13.34
+zxing-cpp,QRCODE,small_0.5,QRCODE_small_0.5_0.png,ok,3.35
+zxing-cpp,QRCODE,small_0.35,QRCODE_small_0.35_0.png,ok,2.12
+zxing-cpp,QRCODE,inverted,QRCODE_inverted_0.png,ok,8.54
+zxing-cpp,QRCODE,shading,QRCODE_shading_0.png,ok,12.89
+zxing-cpp,QRCODE,poor_scan,QRCODE_poor_scan_0.png,ok,11.56
+zxing-cpp,QRCODE,clean,QRCODE_clean_1.png,ok,14.23
+zxing-cpp,QRCODE,blur_1.0,QRCODE_blur_1.0_1.png,ok,12.94
+zxing-cpp,QRCODE,blur_2.0,QRCODE_blur_2.0_1.png,ok,13.17
+zxing-cpp,QRCODE,blur_3.0,QRCODE_blur_3.0_1.png,miss,13.39
+zxing-cpp,QRCODE,noise_15,QRCODE_noise_15_1.png,ok,20.88
+zxing-cpp,QRCODE,noise_30,QRCODE_noise_30_1.png,ok,92.93
+zxing-cpp,QRCODE,noise_50,QRCODE_noise_50_1.png,ok,101.46
+zxing-cpp,QRCODE,jpeg_30,QRCODE_jpeg_30_1.png,ok,14.10
+zxing-cpp,QRCODE,jpeg_15,QRCODE_jpeg_15_1.png,ok,13.39
+zxing-cpp,QRCODE,jpeg_8,QRCODE_jpeg_8_1.png,ok,12.81
+zxing-cpp,QRCODE,contrast_0.5,QRCODE_contrast_0.5_1.png,ok,13.83
+zxing-cpp,QRCODE,contrast_0.25,QRCODE_contrast_0.25_1.png,ok,14.32
+zxing-cpp,QRCODE,rotate_10,QRCODE_rotate_10_1.png,ok,17.36
+zxing-cpp,QRCODE,rotate_30,QRCODE_rotate_30_1.png,ok,23.70
+zxing-cpp,QRCODE,rotate_45,QRCODE_rotate_45_1.png,ok,25.82
+zxing-cpp,QRCODE,rotate_90,QRCODE_rotate_90_1.png,ok,13.59
+zxing-cpp,QRCODE,perspective,QRCODE_perspective_1.png,ok,13.28
+zxing-cpp,QRCODE,small_0.5,QRCODE_small_0.5_1.png,ok,3.79
+zxing-cpp,QRCODE,small_0.35,QRCODE_small_0.35_1.png,ok,1.84
+zxing-cpp,QRCODE,inverted,QRCODE_inverted_1.png,ok,9.46
+zxing-cpp,QRCODE,shading,QRCODE_shading_1.png,ok,13.67
+zxing-cpp,QRCODE,poor_scan,QRCODE_poor_scan_1.png,ok,11.49
+zxing-cpp,QRCODE,clean,QRCODE_clean_2.png,ok,13.65
+zxing-cpp,QRCODE,blur_1.0,QRCODE_blur_1.0_2.png,ok,12.96
+zxing-cpp,QRCODE,blur_2.0,QRCODE_blur_2.0_2.png,miss,13.47
+zxing-cpp,QRCODE,blur_3.0,QRCODE_blur_3.0_2.png,miss,12.34
+zxing-cpp,QRCODE,noise_15,QRCODE_noise_15_2.png,ok,21.87
+zxing-cpp,QRCODE,noise_30,QRCODE_noise_30_2.png,ok,90.30
+zxing-cpp,QRCODE,noise_50,QRCODE_noise_50_2.png,ok,199.24
+zxing-cpp,QRCODE,jpeg_30,QRCODE_jpeg_30_2.png,ok,43.53
+zxing-cpp,QRCODE,jpeg_15,QRCODE_jpeg_15_2.png,ok,38.14
+zxing-cpp,QRCODE,jpeg_8,QRCODE_jpeg_8_2.png,ok,18.20
+zxing-cpp,QRCODE,contrast_0.5,QRCODE_contrast_0.5_2.png,ok,34.20
+zxing-cpp,QRCODE,contrast_0.25,QRCODE_contrast_0.25_2.png,ok,75.45
+zxing-cpp,QRCODE,rotate_10,QRCODE_rotate_10_2.png,ok,18.06
+zxing-cpp,QRCODE,rotate_30,QRCODE_rotate_30_2.png,ok,145.06
+zxing-cpp,QRCODE,rotate_45,QRCODE_rotate_45_2.png,ok,26.18
+zxing-cpp,QRCODE,rotate_90,QRCODE_rotate_90_2.png,ok,14.99
+zxing-cpp,QRCODE,perspective,QRCODE_perspective_2.png,ok,29.60
+zxing-cpp,QRCODE,small_0.5,QRCODE_small_0.5_2.png,ok,3.39
+zxing-cpp,QRCODE,small_0.35,QRCODE_small_0.35_2.png,ok,2.80
+zxing-cpp,QRCODE,inverted,QRCODE_inverted_2.png,ok,17.21
+zxing-cpp,QRCODE,shading,QRCODE_shading_2.png,ok,35.34
+zxing-cpp,QRCODE,poor_scan,QRCODE_poor_scan_2.png,ok,15.17
+zxing-cpp,QRCODE,clean,QRCODE_clean_3.png,ok,19.59
+zxing-cpp,QRCODE,blur_1.0,QRCODE_blur_1.0_3.png,ok,15.80
+zxing-cpp,QRCODE,blur_2.0,QRCODE_blur_2.0_3.png,ok,21.74
+zxing-cpp,QRCODE,blur_3.0,QRCODE_blur_3.0_3.png,miss,16.72
+zxing-cpp,QRCODE,noise_15,QRCODE_noise_15_3.png,ok,25.13
+zxing-cpp,QRCODE,noise_30,QRCODE_noise_30_3.png,ok,107.40
+zxing-cpp,QRCODE,noise_50,QRCODE_noise_50_3.png,ok,148.31
+zxing-cpp,QRCODE,jpeg_30,QRCODE_jpeg_30_3.png,ok,16.61
+zxing-cpp,QRCODE,jpeg_15,QRCODE_jpeg_15_3.png,ok,14.66
+zxing-cpp,QRCODE,jpeg_8,QRCODE_jpeg_8_3.png,ok,24.17
+zxing-cpp,QRCODE,contrast_0.5,QRCODE_contrast_0.5_3.png,ok,12.84
+zxing-cpp,QRCODE,contrast_0.25,QRCODE_contrast_0.25_3.png,ok,37.53
+zxing-cpp,QRCODE,rotate_10,QRCODE_rotate_10_3.png,ok,27.43
+zxing-cpp,QRCODE,rotate_30,QRCODE_rotate_30_3.png,ok,25.71
+zxing-cpp,QRCODE,rotate_45,QRCODE_rotate_45_3.png,ok,24.58
+zxing-cpp,QRCODE,rotate_90,QRCODE_rotate_90_3.png,ok,13.12
+zxing-cpp,QRCODE,perspective,QRCODE_perspective_3.png,ok,12.04
+zxing-cpp,QRCODE,small_0.5,QRCODE_small_0.5_3.png,ok,3.98
+zxing-cpp,QRCODE,small_0.35,QRCODE_small_0.35_3.png,ok,2.15
+zxing-cpp,QRCODE,inverted,QRCODE_inverted_3.png,ok,10.63
+zxing-cpp,QRCODE,shading,QRCODE_shading_3.png,ok,13.75
+zxing-cpp,QRCODE,poor_scan,QRCODE_poor_scan_3.png,ok,12.11
+zxing-cpp,QRCODE,clean,QRCODE_clean_4.png,ok,12.07
+zxing-cpp,QRCODE,blur_1.0,QRCODE_blur_1.0_4.png,ok,12.24
+zxing-cpp,QRCODE,blur_2.0,QRCODE_blur_2.0_4.png,miss,12.55
+zxing-cpp,QRCODE,blur_3.0,QRCODE_blur_3.0_4.png,miss,11.12
+zxing-cpp,QRCODE,noise_15,QRCODE_noise_15_4.png,ok,20.55
+zxing-cpp,QRCODE,noise_30,QRCODE_noise_30_4.png,ok,85.43
+zxing-cpp,QRCODE,noise_50,QRCODE_noise_50_4.png,ok,98.06
+zxing-cpp,QRCODE,jpeg_30,QRCODE_jpeg_30_4.png,ok,11.96
+zxing-cpp,QRCODE,jpeg_15,QRCODE_jpeg_15_4.png,ok,13.28
+zxing-cpp,QRCODE,jpeg_8,QRCODE_jpeg_8_4.png,ok,11.50
+zxing-cpp,QRCODE,contrast_0.5,QRCODE_contrast_0.5_4.png,ok,12.81
+zxing-cpp,QRCODE,contrast_0.25,QRCODE_contrast_0.25_4.png,ok,11.93
+zxing-cpp,QRCODE,rotate_10,QRCODE_rotate_10_4.png,ok,18.64
+zxing-cpp,QRCODE,rotate_30,QRCODE_rotate_30_4.png,ok,22.54
+zxing-cpp,QRCODE,rotate_45,QRCODE_rotate_45_4.png,ok,24.41
+zxing-cpp,QRCODE,rotate_90,QRCODE_rotate_90_4.png,ok,12.43
+zxing-cpp,QRCODE,perspective,QRCODE_perspective_4.png,ok,11.61
+zxing-cpp,QRCODE,small_0.5,QRCODE_small_0.5_4.png,ok,2.99
+zxing-cpp,QRCODE,small_0.35,QRCODE_small_0.35_4.png,ok,2.00
+zxing-cpp,QRCODE,inverted,QRCODE_inverted_4.png,ok,7.73
+zxing-cpp,QRCODE,shading,QRCODE_shading_4.png,ok,11.37
+zxing-cpp,QRCODE,poor_scan,QRCODE_poor_scan_4.png,ok,10.14
+zxing-cpp,QRCODE,clean,QRCODE_clean_5.png,ok,12.57
+zxing-cpp,QRCODE,blur_1.0,QRCODE_blur_1.0_5.png,ok,24.17
+zxing-cpp,QRCODE,blur_2.0,QRCODE_blur_2.0_5.png,ok,12.24
+zxing-cpp,QRCODE,blur_3.0,QRCODE_blur_3.0_5.png,miss,14.40
+zxing-cpp,QRCODE,noise_15,QRCODE_noise_15_5.png,ok,25.75
+zxing-cpp,QRCODE,noise_30,QRCODE_noise_30_5.png,ok,87.85
+zxing-cpp,QRCODE,noise_50,QRCODE_noise_50_5.png,ok,89.21
+zxing-cpp,QRCODE,jpeg_30,QRCODE_jpeg_30_5.png,ok,12.54
+zxing-cpp,QRCODE,jpeg_15,QRCODE_jpeg_15_5.png,ok,11.84
+zxing-cpp,QRCODE,jpeg_8,QRCODE_jpeg_8_5.png,ok,12.20
+zxing-cpp,QRCODE,contrast_0.5,QRCODE_contrast_0.5_5.png,ok,11.89
+zxing-cpp,QRCODE,contrast_0.25,QRCODE_contrast_0.25_5.png,ok,11.84
+zxing-cpp,QRCODE,rotate_10,QRCODE_rotate_10_5.png,ok,21.99
+zxing-cpp,QRCODE,rotate_30,QRCODE_rotate_30_5.png,ok,31.40
+zxing-cpp,QRCODE,rotate_45,QRCODE_rotate_45_5.png,ok,25.71
+zxing-cpp,QRCODE,rotate_90,QRCODE_rotate_90_5.png,ok,12.58
+zxing-cpp,QRCODE,perspective,QRCODE_perspective_5.png,ok,11.85
+zxing-cpp,QRCODE,small_0.5,QRCODE_small_0.5_5.png,ok,3.30
+zxing-cpp,QRCODE,small_0.35,QRCODE_small_0.35_5.png,ok,1.81
+zxing-cpp,QRCODE,inverted,QRCODE_inverted_5.png,ok,8.14
+zxing-cpp,QRCODE,shading,QRCODE_shading_5.png,ok,11.95
+zxing-cpp,QRCODE,poor_scan,QRCODE_poor_scan_5.png,ok,16.70
+zxing-cpp,QRCODE,clean,QRCODE_clean_6.png,ok,12.73
+zxing-cpp,QRCODE,blur_1.0,QRCODE_blur_1.0_6.png,ok,12.43
+zxing-cpp,QRCODE,blur_2.0,QRCODE_blur_2.0_6.png,ok,12.62
+zxing-cpp,QRCODE,blur_3.0,QRCODE_blur_3.0_6.png,miss,11.76
+zxing-cpp,QRCODE,noise_15,QRCODE_noise_15_6.png,ok,18.97
+zxing-cpp,QRCODE,noise_30,QRCODE_noise_30_6.png,ok,90.79
+zxing-cpp,QRCODE,noise_50,QRCODE_noise_50_6.png,ok,91.83
+zxing-cpp,QRCODE,jpeg_30,QRCODE_jpeg_30_6.png,ok,12.53
+zxing-cpp,QRCODE,jpeg_15,QRCODE_jpeg_15_6.png,ok,11.74
+zxing-cpp,QRCODE,jpeg_8,QRCODE_jpeg_8_6.png,ok,11.80
+zxing-cpp,QRCODE,contrast_0.5,QRCODE_contrast_0.5_6.png,ok,11.48
+zxing-cpp,QRCODE,contrast_0.25,QRCODE_contrast_0.25_6.png,ok,14.08
+zxing-cpp,QRCODE,rotate_10,QRCODE_rotate_10_6.png,ok,16.53
+zxing-cpp,QRCODE,rotate_30,QRCODE_rotate_30_6.png,ok,27.34
+zxing-cpp,QRCODE,rotate_45,QRCODE_rotate_45_6.png,ok,27.99
+zxing-cpp,QRCODE,rotate_90,QRCODE_rotate_90_6.png,ok,14.97
+zxing-cpp,QRCODE,perspective,QRCODE_perspective_6.png,ok,14.25
+zxing-cpp,QRCODE,small_0.5,QRCODE_small_0.5_6.png,ok,2.99
+zxing-cpp,QRCODE,small_0.35,QRCODE_small_0.35_6.png,ok,1.84
+zxing-cpp,QRCODE,inverted,QRCODE_inverted_6.png,ok,7.80
+zxing-cpp,QRCODE,shading,QRCODE_shading_6.png,ok,11.79
+zxing-cpp,QRCODE,poor_scan,QRCODE_poor_scan_6.png,ok,13.91
+zxing-cpp,QRCODE,clean,QRCODE_clean_7.png,ok,12.06
+zxing-cpp,QRCODE,blur_1.0,QRCODE_blur_1.0_7.png,ok,12.59
+zxing-cpp,QRCODE,blur_2.0,QRCODE_blur_2.0_7.png,miss,11.95
+zxing-cpp,QRCODE,blur_3.0,QRCODE_blur_3.0_7.png,miss,12.42
+zxing-cpp,QRCODE,noise_15,QRCODE_noise_15_7.png,ok,20.23
+zxing-cpp,QRCODE,noise_30,QRCODE_noise_30_7.png,ok,84.98
+zxing-cpp,QRCODE,noise_50,QRCODE_noise_50_7.png,ok,89.57
+zxing-cpp,QRCODE,jpeg_30,QRCODE_jpeg_30_7.png,ok,11.93
+zxing-cpp,QRCODE,jpeg_15,QRCODE_jpeg_15_7.png,ok,12.46
+zxing-cpp,QRCODE,jpeg_8,QRCODE_jpeg_8_7.png,ok,12.40
+zxing-cpp,QRCODE,contrast_0.5,QRCODE_contrast_0.5_7.png,ok,13.92
+zxing-cpp,QRCODE,contrast_0.25,QRCODE_contrast_0.25_7.png,ok,12.42
+zxing-cpp,QRCODE,rotate_10,QRCODE_rotate_10_7.png,ok,16.10
+zxing-cpp,QRCODE,rotate_30,QRCODE_rotate_30_7.png,ok,29.36
+zxing-cpp,QRCODE,rotate_45,QRCODE_rotate_45_7.png,ok,24.03
+zxing-cpp,QRCODE,rotate_90,QRCODE_rotate_90_7.png,ok,12.79
+zxing-cpp,QRCODE,perspective,QRCODE_perspective_7.png,ok,11.89
+zxing-cpp,QRCODE,small_0.5,QRCODE_small_0.5_7.png,ok,3.04
+zxing-cpp,QRCODE,small_0.35,QRCODE_small_0.35_7.png,ok,1.83
+zxing-cpp,QRCODE,inverted,QRCODE_inverted_7.png,ok,7.94
+zxing-cpp,QRCODE,shading,QRCODE_shading_7.png,ok,12.02
+zxing-cpp,QRCODE,poor_scan,QRCODE_poor_scan_7.png,ok,9.60
+zxing-cpp,DataMatrix,clean,DataMatrix_clean_0.png,ok,47.24
+zxing-cpp,DataMatrix,blur_1.0,DataMatrix_blur_1.0_0.png,ok,12.25
+zxing-cpp,DataMatrix,blur_2.0,DataMatrix_blur_2.0_0.png,ok,13.01
+zxing-cpp,DataMatrix,blur_3.0,DataMatrix_blur_3.0_0.png,ok,13.26
+zxing-cpp,DataMatrix,noise_15,DataMatrix_noise_15_0.png,ok,18.53
+zxing-cpp,DataMatrix,noise_30,DataMatrix_noise_30_0.png,ok,57.05
+zxing-cpp,DataMatrix,noise_50,DataMatrix_noise_50_0.png,ok,66.09
+zxing-cpp,DataMatrix,jpeg_30,DataMatrix_jpeg_30_0.png,ok,12.79
+zxing-cpp,DataMatrix,jpeg_15,DataMatrix_jpeg_15_0.png,ok,12.07
+zxing-cpp,DataMatrix,jpeg_8,DataMatrix_jpeg_8_0.png,ok,12.26
+zxing-cpp,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_0.png,ok,12.15
+zxing-cpp,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_0.png,ok,15.83
+zxing-cpp,DataMatrix,rotate_10,DataMatrix_rotate_10_0.png,ok,19.54
+zxing-cpp,DataMatrix,rotate_30,DataMatrix_rotate_30_0.png,ok,27.77
+zxing-cpp,DataMatrix,rotate_45,DataMatrix_rotate_45_0.png,ok,29.23
+zxing-cpp,DataMatrix,rotate_90,DataMatrix_rotate_90_0.png,ok,12.91
+zxing-cpp,DataMatrix,perspective,DataMatrix_perspective_0.png,ok,13.01
+zxing-cpp,DataMatrix,small_0.5,DataMatrix_small_0.5_0.png,ok,3.26
+zxing-cpp,DataMatrix,small_0.35,DataMatrix_small_0.35_0.png,ok,1.80
+zxing-cpp,DataMatrix,inverted,DataMatrix_inverted_0.png,ok,9.98
+zxing-cpp,DataMatrix,shading,DataMatrix_shading_0.png,ok,12.28
+zxing-cpp,DataMatrix,poor_scan,DataMatrix_poor_scan_0.png,ok,12.13
+zxing-cpp,DataMatrix,clean,DataMatrix_clean_1.png,ok,12.25
+zxing-cpp,DataMatrix,blur_1.0,DataMatrix_blur_1.0_1.png,ok,12.88
+zxing-cpp,DataMatrix,blur_2.0,DataMatrix_blur_2.0_1.png,ok,13.56
+zxing-cpp,DataMatrix,blur_3.0,DataMatrix_blur_3.0_1.png,ok,13.13
+zxing-cpp,DataMatrix,noise_15,DataMatrix_noise_15_1.png,ok,18.82
+zxing-cpp,DataMatrix,noise_30,DataMatrix_noise_30_1.png,ok,57.93
+zxing-cpp,DataMatrix,noise_50,DataMatrix_noise_50_1.png,ok,69.81
+zxing-cpp,DataMatrix,jpeg_30,DataMatrix_jpeg_30_1.png,ok,12.60
+zxing-cpp,DataMatrix,jpeg_15,DataMatrix_jpeg_15_1.png,ok,12.47
+zxing-cpp,DataMatrix,jpeg_8,DataMatrix_jpeg_8_1.png,ok,19.96
+zxing-cpp,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_1.png,ok,12.55
+zxing-cpp,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_1.png,ok,12.07
+zxing-cpp,DataMatrix,rotate_10,DataMatrix_rotate_10_1.png,ok,17.02
+zxing-cpp,DataMatrix,rotate_30,DataMatrix_rotate_30_1.png,ok,23.61
+zxing-cpp,DataMatrix,rotate_45,DataMatrix_rotate_45_1.png,ok,26.42
+zxing-cpp,DataMatrix,rotate_90,DataMatrix_rotate_90_1.png,ok,14.22
+zxing-cpp,DataMatrix,perspective,DataMatrix_perspective_1.png,ok,13.62
+zxing-cpp,DataMatrix,small_0.5,DataMatrix_small_0.5_1.png,ok,3.15
+zxing-cpp,DataMatrix,small_0.35,DataMatrix_small_0.35_1.png,ok,1.81
+zxing-cpp,DataMatrix,inverted,DataMatrix_inverted_1.png,ok,10.04
+zxing-cpp,DataMatrix,shading,DataMatrix_shading_1.png,ok,12.62
+zxing-cpp,DataMatrix,poor_scan,DataMatrix_poor_scan_1.png,ok,12.79
+zxing-cpp,DataMatrix,clean,DataMatrix_clean_2.png,ok,12.33
+zxing-cpp,DataMatrix,blur_1.0,DataMatrix_blur_1.0_2.png,ok,13.21
+zxing-cpp,DataMatrix,blur_2.0,DataMatrix_blur_2.0_2.png,ok,13.55
+zxing-cpp,DataMatrix,blur_3.0,DataMatrix_blur_3.0_2.png,ok,13.31
+zxing-cpp,DataMatrix,noise_15,DataMatrix_noise_15_2.png,ok,18.65
+zxing-cpp,DataMatrix,noise_30,DataMatrix_noise_30_2.png,ok,61.98
+zxing-cpp,DataMatrix,noise_50,DataMatrix_noise_50_2.png,ok,71.74
+zxing-cpp,DataMatrix,jpeg_30,DataMatrix_jpeg_30_2.png,ok,12.20
+zxing-cpp,DataMatrix,jpeg_15,DataMatrix_jpeg_15_2.png,ok,12.32
+zxing-cpp,DataMatrix,jpeg_8,DataMatrix_jpeg_8_2.png,ok,12.67
+zxing-cpp,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_2.png,ok,12.28
+zxing-cpp,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_2.png,ok,12.19
+zxing-cpp,DataMatrix,rotate_10,DataMatrix_rotate_10_2.png,ok,17.01
+zxing-cpp,DataMatrix,rotate_30,DataMatrix_rotate_30_2.png,ok,24.42
+zxing-cpp,DataMatrix,rotate_45,DataMatrix_rotate_45_2.png,ok,28.45
+zxing-cpp,DataMatrix,rotate_90,DataMatrix_rotate_90_2.png,ok,13.43
+zxing-cpp,DataMatrix,perspective,DataMatrix_perspective_2.png,ok,13.45
+zxing-cpp,DataMatrix,small_0.5,DataMatrix_small_0.5_2.png,ok,3.31
+zxing-cpp,DataMatrix,small_0.35,DataMatrix_small_0.35_2.png,ok,1.90
+zxing-cpp,DataMatrix,inverted,DataMatrix_inverted_2.png,ok,10.29
+zxing-cpp,DataMatrix,shading,DataMatrix_shading_2.png,ok,13.37
+zxing-cpp,DataMatrix,poor_scan,DataMatrix_poor_scan_2.png,ok,12.57
+zxing-cpp,DataMatrix,clean,DataMatrix_clean_3.png,ok,11.99
+zxing-cpp,DataMatrix,blur_1.0,DataMatrix_blur_1.0_3.png,ok,12.71
+zxing-cpp,DataMatrix,blur_2.0,DataMatrix_blur_2.0_3.png,ok,12.70
+zxing-cpp,DataMatrix,blur_3.0,DataMatrix_blur_3.0_3.png,ok,13.31
+zxing-cpp,DataMatrix,noise_15,DataMatrix_noise_15_3.png,ok,20.11
+zxing-cpp,DataMatrix,noise_30,DataMatrix_noise_30_3.png,ok,58.14
+zxing-cpp,DataMatrix,noise_50,DataMatrix_noise_50_3.png,ok,68.56
+zxing-cpp,DataMatrix,jpeg_30,DataMatrix_jpeg_30_3.png,ok,11.80
+zxing-cpp,DataMatrix,jpeg_15,DataMatrix_jpeg_15_3.png,ok,12.19
+zxing-cpp,DataMatrix,jpeg_8,DataMatrix_jpeg_8_3.png,ok,12.70
+zxing-cpp,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_3.png,ok,12.29
+zxing-cpp,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_3.png,ok,12.40
+zxing-cpp,DataMatrix,rotate_10,DataMatrix_rotate_10_3.png,ok,17.94
+zxing-cpp,DataMatrix,rotate_30,DataMatrix_rotate_30_3.png,ok,24.51
+zxing-cpp,DataMatrix,rotate_45,DataMatrix_rotate_45_3.png,ok,25.67
+zxing-cpp,DataMatrix,rotate_90,DataMatrix_rotate_90_3.png,ok,13.07
+zxing-cpp,DataMatrix,perspective,DataMatrix_perspective_3.png,ok,12.54
+zxing-cpp,DataMatrix,small_0.5,DataMatrix_small_0.5_3.png,ok,3.33
+zxing-cpp,DataMatrix,small_0.35,DataMatrix_small_0.35_3.png,ok,1.78
+zxing-cpp,DataMatrix,inverted,DataMatrix_inverted_3.png,ok,9.69
+zxing-cpp,DataMatrix,shading,DataMatrix_shading_3.png,ok,12.60
+zxing-cpp,DataMatrix,poor_scan,DataMatrix_poor_scan_3.png,ok,12.79
+zxing-cpp,DataMatrix,clean,DataMatrix_clean_4.png,ok,12.35
+zxing-cpp,DataMatrix,blur_1.0,DataMatrix_blur_1.0_4.png,ok,13.15
+zxing-cpp,DataMatrix,blur_2.0,DataMatrix_blur_2.0_4.png,ok,12.44
+zxing-cpp,DataMatrix,blur_3.0,DataMatrix_blur_3.0_4.png,ok,13.88
+zxing-cpp,DataMatrix,noise_15,DataMatrix_noise_15_4.png,ok,18.03
+zxing-cpp,DataMatrix,noise_30,DataMatrix_noise_30_4.png,ok,56.32
+zxing-cpp,DataMatrix,noise_50,DataMatrix_noise_50_4.png,ok,69.23
+zxing-cpp,DataMatrix,jpeg_30,DataMatrix_jpeg_30_4.png,ok,12.56
+zxing-cpp,DataMatrix,jpeg_15,DataMatrix_jpeg_15_4.png,ok,12.13
+zxing-cpp,DataMatrix,jpeg_8,DataMatrix_jpeg_8_4.png,ok,12.76
+zxing-cpp,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_4.png,ok,12.38
+zxing-cpp,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_4.png,ok,12.36
+zxing-cpp,DataMatrix,rotate_10,DataMatrix_rotate_10_4.png,ok,17.13
+zxing-cpp,DataMatrix,rotate_30,DataMatrix_rotate_30_4.png,ok,23.30
+zxing-cpp,DataMatrix,rotate_45,DataMatrix_rotate_45_4.png,ok,25.35
+zxing-cpp,DataMatrix,rotate_90,DataMatrix_rotate_90_4.png,ok,12.72
+zxing-cpp,DataMatrix,perspective,DataMatrix_perspective_4.png,ok,12.63
+zxing-cpp,DataMatrix,small_0.5,DataMatrix_small_0.5_4.png,ok,3.24
+zxing-cpp,DataMatrix,small_0.35,DataMatrix_small_0.35_4.png,ok,1.89
+zxing-cpp,DataMatrix,inverted,DataMatrix_inverted_4.png,ok,10.11
+zxing-cpp,DataMatrix,shading,DataMatrix_shading_4.png,ok,12.85
+zxing-cpp,DataMatrix,poor_scan,DataMatrix_poor_scan_4.png,ok,12.68
+zxing-cpp,DataMatrix,clean,DataMatrix_clean_5.png,ok,13.16
+zxing-cpp,DataMatrix,blur_1.0,DataMatrix_blur_1.0_5.png,ok,12.58
+zxing-cpp,DataMatrix,blur_2.0,DataMatrix_blur_2.0_5.png,ok,12.70
+zxing-cpp,DataMatrix,blur_3.0,DataMatrix_blur_3.0_5.png,ok,12.96
+zxing-cpp,DataMatrix,noise_15,DataMatrix_noise_15_5.png,ok,18.70
+zxing-cpp,DataMatrix,noise_30,DataMatrix_noise_30_5.png,ok,59.42
+zxing-cpp,DataMatrix,noise_50,DataMatrix_noise_50_5.png,ok,71.06
+zxing-cpp,DataMatrix,jpeg_30,DataMatrix_jpeg_30_5.png,ok,11.94
+zxing-cpp,DataMatrix,jpeg_15,DataMatrix_jpeg_15_5.png,ok,11.95
+zxing-cpp,DataMatrix,jpeg_8,DataMatrix_jpeg_8_5.png,ok,11.57
+zxing-cpp,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_5.png,ok,11.31
+zxing-cpp,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_5.png,ok,11.38
+zxing-cpp,DataMatrix,rotate_10,DataMatrix_rotate_10_5.png,ok,16.32
+zxing-cpp,DataMatrix,rotate_30,DataMatrix_rotate_30_5.png,ok,23.31
+zxing-cpp,DataMatrix,rotate_45,DataMatrix_rotate_45_5.png,ok,25.89
+zxing-cpp,DataMatrix,rotate_90,DataMatrix_rotate_90_5.png,ok,13.69
+zxing-cpp,DataMatrix,perspective,DataMatrix_perspective_5.png,ok,12.80
+zxing-cpp,DataMatrix,small_0.5,DataMatrix_small_0.5_5.png,ok,3.40
+zxing-cpp,DataMatrix,small_0.35,DataMatrix_small_0.35_5.png,ok,1.87
+zxing-cpp,DataMatrix,inverted,DataMatrix_inverted_5.png,ok,9.90
+zxing-cpp,DataMatrix,shading,DataMatrix_shading_5.png,ok,12.36
+zxing-cpp,DataMatrix,poor_scan,DataMatrix_poor_scan_5.png,ok,12.46
+zxing-cpp,DataMatrix,clean,DataMatrix_clean_6.png,ok,12.58
+zxing-cpp,DataMatrix,blur_1.0,DataMatrix_blur_1.0_6.png,ok,12.74
+zxing-cpp,DataMatrix,blur_2.0,DataMatrix_blur_2.0_6.png,ok,13.59
+zxing-cpp,DataMatrix,blur_3.0,DataMatrix_blur_3.0_6.png,ok,14.08
+zxing-cpp,DataMatrix,noise_15,DataMatrix_noise_15_6.png,ok,18.80
+zxing-cpp,DataMatrix,noise_30,DataMatrix_noise_30_6.png,ok,69.91
+zxing-cpp,DataMatrix,noise_50,DataMatrix_noise_50_6.png,ok,72.61
+zxing-cpp,DataMatrix,jpeg_30,DataMatrix_jpeg_30_6.png,ok,13.17
+zxing-cpp,DataMatrix,jpeg_15,DataMatrix_jpeg_15_6.png,ok,12.36
+zxing-cpp,DataMatrix,jpeg_8,DataMatrix_jpeg_8_6.png,ok,12.70
+zxing-cpp,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_6.png,ok,12.45
+zxing-cpp,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_6.png,ok,12.33
+zxing-cpp,DataMatrix,rotate_10,DataMatrix_rotate_10_6.png,ok,17.86
+zxing-cpp,DataMatrix,rotate_30,DataMatrix_rotate_30_6.png,ok,24.42
+zxing-cpp,DataMatrix,rotate_45,DataMatrix_rotate_45_6.png,ok,26.29
+zxing-cpp,DataMatrix,rotate_90,DataMatrix_rotate_90_6.png,ok,12.54
+zxing-cpp,DataMatrix,perspective,DataMatrix_perspective_6.png,ok,12.55
+zxing-cpp,DataMatrix,small_0.5,DataMatrix_small_0.5_6.png,ok,3.38
+zxing-cpp,DataMatrix,small_0.35,DataMatrix_small_0.35_6.png,ok,1.89
+zxing-cpp,DataMatrix,inverted,DataMatrix_inverted_6.png,ok,10.01
+zxing-cpp,DataMatrix,shading,DataMatrix_shading_6.png,ok,13.12
+zxing-cpp,DataMatrix,poor_scan,DataMatrix_poor_scan_6.png,ok,12.91
+zxing-cpp,DataMatrix,clean,DataMatrix_clean_7.png,ok,12.55
+zxing-cpp,DataMatrix,blur_1.0,DataMatrix_blur_1.0_7.png,ok,13.21
+zxing-cpp,DataMatrix,blur_2.0,DataMatrix_blur_2.0_7.png,ok,13.19
+zxing-cpp,DataMatrix,blur_3.0,DataMatrix_blur_3.0_7.png,ok,12.89
+zxing-cpp,DataMatrix,noise_15,DataMatrix_noise_15_7.png,ok,18.34
+zxing-cpp,DataMatrix,noise_30,DataMatrix_noise_30_7.png,ok,58.61
+zxing-cpp,DataMatrix,noise_50,DataMatrix_noise_50_7.png,ok,68.34
+zxing-cpp,DataMatrix,jpeg_30,DataMatrix_jpeg_30_7.png,ok,12.45
+zxing-cpp,DataMatrix,jpeg_15,DataMatrix_jpeg_15_7.png,ok,13.02
+zxing-cpp,DataMatrix,jpeg_8,DataMatrix_jpeg_8_7.png,ok,12.73
+zxing-cpp,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_7.png,ok,12.68
+zxing-cpp,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_7.png,ok,12.74
+zxing-cpp,DataMatrix,rotate_10,DataMatrix_rotate_10_7.png,ok,17.52
+zxing-cpp,DataMatrix,rotate_30,DataMatrix_rotate_30_7.png,ok,22.54
+zxing-cpp,DataMatrix,rotate_45,DataMatrix_rotate_45_7.png,ok,23.89
+zxing-cpp,DataMatrix,rotate_90,DataMatrix_rotate_90_7.png,ok,12.56
+zxing-cpp,DataMatrix,perspective,DataMatrix_perspective_7.png,ok,12.35
+zxing-cpp,DataMatrix,small_0.5,DataMatrix_small_0.5_7.png,ok,3.27
+zxing-cpp,DataMatrix,small_0.35,DataMatrix_small_0.35_7.png,ok,1.87
+zxing-cpp,DataMatrix,inverted,DataMatrix_inverted_7.png,ok,10.10
+zxing-cpp,DataMatrix,shading,DataMatrix_shading_7.png,ok,12.49
+zxing-cpp,DataMatrix,poor_scan,DataMatrix_poor_scan_7.png,ok,12.59
+zxing-cpp,CODE128,clean,CODE128_clean_0.png,ok,18.06
+zxing-cpp,CODE128,blur_1.0,CODE128_blur_1.0_0.png,ok,15.23
+zxing-cpp,CODE128,blur_2.0,CODE128_blur_2.0_0.png,miss,14.33
+zxing-cpp,CODE128,blur_3.0,CODE128_blur_3.0_0.png,miss,13.95
+zxing-cpp,CODE128,noise_15,CODE128_noise_15_0.png,ok,21.67
+zxing-cpp,CODE128,noise_30,CODE128_noise_30_0.png,ok,74.54
+zxing-cpp,CODE128,noise_50,CODE128_noise_50_0.png,miss,81.76
+zxing-cpp,CODE128,jpeg_30,CODE128_jpeg_30_0.png,ok,15.03
+zxing-cpp,CODE128,jpeg_15,CODE128_jpeg_15_0.png,ok,14.69
+zxing-cpp,CODE128,jpeg_8,CODE128_jpeg_8_0.png,miss,14.87
+zxing-cpp,CODE128,contrast_0.5,CODE128_contrast_0.5_0.png,ok,14.87
+zxing-cpp,CODE128,contrast_0.25,CODE128_contrast_0.25_0.png,ok,14.75
+zxing-cpp,CODE128,rotate_10,CODE128_rotate_10_0.png,ok,19.35
+zxing-cpp,CODE128,rotate_30,CODE128_rotate_30_0.png,miss,27.80
+zxing-cpp,CODE128,rotate_45,CODE128_rotate_45_0.png,miss,27.65
+zxing-cpp,CODE128,rotate_90,CODE128_rotate_90_0.png,ok,15.31
+zxing-cpp,CODE128,perspective,CODE128_perspective_0.png,ok,13.74
+zxing-cpp,CODE128,small_0.5,CODE128_small_0.5_0.png,miss,4.19
+zxing-cpp,CODE128,small_0.35,CODE128_small_0.35_0.png,miss,2.67
+zxing-cpp,CODE128,inverted,CODE128_inverted_0.png,miss,11.31
+zxing-cpp,CODE128,shading,CODE128_shading_0.png,miss,15.79
+zxing-cpp,CODE128,poor_scan,CODE128_poor_scan_0.png,ok,17.56
+zxing-cpp,CODE128,clean,CODE128_clean_1.png,ok,15.66
+zxing-cpp,CODE128,blur_1.0,CODE128_blur_1.0_1.png,ok,18.39
+zxing-cpp,CODE128,blur_2.0,CODE128_blur_2.0_1.png,miss,14.12
+zxing-cpp,CODE128,blur_3.0,CODE128_blur_3.0_1.png,miss,13.10
+zxing-cpp,CODE128,noise_15,CODE128_noise_15_1.png,ok,21.13
+zxing-cpp,CODE128,noise_30,CODE128_noise_30_1.png,ok,82.69
+zxing-cpp,CODE128,noise_50,CODE128_noise_50_1.png,miss,92.11
+zxing-cpp,CODE128,jpeg_30,CODE128_jpeg_30_1.png,ok,15.14
+zxing-cpp,CODE128,jpeg_15,CODE128_jpeg_15_1.png,ok,19.40
+zxing-cpp,CODE128,jpeg_8,CODE128_jpeg_8_1.png,miss,17.22
+zxing-cpp,CODE128,contrast_0.5,CODE128_contrast_0.5_1.png,ok,16.21
+zxing-cpp,CODE128,contrast_0.25,CODE128_contrast_0.25_1.png,ok,16.20
+zxing-cpp,CODE128,rotate_10,CODE128_rotate_10_1.png,ok,21.80
+zxing-cpp,CODE128,rotate_30,CODE128_rotate_30_1.png,miss,28.64
+zxing-cpp,CODE128,rotate_45,CODE128_rotate_45_1.png,miss,29.13
+zxing-cpp,CODE128,rotate_90,CODE128_rotate_90_1.png,ok,18.91
+zxing-cpp,CODE128,perspective,CODE128_perspective_1.png,ok,14.87
+zxing-cpp,CODE128,small_0.5,CODE128_small_0.5_1.png,miss,4.20
+zxing-cpp,CODE128,small_0.35,CODE128_small_0.35_1.png,miss,2.57
+zxing-cpp,CODE128,inverted,CODE128_inverted_1.png,miss,10.87
+zxing-cpp,CODE128,shading,CODE128_shading_1.png,miss,14.19
+zxing-cpp,CODE128,poor_scan,CODE128_poor_scan_1.png,ok,16.07
+zxing-cpp,CODE128,clean,CODE128_clean_2.png,ok,15.41
+zxing-cpp,CODE128,blur_1.0,CODE128_blur_1.0_2.png,ok,14.59
+zxing-cpp,CODE128,blur_2.0,CODE128_blur_2.0_2.png,miss,13.71
+zxing-cpp,CODE128,blur_3.0,CODE128_blur_3.0_2.png,miss,14.19
+zxing-cpp,CODE128,noise_15,CODE128_noise_15_2.png,ok,21.83
+zxing-cpp,CODE128,noise_30,CODE128_noise_30_2.png,ok,85.48
+zxing-cpp,CODE128,noise_50,CODE128_noise_50_2.png,miss,87.44
+zxing-cpp,CODE128,jpeg_30,CODE128_jpeg_30_2.png,ok,14.94
+zxing-cpp,CODE128,jpeg_15,CODE128_jpeg_15_2.png,ok,15.93
+zxing-cpp,CODE128,jpeg_8,CODE128_jpeg_8_2.png,miss,17.15
+zxing-cpp,CODE128,contrast_0.5,CODE128_contrast_0.5_2.png,ok,16.03
+zxing-cpp,CODE128,contrast_0.25,CODE128_contrast_0.25_2.png,ok,14.65
+zxing-cpp,CODE128,rotate_10,CODE128_rotate_10_2.png,ok,19.91
+zxing-cpp,CODE128,rotate_30,CODE128_rotate_30_2.png,miss,26.98
+zxing-cpp,CODE128,rotate_45,CODE128_rotate_45_2.png,miss,29.07
+zxing-cpp,CODE128,rotate_90,CODE128_rotate_90_2.png,ok,14.73
+zxing-cpp,CODE128,perspective,CODE128_perspective_2.png,ok,16.07
+zxing-cpp,CODE128,small_0.5,CODE128_small_0.5_2.png,miss,4.62
+zxing-cpp,CODE128,small_0.35,CODE128_small_0.35_2.png,miss,2.78
+zxing-cpp,CODE128,inverted,CODE128_inverted_2.png,miss,11.04
+zxing-cpp,CODE128,shading,CODE128_shading_2.png,miss,14.69
+zxing-cpp,CODE128,poor_scan,CODE128_poor_scan_2.png,ok,15.29
+zxing-cpp,CODE128,clean,CODE128_clean_3.png,ok,15.27
+zxing-cpp,CODE128,blur_1.0,CODE128_blur_1.0_3.png,ok,15.38
+zxing-cpp,CODE128,blur_2.0,CODE128_blur_2.0_3.png,miss,14.68
+zxing-cpp,CODE128,blur_3.0,CODE128_blur_3.0_3.png,miss,14.09
+zxing-cpp,CODE128,noise_15,CODE128_noise_15_3.png,ok,21.46
+zxing-cpp,CODE128,noise_30,CODE128_noise_30_3.png,ok,79.25
+zxing-cpp,CODE128,noise_50,CODE128_noise_50_3.png,miss,83.04
+zxing-cpp,CODE128,jpeg_30,CODE128_jpeg_30_3.png,ok,14.58
+zxing-cpp,CODE128,jpeg_15,CODE128_jpeg_15_3.png,ok,14.90
+zxing-cpp,CODE128,jpeg_8,CODE128_jpeg_8_3.png,ok,14.67
+zxing-cpp,CODE128,contrast_0.5,CODE128_contrast_0.5_3.png,ok,14.75
+zxing-cpp,CODE128,contrast_0.25,CODE128_contrast_0.25_3.png,ok,14.83
+zxing-cpp,CODE128,rotate_10,CODE128_rotate_10_3.png,ok,19.97
+zxing-cpp,CODE128,rotate_30,CODE128_rotate_30_3.png,miss,28.00
+zxing-cpp,CODE128,rotate_45,CODE128_rotate_45_3.png,miss,29.39
+zxing-cpp,CODE128,rotate_90,CODE128_rotate_90_3.png,ok,15.85
+zxing-cpp,CODE128,perspective,CODE128_perspective_3.png,ok,14.38
+zxing-cpp,CODE128,small_0.5,CODE128_small_0.5_3.png,ok,4.66
+zxing-cpp,CODE128,small_0.35,CODE128_small_0.35_3.png,miss,2.65
+zxing-cpp,CODE128,inverted,CODE128_inverted_3.png,miss,11.32
+zxing-cpp,CODE128,shading,CODE128_shading_3.png,miss,15.51
+zxing-cpp,CODE128,poor_scan,CODE128_poor_scan_3.png,ok,14.96
+zxing-cpp,CODE128,clean,CODE128_clean_4.png,ok,14.90
+zxing-cpp,CODE128,blur_1.0,CODE128_blur_1.0_4.png,ok,14.71
+zxing-cpp,CODE128,blur_2.0,CODE128_blur_2.0_4.png,miss,13.92
+zxing-cpp,CODE128,blur_3.0,CODE128_blur_3.0_4.png,miss,13.65
+zxing-cpp,CODE128,noise_15,CODE128_noise_15_4.png,ok,21.73
+zxing-cpp,CODE128,noise_30,CODE128_noise_30_4.png,ok,78.73
+zxing-cpp,CODE128,noise_50,CODE128_noise_50_4.png,miss,83.59
+zxing-cpp,CODE128,jpeg_30,CODE128_jpeg_30_4.png,ok,14.36
+zxing-cpp,CODE128,jpeg_15,CODE128_jpeg_15_4.png,ok,15.08
+zxing-cpp,CODE128,jpeg_8,CODE128_jpeg_8_4.png,ok,14.94
+zxing-cpp,CODE128,contrast_0.5,CODE128_contrast_0.5_4.png,ok,14.99
+zxing-cpp,CODE128,contrast_0.25,CODE128_contrast_0.25_4.png,ok,15.21
+zxing-cpp,CODE128,rotate_10,CODE128_rotate_10_4.png,ok,19.98
+zxing-cpp,CODE128,rotate_30,CODE128_rotate_30_4.png,miss,27.72
+zxing-cpp,CODE128,rotate_45,CODE128_rotate_45_4.png,miss,29.71
+zxing-cpp,CODE128,rotate_90,CODE128_rotate_90_4.png,ok,15.01
+zxing-cpp,CODE128,perspective,CODE128_perspective_4.png,ok,14.22
+zxing-cpp,CODE128,small_0.5,CODE128_small_0.5_4.png,miss,4.64
+zxing-cpp,CODE128,small_0.35,CODE128_small_0.35_4.png,miss,2.47
+zxing-cpp,CODE128,inverted,CODE128_inverted_4.png,miss,11.21
+zxing-cpp,CODE128,shading,CODE128_shading_4.png,miss,14.93
+zxing-cpp,CODE128,poor_scan,CODE128_poor_scan_4.png,ok,15.52
+zxing-cpp,CODE128,clean,CODE128_clean_5.png,ok,15.84
+zxing-cpp,CODE128,blur_1.0,CODE128_blur_1.0_5.png,ok,15.46
+zxing-cpp,CODE128,blur_2.0,CODE128_blur_2.0_5.png,miss,14.81
+zxing-cpp,CODE128,blur_3.0,CODE128_blur_3.0_5.png,miss,14.03
+zxing-cpp,CODE128,noise_15,CODE128_noise_15_5.png,ok,21.69
+zxing-cpp,CODE128,noise_30,CODE128_noise_30_5.png,ok,80.22
+zxing-cpp,CODE128,noise_50,CODE128_noise_50_5.png,miss,89.92
+zxing-cpp,CODE128,jpeg_30,CODE128_jpeg_30_5.png,ok,16.63
+zxing-cpp,CODE128,jpeg_15,CODE128_jpeg_15_5.png,ok,14.62
+zxing-cpp,CODE128,jpeg_8,CODE128_jpeg_8_5.png,miss,16.23
+zxing-cpp,CODE128,contrast_0.5,CODE128_contrast_0.5_5.png,ok,17.72
+zxing-cpp,CODE128,contrast_0.25,CODE128_contrast_0.25_5.png,ok,17.99
+zxing-cpp,CODE128,rotate_10,CODE128_rotate_10_5.png,ok,19.23
+zxing-cpp,CODE128,rotate_30,CODE128_rotate_30_5.png,miss,30.65
+zxing-cpp,CODE128,rotate_45,CODE128_rotate_45_5.png,miss,30.30
+zxing-cpp,CODE128,rotate_90,CODE128_rotate_90_5.png,ok,16.38
+zxing-cpp,CODE128,perspective,CODE128_perspective_5.png,ok,15.05
+zxing-cpp,CODE128,small_0.5,CODE128_small_0.5_5.png,miss,4.53
+zxing-cpp,CODE128,small_0.35,CODE128_small_0.35_5.png,miss,2.42
+zxing-cpp,CODE128,inverted,CODE128_inverted_5.png,miss,12.22
+zxing-cpp,CODE128,shading,CODE128_shading_5.png,miss,16.01
+zxing-cpp,CODE128,poor_scan,CODE128_poor_scan_5.png,ok,15.60
+zxing-cpp,CODE128,clean,CODE128_clean_6.png,ok,15.96
+zxing-cpp,CODE128,blur_1.0,CODE128_blur_1.0_6.png,ok,17.43
+zxing-cpp,CODE128,blur_2.0,CODE128_blur_2.0_6.png,miss,15.55
+zxing-cpp,CODE128,blur_3.0,CODE128_blur_3.0_6.png,miss,14.18
+zxing-cpp,CODE128,noise_15,CODE128_noise_15_6.png,ok,22.53
+zxing-cpp,CODE128,noise_30,CODE128_noise_30_6.png,ok,83.40
+zxing-cpp,CODE128,noise_50,CODE128_noise_50_6.png,miss,84.79
+zxing-cpp,CODE128,jpeg_30,CODE128_jpeg_30_6.png,ok,16.05
+zxing-cpp,CODE128,jpeg_15,CODE128_jpeg_15_6.png,ok,16.65
+zxing-cpp,CODE128,jpeg_8,CODE128_jpeg_8_6.png,ok,15.00
+zxing-cpp,CODE128,contrast_0.5,CODE128_contrast_0.5_6.png,ok,14.40
+zxing-cpp,CODE128,contrast_0.25,CODE128_contrast_0.25_6.png,ok,14.78
+zxing-cpp,CODE128,rotate_10,CODE128_rotate_10_6.png,ok,22.82
+zxing-cpp,CODE128,rotate_30,CODE128_rotate_30_6.png,miss,33.95
+zxing-cpp,CODE128,rotate_45,CODE128_rotate_45_6.png,miss,27.90
+zxing-cpp,CODE128,rotate_90,CODE128_rotate_90_6.png,ok,15.26
+zxing-cpp,CODE128,perspective,CODE128_perspective_6.png,ok,14.82
+zxing-cpp,CODE128,small_0.5,CODE128_small_0.5_6.png,miss,4.51
+zxing-cpp,CODE128,small_0.35,CODE128_small_0.35_6.png,miss,2.59
+zxing-cpp,CODE128,inverted,CODE128_inverted_6.png,miss,11.60
+zxing-cpp,CODE128,shading,CODE128_shading_6.png,miss,14.58
+zxing-cpp,CODE128,poor_scan,CODE128_poor_scan_6.png,ok,14.81
+zxing-cpp,CODE128,clean,CODE128_clean_7.png,ok,15.68
+zxing-cpp,CODE128,blur_1.0,CODE128_blur_1.0_7.png,ok,15.76
+zxing-cpp,CODE128,blur_2.0,CODE128_blur_2.0_7.png,miss,14.05
+zxing-cpp,CODE128,blur_3.0,CODE128_blur_3.0_7.png,miss,12.88
+zxing-cpp,CODE128,noise_15,CODE128_noise_15_7.png,ok,22.11
+zxing-cpp,CODE128,noise_30,CODE128_noise_30_7.png,ok,77.76
+zxing-cpp,CODE128,noise_50,CODE128_noise_50_7.png,miss,80.32
+zxing-cpp,CODE128,jpeg_30,CODE128_jpeg_30_7.png,ok,15.62
+zxing-cpp,CODE128,jpeg_15,CODE128_jpeg_15_7.png,ok,15.20
+zxing-cpp,CODE128,jpeg_8,CODE128_jpeg_8_7.png,ok,15.61
+zxing-cpp,CODE128,contrast_0.5,CODE128_contrast_0.5_7.png,ok,14.95
+zxing-cpp,CODE128,contrast_0.25,CODE128_contrast_0.25_7.png,ok,14.89
+zxing-cpp,CODE128,rotate_10,CODE128_rotate_10_7.png,ok,19.47
+zxing-cpp,CODE128,rotate_30,CODE128_rotate_30_7.png,miss,28.28
+zxing-cpp,CODE128,rotate_45,CODE128_rotate_45_7.png,miss,27.49
+zxing-cpp,CODE128,rotate_90,CODE128_rotate_90_7.png,ok,14.07
+zxing-cpp,CODE128,perspective,CODE128_perspective_7.png,ok,15.36
+zxing-cpp,CODE128,small_0.5,CODE128_small_0.5_7.png,miss,4.30
+zxing-cpp,CODE128,small_0.35,CODE128_small_0.35_7.png,miss,2.60
+zxing-cpp,CODE128,inverted,CODE128_inverted_7.png,miss,10.92
+zxing-cpp,CODE128,shading,CODE128_shading_7.png,miss,14.07
+zxing-cpp,CODE128,poor_scan,CODE128_poor_scan_7.png,ok,15.70
+zxing-cpp,EAN13,clean,EAN13_clean_0.png,ok,14.77
+zxing-cpp,EAN13,blur_1.0,EAN13_blur_1.0_0.png,ok,14.14
+zxing-cpp,EAN13,blur_2.0,EAN13_blur_2.0_0.png,miss,12.73
+zxing-cpp,EAN13,blur_3.0,EAN13_blur_3.0_0.png,miss,11.88
+zxing-cpp,EAN13,noise_15,EAN13_noise_15_0.png,ok,20.15
+zxing-cpp,EAN13,noise_30,EAN13_noise_30_0.png,ok,87.01
+zxing-cpp,EAN13,noise_50,EAN13_noise_50_0.png,miss,84.82
+zxing-cpp,EAN13,jpeg_30,EAN13_jpeg_30_0.png,ok,13.56
+zxing-cpp,EAN13,jpeg_15,EAN13_jpeg_15_0.png,ok,14.85
+zxing-cpp,EAN13,jpeg_8,EAN13_jpeg_8_0.png,ok,13.43
+zxing-cpp,EAN13,contrast_0.5,EAN13_contrast_0.5_0.png,ok,13.65
+zxing-cpp,EAN13,contrast_0.25,EAN13_contrast_0.25_0.png,ok,13.37
+zxing-cpp,EAN13,rotate_10,EAN13_rotate_10_0.png,ok,17.12
+zxing-cpp,EAN13,rotate_30,EAN13_rotate_30_0.png,miss,25.86
+zxing-cpp,EAN13,rotate_45,EAN13_rotate_45_0.png,miss,28.05
+zxing-cpp,EAN13,rotate_90,EAN13_rotate_90_0.png,ok,14.77
+zxing-cpp,EAN13,perspective,EAN13_perspective_0.png,ok,13.63
+zxing-cpp,EAN13,small_0.5,EAN13_small_0.5_0.png,miss,4.02
+zxing-cpp,EAN13,small_0.35,EAN13_small_0.35_0.png,miss,2.43
+zxing-cpp,EAN13,inverted,EAN13_inverted_0.png,miss,9.86
+zxing-cpp,EAN13,shading,EAN13_shading_0.png,miss,14.03
+zxing-cpp,EAN13,poor_scan,EAN13_poor_scan_0.png,ok,13.57
+zxing-cpp,EAN13,clean,EAN13_clean_1.png,ok,14.55
+zxing-cpp,EAN13,blur_1.0,EAN13_blur_1.0_1.png,ok,14.50
+zxing-cpp,EAN13,blur_2.0,EAN13_blur_2.0_1.png,miss,12.93
+zxing-cpp,EAN13,blur_3.0,EAN13_blur_3.0_1.png,miss,12.24
+zxing-cpp,EAN13,noise_15,EAN13_noise_15_1.png,ok,22.26
+zxing-cpp,EAN13,noise_30,EAN13_noise_30_1.png,ok,82.24
+zxing-cpp,EAN13,noise_50,EAN13_noise_50_1.png,miss,89.49
+zxing-cpp,EAN13,jpeg_30,EAN13_jpeg_30_1.png,ok,13.24
+zxing-cpp,EAN13,jpeg_15,EAN13_jpeg_15_1.png,ok,13.39
+zxing-cpp,EAN13,jpeg_8,EAN13_jpeg_8_1.png,ok,13.75
+zxing-cpp,EAN13,contrast_0.5,EAN13_contrast_0.5_1.png,ok,13.77
+zxing-cpp,EAN13,contrast_0.25,EAN13_contrast_0.25_1.png,ok,14.29
+zxing-cpp,EAN13,rotate_10,EAN13_rotate_10_1.png,ok,18.55
+zxing-cpp,EAN13,rotate_30,EAN13_rotate_30_1.png,miss,25.81
+zxing-cpp,EAN13,rotate_45,EAN13_rotate_45_1.png,miss,27.64
+zxing-cpp,EAN13,rotate_90,EAN13_rotate_90_1.png,ok,14.59
+zxing-cpp,EAN13,perspective,EAN13_perspective_1.png,ok,14.67
+zxing-cpp,EAN13,small_0.5,EAN13_small_0.5_1.png,miss,3.83
+zxing-cpp,EAN13,small_0.35,EAN13_small_0.35_1.png,miss,2.09
+zxing-cpp,EAN13,inverted,EAN13_inverted_1.png,miss,9.71
+zxing-cpp,EAN13,shading,EAN13_shading_1.png,miss,12.96
+zxing-cpp,EAN13,poor_scan,EAN13_poor_scan_1.png,ok,13.42
+zxing-cpp,EAN13,clean,EAN13_clean_2.png,ok,14.51
+zxing-cpp,EAN13,blur_1.0,EAN13_blur_1.0_2.png,ok,15.11
+zxing-cpp,EAN13,blur_2.0,EAN13_blur_2.0_2.png,miss,12.64
+zxing-cpp,EAN13,blur_3.0,EAN13_blur_3.0_2.png,miss,11.80
+zxing-cpp,EAN13,noise_15,EAN13_noise_15_2.png,ok,24.13
+zxing-cpp,EAN13,noise_30,EAN13_noise_30_2.png,ok,95.06
+zxing-cpp,EAN13,noise_50,EAN13_noise_50_2.png,miss,97.96
+zxing-cpp,EAN13,jpeg_30,EAN13_jpeg_30_2.png,ok,15.02
+zxing-cpp,EAN13,jpeg_15,EAN13_jpeg_15_2.png,ok,13.88
+zxing-cpp,EAN13,jpeg_8,EAN13_jpeg_8_2.png,ok,14.67
+zxing-cpp,EAN13,contrast_0.5,EAN13_contrast_0.5_2.png,ok,15.47
+zxing-cpp,EAN13,contrast_0.25,EAN13_contrast_0.25_2.png,ok,14.61
+zxing-cpp,EAN13,rotate_10,EAN13_rotate_10_2.png,ok,19.47
+zxing-cpp,EAN13,rotate_30,EAN13_rotate_30_2.png,miss,23.89
+zxing-cpp,EAN13,rotate_45,EAN13_rotate_45_2.png,miss,30.13
+zxing-cpp,EAN13,rotate_90,EAN13_rotate_90_2.png,ok,15.19
+zxing-cpp,EAN13,perspective,EAN13_perspective_2.png,ok,14.68
+zxing-cpp,EAN13,small_0.5,EAN13_small_0.5_2.png,miss,4.01
+zxing-cpp,EAN13,small_0.35,EAN13_small_0.35_2.png,miss,2.39
+zxing-cpp,EAN13,inverted,EAN13_inverted_2.png,miss,10.06
+zxing-cpp,EAN13,shading,EAN13_shading_2.png,miss,16.17
+zxing-cpp,EAN13,poor_scan,EAN13_poor_scan_2.png,ok,12.82
+zxing-cpp,EAN13,clean,EAN13_clean_3.png,ok,13.01
+zxing-cpp,EAN13,blur_1.0,EAN13_blur_1.0_3.png,ok,15.33
+zxing-cpp,EAN13,blur_2.0,EAN13_blur_2.0_3.png,miss,12.83
+zxing-cpp,EAN13,blur_3.0,EAN13_blur_3.0_3.png,miss,12.46
+zxing-cpp,EAN13,noise_15,EAN13_noise_15_3.png,ok,21.71
+zxing-cpp,EAN13,noise_30,EAN13_noise_30_3.png,ok,77.43
+zxing-cpp,EAN13,noise_50,EAN13_noise_50_3.png,miss,88.13
+zxing-cpp,EAN13,jpeg_30,EAN13_jpeg_30_3.png,ok,14.89
+zxing-cpp,EAN13,jpeg_15,EAN13_jpeg_15_3.png,ok,13.86
+zxing-cpp,EAN13,jpeg_8,EAN13_jpeg_8_3.png,ok,13.55
+zxing-cpp,EAN13,contrast_0.5,EAN13_contrast_0.5_3.png,ok,15.04
+zxing-cpp,EAN13,contrast_0.25,EAN13_contrast_0.25_3.png,ok,15.20
+zxing-cpp,EAN13,rotate_10,EAN13_rotate_10_3.png,ok,18.87
+zxing-cpp,EAN13,rotate_30,EAN13_rotate_30_3.png,miss,24.78
+zxing-cpp,EAN13,rotate_45,EAN13_rotate_45_3.png,miss,28.18
+zxing-cpp,EAN13,rotate_90,EAN13_rotate_90_3.png,ok,14.28
+zxing-cpp,EAN13,perspective,EAN13_perspective_3.png,ok,13.51
+zxing-cpp,EAN13,small_0.5,EAN13_small_0.5_3.png,miss,3.52
+zxing-cpp,EAN13,small_0.35,EAN13_small_0.35_3.png,miss,2.29
+zxing-cpp,EAN13,inverted,EAN13_inverted_3.png,miss,9.29
+zxing-cpp,EAN13,shading,EAN13_shading_3.png,miss,12.89
+zxing-cpp,EAN13,poor_scan,EAN13_poor_scan_3.png,ok,11.74
+zxing-cpp,EAN13,clean,EAN13_clean_4.png,ok,16.51
+zxing-cpp,EAN13,blur_1.0,EAN13_blur_1.0_4.png,ok,15.81
+zxing-cpp,EAN13,blur_2.0,EAN13_blur_2.0_4.png,miss,12.63
+zxing-cpp,EAN13,blur_3.0,EAN13_blur_3.0_4.png,miss,11.98
+zxing-cpp,EAN13,noise_15,EAN13_noise_15_4.png,ok,21.86
+zxing-cpp,EAN13,noise_30,EAN13_noise_30_4.png,ok,82.04
+zxing-cpp,EAN13,noise_50,EAN13_noise_50_4.png,miss,89.73
+zxing-cpp,EAN13,jpeg_30,EAN13_jpeg_30_4.png,ok,15.62
+zxing-cpp,EAN13,jpeg_15,EAN13_jpeg_15_4.png,ok,14.43
+zxing-cpp,EAN13,jpeg_8,EAN13_jpeg_8_4.png,ok,13.31
+zxing-cpp,EAN13,contrast_0.5,EAN13_contrast_0.5_4.png,ok,16.15
+zxing-cpp,EAN13,contrast_0.25,EAN13_contrast_0.25_4.png,ok,16.07
+zxing-cpp,EAN13,rotate_10,EAN13_rotate_10_4.png,ok,20.03
+zxing-cpp,EAN13,rotate_30,EAN13_rotate_30_4.png,wrong,26.02
+zxing-cpp,EAN13,rotate_45,EAN13_rotate_45_4.png,miss,27.89
+zxing-cpp,EAN13,rotate_90,EAN13_rotate_90_4.png,ok,15.65
+zxing-cpp,EAN13,perspective,EAN13_perspective_4.png,ok,17.28
+zxing-cpp,EAN13,small_0.5,EAN13_small_0.5_4.png,miss,4.47
+zxing-cpp,EAN13,small_0.35,EAN13_small_0.35_4.png,miss,2.83
+zxing-cpp,EAN13,inverted,EAN13_inverted_4.png,miss,9.71
+zxing-cpp,EAN13,shading,EAN13_shading_4.png,miss,15.41
+zxing-cpp,EAN13,poor_scan,EAN13_poor_scan_4.png,ok,17.73
+zxing-cpp,EAN13,clean,EAN13_clean_5.png,ok,15.64
+zxing-cpp,EAN13,blur_1.0,EAN13_blur_1.0_5.png,ok,15.98
+zxing-cpp,EAN13,blur_2.0,EAN13_blur_2.0_5.png,miss,13.42
+zxing-cpp,EAN13,blur_3.0,EAN13_blur_3.0_5.png,miss,16.01
+zxing-cpp,EAN13,noise_15,EAN13_noise_15_5.png,ok,24.87
+zxing-cpp,EAN13,noise_30,EAN13_noise_30_5.png,ok,94.49
+zxing-cpp,EAN13,noise_50,EAN13_noise_50_5.png,miss,93.91
+zxing-cpp,EAN13,jpeg_30,EAN13_jpeg_30_5.png,ok,15.78
+zxing-cpp,EAN13,jpeg_15,EAN13_jpeg_15_5.png,ok,15.07
+zxing-cpp,EAN13,jpeg_8,EAN13_jpeg_8_5.png,miss,14.45
+zxing-cpp,EAN13,contrast_0.5,EAN13_contrast_0.5_5.png,ok,15.11
+zxing-cpp,EAN13,contrast_0.25,EAN13_contrast_0.25_5.png,ok,14.74
+zxing-cpp,EAN13,rotate_10,EAN13_rotate_10_5.png,ok,18.90
+zxing-cpp,EAN13,rotate_30,EAN13_rotate_30_5.png,wrong,25.57
+zxing-cpp,EAN13,rotate_45,EAN13_rotate_45_5.png,miss,27.79
+zxing-cpp,EAN13,rotate_90,EAN13_rotate_90_5.png,ok,13.88
+zxing-cpp,EAN13,perspective,EAN13_perspective_5.png,ok,13.29
+zxing-cpp,EAN13,small_0.5,EAN13_small_0.5_5.png,miss,4.08
+zxing-cpp,EAN13,small_0.35,EAN13_small_0.35_5.png,miss,2.05
+zxing-cpp,EAN13,inverted,EAN13_inverted_5.png,miss,8.64
+zxing-cpp,EAN13,shading,EAN13_shading_5.png,miss,13.70
+zxing-cpp,EAN13,poor_scan,EAN13_poor_scan_5.png,ok,11.99
+zxing-cpp,EAN13,clean,EAN13_clean_6.png,ok,14.68
+zxing-cpp,EAN13,blur_1.0,EAN13_blur_1.0_6.png,ok,14.79
+zxing-cpp,EAN13,blur_2.0,EAN13_blur_2.0_6.png,miss,12.43
+zxing-cpp,EAN13,blur_3.0,EAN13_blur_3.0_6.png,miss,11.93
+zxing-cpp,EAN13,noise_15,EAN13_noise_15_6.png,ok,19.60
+zxing-cpp,EAN13,noise_30,EAN13_noise_30_6.png,ok,86.91
+zxing-cpp,EAN13,noise_50,EAN13_noise_50_6.png,miss,93.98
+zxing-cpp,EAN13,jpeg_30,EAN13_jpeg_30_6.png,ok,12.80
+zxing-cpp,EAN13,jpeg_15,EAN13_jpeg_15_6.png,ok,14.47
+zxing-cpp,EAN13,jpeg_8,EAN13_jpeg_8_6.png,ok,13.79
+zxing-cpp,EAN13,contrast_0.5,EAN13_contrast_0.5_6.png,ok,14.38
+zxing-cpp,EAN13,contrast_0.25,EAN13_contrast_0.25_6.png,ok,14.68
+zxing-cpp,EAN13,rotate_10,EAN13_rotate_10_6.png,ok,20.53
+zxing-cpp,EAN13,rotate_30,EAN13_rotate_30_6.png,miss,25.99
+zxing-cpp,EAN13,rotate_45,EAN13_rotate_45_6.png,miss,27.25
+zxing-cpp,EAN13,rotate_90,EAN13_rotate_90_6.png,ok,14.34
+zxing-cpp,EAN13,perspective,EAN13_perspective_6.png,ok,13.32
+zxing-cpp,EAN13,small_0.5,EAN13_small_0.5_6.png,miss,3.92
+zxing-cpp,EAN13,small_0.35,EAN13_small_0.35_6.png,miss,2.12
+zxing-cpp,EAN13,inverted,EAN13_inverted_6.png,miss,8.98
+zxing-cpp,EAN13,shading,EAN13_shading_6.png,miss,13.59
+zxing-cpp,EAN13,poor_scan,EAN13_poor_scan_6.png,ok,14.65
+zxing-cpp,EAN13,clean,EAN13_clean_7.png,ok,13.61
+zxing-cpp,EAN13,blur_1.0,EAN13_blur_1.0_7.png,ok,14.50
+zxing-cpp,EAN13,blur_2.0,EAN13_blur_2.0_7.png,miss,12.30
+zxing-cpp,EAN13,blur_3.0,EAN13_blur_3.0_7.png,miss,12.21
+zxing-cpp,EAN13,noise_15,EAN13_noise_15_7.png,ok,29.16
+zxing-cpp,EAN13,noise_30,EAN13_noise_30_7.png,ok,89.03
+zxing-cpp,EAN13,noise_50,EAN13_noise_50_7.png,miss,88.25
+zxing-cpp,EAN13,jpeg_30,EAN13_jpeg_30_7.png,ok,13.90
+zxing-cpp,EAN13,jpeg_15,EAN13_jpeg_15_7.png,ok,14.18
+zxing-cpp,EAN13,jpeg_8,EAN13_jpeg_8_7.png,ok,13.92
+zxing-cpp,EAN13,contrast_0.5,EAN13_contrast_0.5_7.png,ok,14.59
+zxing-cpp,EAN13,contrast_0.25,EAN13_contrast_0.25_7.png,ok,14.91
+zxing-cpp,EAN13,rotate_10,EAN13_rotate_10_7.png,ok,19.85
+zxing-cpp,EAN13,rotate_30,EAN13_rotate_30_7.png,miss,26.25
+zxing-cpp,EAN13,rotate_45,EAN13_rotate_45_7.png,miss,29.06
+zxing-cpp,EAN13,rotate_90,EAN13_rotate_90_7.png,ok,14.17
+zxing-cpp,EAN13,perspective,EAN13_perspective_7.png,ok,14.67
+zxing-cpp,EAN13,small_0.5,EAN13_small_0.5_7.png,miss,3.86
+zxing-cpp,EAN13,small_0.35,EAN13_small_0.35_7.png,miss,2.27
+zxing-cpp,EAN13,inverted,EAN13_inverted_7.png,miss,9.24
+zxing-cpp,EAN13,shading,EAN13_shading_7.png,miss,16.11
+zxing-cpp,EAN13,poor_scan,EAN13_poor_scan_7.png,ok,18.44
+eCode pipeline,QRCODE,clean,QRCODE_clean_0.png,ok,11.64
+eCode pipeline,QRCODE,blur_1.0,QRCODE_blur_1.0_0.png,ok,11.20
+eCode pipeline,QRCODE,blur_2.0,QRCODE_blur_2.0_0.png,ok,12.34
+eCode pipeline,QRCODE,blur_3.0,QRCODE_blur_3.0_0.png,miss,226.61
+eCode pipeline,QRCODE,noise_15,QRCODE_noise_15_0.png,ok,15.36
+eCode pipeline,QRCODE,noise_30,QRCODE_noise_30_0.png,ok,68.37
+eCode pipeline,QRCODE,noise_50,QRCODE_noise_50_0.png,ok,73.17
+eCode pipeline,QRCODE,jpeg_30,QRCODE_jpeg_30_0.png,ok,11.30
+eCode pipeline,QRCODE,jpeg_15,QRCODE_jpeg_15_0.png,ok,11.27
+eCode pipeline,QRCODE,jpeg_8,QRCODE_jpeg_8_0.png,ok,11.17
+eCode pipeline,QRCODE,contrast_0.5,QRCODE_contrast_0.5_0.png,ok,10.31
+eCode pipeline,QRCODE,contrast_0.25,QRCODE_contrast_0.25_0.png,ok,10.40
+eCode pipeline,QRCODE,rotate_10,QRCODE_rotate_10_0.png,ok,14.15
+eCode pipeline,QRCODE,rotate_30,QRCODE_rotate_30_0.png,ok,21.05
+eCode pipeline,QRCODE,rotate_45,QRCODE_rotate_45_0.png,ok,22.53
+eCode pipeline,QRCODE,rotate_90,QRCODE_rotate_90_0.png,ok,11.87
+eCode pipeline,QRCODE,perspective,QRCODE_perspective_0.png,ok,10.57
+eCode pipeline,QRCODE,small_0.5,QRCODE_small_0.5_0.png,ok,2.94
+eCode pipeline,QRCODE,small_0.35,QRCODE_small_0.35_0.png,ok,1.72
+eCode pipeline,QRCODE,inverted,QRCODE_inverted_0.png,ok,159.61
+eCode pipeline,QRCODE,shading,QRCODE_shading_0.png,ok,10.89
+eCode pipeline,QRCODE,poor_scan,QRCODE_poor_scan_0.png,ok,8.79
+eCode pipeline,QRCODE,clean,QRCODE_clean_1.png,ok,10.54
+eCode pipeline,QRCODE,blur_1.0,QRCODE_blur_1.0_1.png,ok,10.62
+eCode pipeline,QRCODE,blur_2.0,QRCODE_blur_2.0_1.png,ok,11.03
+eCode pipeline,QRCODE,blur_3.0,QRCODE_blur_3.0_1.png,miss,149.88
+eCode pipeline,QRCODE,noise_15,QRCODE_noise_15_1.png,ok,15.18
+eCode pipeline,QRCODE,noise_30,QRCODE_noise_30_1.png,ok,68.37
+eCode pipeline,QRCODE,noise_50,QRCODE_noise_50_1.png,ok,84.00
+eCode pipeline,QRCODE,jpeg_30,QRCODE_jpeg_30_1.png,ok,12.92
+eCode pipeline,QRCODE,jpeg_15,QRCODE_jpeg_15_1.png,ok,11.96
+eCode pipeline,QRCODE,jpeg_8,QRCODE_jpeg_8_1.png,ok,11.69
+eCode pipeline,QRCODE,contrast_0.5,QRCODE_contrast_0.5_1.png,ok,11.19
+eCode pipeline,QRCODE,contrast_0.25,QRCODE_contrast_0.25_1.png,ok,13.65
+eCode pipeline,QRCODE,rotate_10,QRCODE_rotate_10_1.png,ok,14.80
+eCode pipeline,QRCODE,rotate_30,QRCODE_rotate_30_1.png,ok,21.05
+eCode pipeline,QRCODE,rotate_45,QRCODE_rotate_45_1.png,ok,23.21
+eCode pipeline,QRCODE,rotate_90,QRCODE_rotate_90_1.png,ok,12.10
+eCode pipeline,QRCODE,perspective,QRCODE_perspective_1.png,ok,11.55
+eCode pipeline,QRCODE,small_0.5,QRCODE_small_0.5_1.png,ok,3.30
+eCode pipeline,QRCODE,small_0.35,QRCODE_small_0.35_1.png,ok,2.05
+eCode pipeline,QRCODE,inverted,QRCODE_inverted_1.png,ok,151.39
+eCode pipeline,QRCODE,shading,QRCODE_shading_1.png,ok,11.45
+eCode pipeline,QRCODE,poor_scan,QRCODE_poor_scan_1.png,ok,10.45
+eCode pipeline,QRCODE,clean,QRCODE_clean_2.png,ok,11.97
+eCode pipeline,QRCODE,blur_1.0,QRCODE_blur_1.0_2.png,ok,11.06
+eCode pipeline,QRCODE,blur_2.0,QRCODE_blur_2.0_2.png,ok,166.74
+eCode pipeline,QRCODE,blur_3.0,QRCODE_blur_3.0_2.png,miss,149.42
+eCode pipeline,QRCODE,noise_15,QRCODE_noise_15_2.png,ok,14.24
+eCode pipeline,QRCODE,noise_30,QRCODE_noise_30_2.png,ok,77.43
+eCode pipeline,QRCODE,noise_50,QRCODE_noise_50_2.png,ok,75.52
+eCode pipeline,QRCODE,jpeg_30,QRCODE_jpeg_30_2.png,ok,10.75
+eCode pipeline,QRCODE,jpeg_15,QRCODE_jpeg_15_2.png,ok,11.93
+eCode pipeline,QRCODE,jpeg_8,QRCODE_jpeg_8_2.png,ok,11.71
+eCode pipeline,QRCODE,contrast_0.5,QRCODE_contrast_0.5_2.png,ok,10.87
+eCode pipeline,QRCODE,contrast_0.25,QRCODE_contrast_0.25_2.png,ok,11.60
+eCode pipeline,QRCODE,rotate_10,QRCODE_rotate_10_2.png,ok,16.14
+eCode pipeline,QRCODE,rotate_30,QRCODE_rotate_30_2.png,ok,20.82
+eCode pipeline,QRCODE,rotate_45,QRCODE_rotate_45_2.png,ok,22.89
+eCode pipeline,QRCODE,rotate_90,QRCODE_rotate_90_2.png,ok,12.51
+eCode pipeline,QRCODE,perspective,QRCODE_perspective_2.png,ok,11.60
+eCode pipeline,QRCODE,small_0.5,QRCODE_small_0.5_2.png,ok,3.35
+eCode pipeline,QRCODE,small_0.35,QRCODE_small_0.35_2.png,ok,2.05
+eCode pipeline,QRCODE,inverted,QRCODE_inverted_2.png,ok,147.43
+eCode pipeline,QRCODE,shading,QRCODE_shading_2.png,ok,11.61
+eCode pipeline,QRCODE,poor_scan,QRCODE_poor_scan_2.png,ok,9.22
+eCode pipeline,QRCODE,clean,QRCODE_clean_3.png,ok,12.03
+eCode pipeline,QRCODE,blur_1.0,QRCODE_blur_1.0_3.png,ok,11.47
+eCode pipeline,QRCODE,blur_2.0,QRCODE_blur_2.0_3.png,ok,11.12
+eCode pipeline,QRCODE,blur_3.0,QRCODE_blur_3.0_3.png,miss,154.24
+eCode pipeline,QRCODE,noise_15,QRCODE_noise_15_3.png,ok,15.45
+eCode pipeline,QRCODE,noise_30,QRCODE_noise_30_3.png,ok,71.15
+eCode pipeline,QRCODE,noise_50,QRCODE_noise_50_3.png,ok,72.50
+eCode pipeline,QRCODE,jpeg_30,QRCODE_jpeg_30_3.png,ok,10.56
+eCode pipeline,QRCODE,jpeg_15,QRCODE_jpeg_15_3.png,ok,13.04
+eCode pipeline,QRCODE,jpeg_8,QRCODE_jpeg_8_3.png,ok,10.52
+eCode pipeline,QRCODE,contrast_0.5,QRCODE_contrast_0.5_3.png,ok,11.36
+eCode pipeline,QRCODE,contrast_0.25,QRCODE_contrast_0.25_3.png,ok,11.03
+eCode pipeline,QRCODE,rotate_10,QRCODE_rotate_10_3.png,ok,15.57
+eCode pipeline,QRCODE,rotate_30,QRCODE_rotate_30_3.png,ok,20.85
+eCode pipeline,QRCODE,rotate_45,QRCODE_rotate_45_3.png,ok,23.51
+eCode pipeline,QRCODE,rotate_90,QRCODE_rotate_90_3.png,ok,11.74
+eCode pipeline,QRCODE,perspective,QRCODE_perspective_3.png,ok,12.08
+eCode pipeline,QRCODE,small_0.5,QRCODE_small_0.5_3.png,ok,3.43
+eCode pipeline,QRCODE,small_0.35,QRCODE_small_0.35_3.png,ok,2.62
+eCode pipeline,QRCODE,inverted,QRCODE_inverted_3.png,ok,142.20
+eCode pipeline,QRCODE,shading,QRCODE_shading_3.png,ok,11.09
+eCode pipeline,QRCODE,poor_scan,QRCODE_poor_scan_3.png,ok,9.20
+eCode pipeline,QRCODE,clean,QRCODE_clean_4.png,ok,10.07
+eCode pipeline,QRCODE,blur_1.0,QRCODE_blur_1.0_4.png,ok,10.10
+eCode pipeline,QRCODE,blur_2.0,QRCODE_blur_2.0_4.png,ok,153.01
+eCode pipeline,QRCODE,blur_3.0,QRCODE_blur_3.0_4.png,miss,147.34
+eCode pipeline,QRCODE,noise_15,QRCODE_noise_15_4.png,ok,14.95
+eCode pipeline,QRCODE,noise_30,QRCODE_noise_30_4.png,ok,68.22
+eCode pipeline,QRCODE,noise_50,QRCODE_noise_50_4.png,ok,69.63
+eCode pipeline,QRCODE,jpeg_30,QRCODE_jpeg_30_4.png,ok,11.06
+eCode pipeline,QRCODE,jpeg_15,QRCODE_jpeg_15_4.png,ok,10.91
+eCode pipeline,QRCODE,jpeg_8,QRCODE_jpeg_8_4.png,ok,10.58
+eCode pipeline,QRCODE,contrast_0.5,QRCODE_contrast_0.5_4.png,ok,10.62
+eCode pipeline,QRCODE,contrast_0.25,QRCODE_contrast_0.25_4.png,ok,10.56
+eCode pipeline,QRCODE,rotate_10,QRCODE_rotate_10_4.png,ok,15.18
+eCode pipeline,QRCODE,rotate_30,QRCODE_rotate_30_4.png,ok,19.81
+eCode pipeline,QRCODE,rotate_45,QRCODE_rotate_45_4.png,ok,21.32
+eCode pipeline,QRCODE,rotate_90,QRCODE_rotate_90_4.png,ok,9.83
+eCode pipeline,QRCODE,perspective,QRCODE_perspective_4.png,ok,9.97
+eCode pipeline,QRCODE,small_0.5,QRCODE_small_0.5_4.png,ok,2.77
+eCode pipeline,QRCODE,small_0.35,QRCODE_small_0.35_4.png,ok,1.77
+eCode pipeline,QRCODE,inverted,QRCODE_inverted_4.png,ok,133.34
+eCode pipeline,QRCODE,shading,QRCODE_shading_4.png,ok,11.24
+eCode pipeline,QRCODE,poor_scan,QRCODE_poor_scan_4.png,ok,9.49
+eCode pipeline,QRCODE,clean,QRCODE_clean_5.png,ok,11.55
+eCode pipeline,QRCODE,blur_1.0,QRCODE_blur_1.0_5.png,ok,11.24
+eCode pipeline,QRCODE,blur_2.0,QRCODE_blur_2.0_5.png,ok,11.17
+eCode pipeline,QRCODE,blur_3.0,QRCODE_blur_3.0_5.png,miss,156.56
+eCode pipeline,QRCODE,noise_15,QRCODE_noise_15_5.png,ok,16.71
+eCode pipeline,QRCODE,noise_30,QRCODE_noise_30_5.png,ok,71.12
+eCode pipeline,QRCODE,noise_50,QRCODE_noise_50_5.png,ok,70.86
+eCode pipeline,QRCODE,jpeg_30,QRCODE_jpeg_30_5.png,ok,11.10
+eCode pipeline,QRCODE,jpeg_15,QRCODE_jpeg_15_5.png,ok,11.28
+eCode pipeline,QRCODE,jpeg_8,QRCODE_jpeg_8_5.png,ok,11.39
+eCode pipeline,QRCODE,contrast_0.5,QRCODE_contrast_0.5_5.png,ok,10.78
+eCode pipeline,QRCODE,contrast_0.25,QRCODE_contrast_0.25_5.png,ok,10.71
+eCode pipeline,QRCODE,rotate_10,QRCODE_rotate_10_5.png,ok,15.07
+eCode pipeline,QRCODE,rotate_30,QRCODE_rotate_30_5.png,ok,21.80
+eCode pipeline,QRCODE,rotate_45,QRCODE_rotate_45_5.png,ok,24.13
+eCode pipeline,QRCODE,rotate_90,QRCODE_rotate_90_5.png,ok,11.00
+eCode pipeline,QRCODE,perspective,QRCODE_perspective_5.png,ok,10.36
+eCode pipeline,QRCODE,small_0.5,QRCODE_small_0.5_5.png,ok,2.83
+eCode pipeline,QRCODE,small_0.35,QRCODE_small_0.35_5.png,ok,1.69
+eCode pipeline,QRCODE,inverted,QRCODE_inverted_5.png,ok,145.34
+eCode pipeline,QRCODE,shading,QRCODE_shading_5.png,ok,12.86
+eCode pipeline,QRCODE,poor_scan,QRCODE_poor_scan_5.png,ok,9.70
+eCode pipeline,QRCODE,clean,QRCODE_clean_6.png,ok,10.50
+eCode pipeline,QRCODE,blur_1.0,QRCODE_blur_1.0_6.png,ok,10.43
+eCode pipeline,QRCODE,blur_2.0,QRCODE_blur_2.0_6.png,ok,10.53
+eCode pipeline,QRCODE,blur_3.0,QRCODE_blur_3.0_6.png,miss,150.23
+eCode pipeline,QRCODE,noise_15,QRCODE_noise_15_6.png,ok,14.11
+eCode pipeline,QRCODE,noise_30,QRCODE_noise_30_6.png,ok,65.94
+eCode pipeline,QRCODE,noise_50,QRCODE_noise_50_6.png,ok,71.36
+eCode pipeline,QRCODE,jpeg_30,QRCODE_jpeg_30_6.png,ok,10.31
+eCode pipeline,QRCODE,jpeg_15,QRCODE_jpeg_15_6.png,ok,10.04
+eCode pipeline,QRCODE,jpeg_8,QRCODE_jpeg_8_6.png,ok,10.14
+eCode pipeline,QRCODE,contrast_0.5,QRCODE_contrast_0.5_6.png,ok,10.60
+eCode pipeline,QRCODE,contrast_0.25,QRCODE_contrast_0.25_6.png,ok,9.89
+eCode pipeline,QRCODE,rotate_10,QRCODE_rotate_10_6.png,ok,14.72
+eCode pipeline,QRCODE,rotate_30,QRCODE_rotate_30_6.png,ok,22.13
+eCode pipeline,QRCODE,rotate_45,QRCODE_rotate_45_6.png,ok,22.75
+eCode pipeline,QRCODE,rotate_90,QRCODE_rotate_90_6.png,ok,10.20
+eCode pipeline,QRCODE,perspective,QRCODE_perspective_6.png,ok,11.04
+eCode pipeline,QRCODE,small_0.5,QRCODE_small_0.5_6.png,ok,3.10
+eCode pipeline,QRCODE,small_0.35,QRCODE_small_0.35_6.png,ok,1.95
+eCode pipeline,QRCODE,inverted,QRCODE_inverted_6.png,ok,138.62
+eCode pipeline,QRCODE,shading,QRCODE_shading_6.png,ok,10.83
+eCode pipeline,QRCODE,poor_scan,QRCODE_poor_scan_6.png,ok,9.54
+eCode pipeline,QRCODE,clean,QRCODE_clean_7.png,ok,11.44
+eCode pipeline,QRCODE,blur_1.0,QRCODE_blur_1.0_7.png,ok,11.28
+eCode pipeline,QRCODE,blur_2.0,QRCODE_blur_2.0_7.png,ok,174.23
+eCode pipeline,QRCODE,blur_3.0,QRCODE_blur_3.0_7.png,miss,183.93
+eCode pipeline,QRCODE,noise_15,QRCODE_noise_15_7.png,ok,15.56
+eCode pipeline,QRCODE,noise_30,QRCODE_noise_30_7.png,ok,67.56
+eCode pipeline,QRCODE,noise_50,QRCODE_noise_50_7.png,ok,72.50
+eCode pipeline,QRCODE,jpeg_30,QRCODE_jpeg_30_7.png,ok,10.72
+eCode pipeline,QRCODE,jpeg_15,QRCODE_jpeg_15_7.png,ok,11.08
+eCode pipeline,QRCODE,jpeg_8,QRCODE_jpeg_8_7.png,ok,11.19
+eCode pipeline,QRCODE,contrast_0.5,QRCODE_contrast_0.5_7.png,ok,11.16
+eCode pipeline,QRCODE,contrast_0.25,QRCODE_contrast_0.25_7.png,ok,10.69
+eCode pipeline,QRCODE,rotate_10,QRCODE_rotate_10_7.png,ok,14.61
+eCode pipeline,QRCODE,rotate_30,QRCODE_rotate_30_7.png,ok,19.46
+eCode pipeline,QRCODE,rotate_45,QRCODE_rotate_45_7.png,ok,22.93
+eCode pipeline,QRCODE,rotate_90,QRCODE_rotate_90_7.png,ok,12.28
+eCode pipeline,QRCODE,perspective,QRCODE_perspective_7.png,ok,11.20
+eCode pipeline,QRCODE,small_0.5,QRCODE_small_0.5_7.png,ok,3.20
+eCode pipeline,QRCODE,small_0.35,QRCODE_small_0.35_7.png,ok,2.34
+eCode pipeline,QRCODE,inverted,QRCODE_inverted_7.png,ok,158.22
+eCode pipeline,QRCODE,shading,QRCODE_shading_7.png,ok,11.69
+eCode pipeline,QRCODE,poor_scan,QRCODE_poor_scan_7.png,ok,9.21
+eCode pipeline,DataMatrix,clean,DataMatrix_clean_0.png,ok,10.63
+eCode pipeline,DataMatrix,blur_1.0,DataMatrix_blur_1.0_0.png,ok,10.28
+eCode pipeline,DataMatrix,blur_2.0,DataMatrix_blur_2.0_0.png,ok,10.94
+eCode pipeline,DataMatrix,blur_3.0,DataMatrix_blur_3.0_0.png,ok,10.87
+eCode pipeline,DataMatrix,noise_15,DataMatrix_noise_15_0.png,ok,13.97
+eCode pipeline,DataMatrix,noise_30,DataMatrix_noise_30_0.png,ok,44.73
+eCode pipeline,DataMatrix,noise_50,DataMatrix_noise_50_0.png,ok,51.58
+eCode pipeline,DataMatrix,jpeg_30,DataMatrix_jpeg_30_0.png,ok,10.07
+eCode pipeline,DataMatrix,jpeg_15,DataMatrix_jpeg_15_0.png,ok,9.82
+eCode pipeline,DataMatrix,jpeg_8,DataMatrix_jpeg_8_0.png,ok,49.19
+eCode pipeline,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_0.png,ok,10.61
+eCode pipeline,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_0.png,ok,16.98
+eCode pipeline,DataMatrix,rotate_10,DataMatrix_rotate_10_0.png,ok,19.43
+eCode pipeline,DataMatrix,rotate_30,DataMatrix_rotate_30_0.png,ok,21.35
+eCode pipeline,DataMatrix,rotate_45,DataMatrix_rotate_45_0.png,ok,23.90
+eCode pipeline,DataMatrix,rotate_90,DataMatrix_rotate_90_0.png,ok,12.78
+eCode pipeline,DataMatrix,perspective,DataMatrix_perspective_0.png,ok,16.40
+eCode pipeline,DataMatrix,small_0.5,DataMatrix_small_0.5_0.png,ok,4.00
+eCode pipeline,DataMatrix,small_0.35,DataMatrix_small_0.35_0.png,ok,2.04
+eCode pipeline,DataMatrix,inverted,DataMatrix_inverted_0.png,ok,194.76
+eCode pipeline,DataMatrix,shading,DataMatrix_shading_0.png,ok,11.71
+eCode pipeline,DataMatrix,poor_scan,DataMatrix_poor_scan_0.png,ok,10.39
+eCode pipeline,DataMatrix,clean,DataMatrix_clean_1.png,ok,11.06
+eCode pipeline,DataMatrix,blur_1.0,DataMatrix_blur_1.0_1.png,ok,11.51
+eCode pipeline,DataMatrix,blur_2.0,DataMatrix_blur_2.0_1.png,ok,10.62
+eCode pipeline,DataMatrix,blur_3.0,DataMatrix_blur_3.0_1.png,ok,10.86
+eCode pipeline,DataMatrix,noise_15,DataMatrix_noise_15_1.png,ok,16.56
+eCode pipeline,DataMatrix,noise_30,DataMatrix_noise_30_1.png,ok,46.79
+eCode pipeline,DataMatrix,noise_50,DataMatrix_noise_50_1.png,ok,54.53
+eCode pipeline,DataMatrix,jpeg_30,DataMatrix_jpeg_30_1.png,ok,11.06
+eCode pipeline,DataMatrix,jpeg_15,DataMatrix_jpeg_15_1.png,ok,10.90
+eCode pipeline,DataMatrix,jpeg_8,DataMatrix_jpeg_8_1.png,ok,11.23
+eCode pipeline,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_1.png,ok,10.47
+eCode pipeline,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_1.png,ok,10.48
+eCode pipeline,DataMatrix,rotate_10,DataMatrix_rotate_10_1.png,ok,14.83
+eCode pipeline,DataMatrix,rotate_30,DataMatrix_rotate_30_1.png,ok,20.57
+eCode pipeline,DataMatrix,rotate_45,DataMatrix_rotate_45_1.png,ok,23.01
+eCode pipeline,DataMatrix,rotate_90,DataMatrix_rotate_90_1.png,ok,10.89
+eCode pipeline,DataMatrix,perspective,DataMatrix_perspective_1.png,ok,11.28
+eCode pipeline,DataMatrix,small_0.5,DataMatrix_small_0.5_1.png,ok,3.22
+eCode pipeline,DataMatrix,small_0.35,DataMatrix_small_0.35_1.png,ok,1.97
+eCode pipeline,DataMatrix,inverted,DataMatrix_inverted_1.png,ok,148.54
+eCode pipeline,DataMatrix,shading,DataMatrix_shading_1.png,ok,10.70
+eCode pipeline,DataMatrix,poor_scan,DataMatrix_poor_scan_1.png,ok,12.29
+eCode pipeline,DataMatrix,clean,DataMatrix_clean_2.png,ok,10.45
+eCode pipeline,DataMatrix,blur_1.0,DataMatrix_blur_1.0_2.png,ok,11.11
+eCode pipeline,DataMatrix,blur_2.0,DataMatrix_blur_2.0_2.png,ok,11.30
+eCode pipeline,DataMatrix,blur_3.0,DataMatrix_blur_3.0_2.png,ok,11.33
+eCode pipeline,DataMatrix,noise_15,DataMatrix_noise_15_2.png,ok,14.86
+eCode pipeline,DataMatrix,noise_30,DataMatrix_noise_30_2.png,ok,47.21
+eCode pipeline,DataMatrix,noise_50,DataMatrix_noise_50_2.png,ok,96.96
+eCode pipeline,DataMatrix,jpeg_30,DataMatrix_jpeg_30_2.png,ok,29.81
+eCode pipeline,DataMatrix,jpeg_15,DataMatrix_jpeg_15_2.png,ok,11.62
+eCode pipeline,DataMatrix,jpeg_8,DataMatrix_jpeg_8_2.png,ok,17.92
+eCode pipeline,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_2.png,ok,10.73
+eCode pipeline,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_2.png,ok,11.03
+eCode pipeline,DataMatrix,rotate_10,DataMatrix_rotate_10_2.png,ok,16.34
+eCode pipeline,DataMatrix,rotate_30,DataMatrix_rotate_30_2.png,ok,23.42
+eCode pipeline,DataMatrix,rotate_45,DataMatrix_rotate_45_2.png,ok,24.46
+eCode pipeline,DataMatrix,rotate_90,DataMatrix_rotate_90_2.png,ok,12.40
+eCode pipeline,DataMatrix,perspective,DataMatrix_perspective_2.png,ok,11.74
+eCode pipeline,DataMatrix,small_0.5,DataMatrix_small_0.5_2.png,ok,3.14
+eCode pipeline,DataMatrix,small_0.35,DataMatrix_small_0.35_2.png,ok,2.06
+eCode pipeline,DataMatrix,inverted,DataMatrix_inverted_2.png,ok,147.15
+eCode pipeline,DataMatrix,shading,DataMatrix_shading_2.png,ok,10.93
+eCode pipeline,DataMatrix,poor_scan,DataMatrix_poor_scan_2.png,ok,10.66
+eCode pipeline,DataMatrix,clean,DataMatrix_clean_3.png,ok,10.16
+eCode pipeline,DataMatrix,blur_1.0,DataMatrix_blur_1.0_3.png,ok,10.87
+eCode pipeline,DataMatrix,blur_2.0,DataMatrix_blur_2.0_3.png,ok,10.79
+eCode pipeline,DataMatrix,blur_3.0,DataMatrix_blur_3.0_3.png,ok,10.97
+eCode pipeline,DataMatrix,noise_15,DataMatrix_noise_15_3.png,ok,14.26
+eCode pipeline,DataMatrix,noise_30,DataMatrix_noise_30_3.png,ok,45.85
+eCode pipeline,DataMatrix,noise_50,DataMatrix_noise_50_3.png,ok,53.43
+eCode pipeline,DataMatrix,jpeg_30,DataMatrix_jpeg_30_3.png,ok,10.19
+eCode pipeline,DataMatrix,jpeg_15,DataMatrix_jpeg_15_3.png,ok,10.55
+eCode pipeline,DataMatrix,jpeg_8,DataMatrix_jpeg_8_3.png,ok,10.61
+eCode pipeline,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_3.png,ok,10.71
+eCode pipeline,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_3.png,ok,11.26
+eCode pipeline,DataMatrix,rotate_10,DataMatrix_rotate_10_3.png,ok,27.33
+eCode pipeline,DataMatrix,rotate_30,DataMatrix_rotate_30_3.png,ok,26.75
+eCode pipeline,DataMatrix,rotate_45,DataMatrix_rotate_45_3.png,ok,28.92
+eCode pipeline,DataMatrix,rotate_90,DataMatrix_rotate_90_3.png,ok,12.21
+eCode pipeline,DataMatrix,perspective,DataMatrix_perspective_3.png,ok,10.86
+eCode pipeline,DataMatrix,small_0.5,DataMatrix_small_0.5_3.png,ok,3.36
+eCode pipeline,DataMatrix,small_0.35,DataMatrix_small_0.35_3.png,ok,1.96
+eCode pipeline,DataMatrix,inverted,DataMatrix_inverted_3.png,ok,153.78
+eCode pipeline,DataMatrix,shading,DataMatrix_shading_3.png,ok,11.16
+eCode pipeline,DataMatrix,poor_scan,DataMatrix_poor_scan_3.png,ok,11.25
+eCode pipeline,DataMatrix,clean,DataMatrix_clean_4.png,ok,10.44
+eCode pipeline,DataMatrix,blur_1.0,DataMatrix_blur_1.0_4.png,ok,11.18
+eCode pipeline,DataMatrix,blur_2.0,DataMatrix_blur_2.0_4.png,ok,11.56
+eCode pipeline,DataMatrix,blur_3.0,DataMatrix_blur_3.0_4.png,ok,11.20
+eCode pipeline,DataMatrix,noise_15,DataMatrix_noise_15_4.png,ok,14.90
+eCode pipeline,DataMatrix,noise_30,DataMatrix_noise_30_4.png,ok,56.16
+eCode pipeline,DataMatrix,noise_50,DataMatrix_noise_50_4.png,ok,60.51
+eCode pipeline,DataMatrix,jpeg_30,DataMatrix_jpeg_30_4.png,ok,10.78
+eCode pipeline,DataMatrix,jpeg_15,DataMatrix_jpeg_15_4.png,ok,10.61
+eCode pipeline,DataMatrix,jpeg_8,DataMatrix_jpeg_8_4.png,ok,10.61
+eCode pipeline,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_4.png,ok,10.79
+eCode pipeline,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_4.png,ok,10.38
+eCode pipeline,DataMatrix,rotate_10,DataMatrix_rotate_10_4.png,ok,15.73
+eCode pipeline,DataMatrix,rotate_30,DataMatrix_rotate_30_4.png,ok,21.97
+eCode pipeline,DataMatrix,rotate_45,DataMatrix_rotate_45_4.png,ok,23.38
+eCode pipeline,DataMatrix,rotate_90,DataMatrix_rotate_90_4.png,ok,12.06
+eCode pipeline,DataMatrix,perspective,DataMatrix_perspective_4.png,ok,11.30
+eCode pipeline,DataMatrix,small_0.5,DataMatrix_small_0.5_4.png,ok,3.37
+eCode pipeline,DataMatrix,small_0.35,DataMatrix_small_0.35_4.png,ok,1.87
+eCode pipeline,DataMatrix,inverted,DataMatrix_inverted_4.png,ok,145.93
+eCode pipeline,DataMatrix,shading,DataMatrix_shading_4.png,ok,11.22
+eCode pipeline,DataMatrix,poor_scan,DataMatrix_poor_scan_4.png,ok,11.83
+eCode pipeline,DataMatrix,clean,DataMatrix_clean_5.png,ok,10.02
+eCode pipeline,DataMatrix,blur_1.0,DataMatrix_blur_1.0_5.png,ok,10.71
+eCode pipeline,DataMatrix,blur_2.0,DataMatrix_blur_2.0_5.png,ok,11.66
+eCode pipeline,DataMatrix,blur_3.0,DataMatrix_blur_3.0_5.png,ok,10.77
+eCode pipeline,DataMatrix,noise_15,DataMatrix_noise_15_5.png,ok,14.75
+eCode pipeline,DataMatrix,noise_30,DataMatrix_noise_30_5.png,ok,45.43
+eCode pipeline,DataMatrix,noise_50,DataMatrix_noise_50_5.png,ok,53.45
+eCode pipeline,DataMatrix,jpeg_30,DataMatrix_jpeg_30_5.png,ok,10.56
+eCode pipeline,DataMatrix,jpeg_15,DataMatrix_jpeg_15_5.png,ok,10.27
+eCode pipeline,DataMatrix,jpeg_8,DataMatrix_jpeg_8_5.png,ok,10.37
+eCode pipeline,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_5.png,ok,10.28
+eCode pipeline,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_5.png,ok,10.45
+eCode pipeline,DataMatrix,rotate_10,DataMatrix_rotate_10_5.png,ok,15.77
+eCode pipeline,DataMatrix,rotate_30,DataMatrix_rotate_30_5.png,ok,22.27
+eCode pipeline,DataMatrix,rotate_45,DataMatrix_rotate_45_5.png,ok,22.73
+eCode pipeline,DataMatrix,rotate_90,DataMatrix_rotate_90_5.png,ok,16.90
+eCode pipeline,DataMatrix,perspective,DataMatrix_perspective_5.png,ok,61.81
+eCode pipeline,DataMatrix,small_0.5,DataMatrix_small_0.5_5.png,ok,14.06
+eCode pipeline,DataMatrix,small_0.35,DataMatrix_small_0.35_5.png,ok,2.86
+eCode pipeline,DataMatrix,inverted,DataMatrix_inverted_5.png,ok,162.78
+eCode pipeline,DataMatrix,shading,DataMatrix_shading_5.png,ok,11.78
+eCode pipeline,DataMatrix,poor_scan,DataMatrix_poor_scan_5.png,ok,11.19
+eCode pipeline,DataMatrix,clean,DataMatrix_clean_6.png,ok,10.83
+eCode pipeline,DataMatrix,blur_1.0,DataMatrix_blur_1.0_6.png,ok,10.64
+eCode pipeline,DataMatrix,blur_2.0,DataMatrix_blur_2.0_6.png,ok,10.97
+eCode pipeline,DataMatrix,blur_3.0,DataMatrix_blur_3.0_6.png,ok,10.88
+eCode pipeline,DataMatrix,noise_15,DataMatrix_noise_15_6.png,ok,15.10
+eCode pipeline,DataMatrix,noise_30,DataMatrix_noise_30_6.png,ok,46.85
+eCode pipeline,DataMatrix,noise_50,DataMatrix_noise_50_6.png,ok,49.19
+eCode pipeline,DataMatrix,jpeg_30,DataMatrix_jpeg_30_6.png,ok,9.82
+eCode pipeline,DataMatrix,jpeg_15,DataMatrix_jpeg_15_6.png,ok,10.24
+eCode pipeline,DataMatrix,jpeg_8,DataMatrix_jpeg_8_6.png,ok,9.80
+eCode pipeline,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_6.png,ok,9.79
+eCode pipeline,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_6.png,ok,10.37
+eCode pipeline,DataMatrix,rotate_10,DataMatrix_rotate_10_6.png,ok,14.44
+eCode pipeline,DataMatrix,rotate_30,DataMatrix_rotate_30_6.png,ok,20.87
+eCode pipeline,DataMatrix,rotate_45,DataMatrix_rotate_45_6.png,ok,23.50
+eCode pipeline,DataMatrix,rotate_90,DataMatrix_rotate_90_6.png,ok,12.68
+eCode pipeline,DataMatrix,perspective,DataMatrix_perspective_6.png,ok,11.53
+eCode pipeline,DataMatrix,small_0.5,DataMatrix_small_0.5_6.png,ok,3.46
+eCode pipeline,DataMatrix,small_0.35,DataMatrix_small_0.35_6.png,ok,1.86
+eCode pipeline,DataMatrix,inverted,DataMatrix_inverted_6.png,ok,148.18
+eCode pipeline,DataMatrix,shading,DataMatrix_shading_6.png,ok,11.56
+eCode pipeline,DataMatrix,poor_scan,DataMatrix_poor_scan_6.png,ok,9.92
+eCode pipeline,DataMatrix,clean,DataMatrix_clean_7.png,ok,10.40
+eCode pipeline,DataMatrix,blur_1.0,DataMatrix_blur_1.0_7.png,ok,11.60
+eCode pipeline,DataMatrix,blur_2.0,DataMatrix_blur_2.0_7.png,ok,11.81
+eCode pipeline,DataMatrix,blur_3.0,DataMatrix_blur_3.0_7.png,ok,11.65
+eCode pipeline,DataMatrix,noise_15,DataMatrix_noise_15_7.png,ok,14.52
+eCode pipeline,DataMatrix,noise_30,DataMatrix_noise_30_7.png,ok,47.76
+eCode pipeline,DataMatrix,noise_50,DataMatrix_noise_50_7.png,ok,69.10
+eCode pipeline,DataMatrix,jpeg_30,DataMatrix_jpeg_30_7.png,ok,20.12
+eCode pipeline,DataMatrix,jpeg_15,DataMatrix_jpeg_15_7.png,ok,12.31
+eCode pipeline,DataMatrix,jpeg_8,DataMatrix_jpeg_8_7.png,ok,10.42
+eCode pipeline,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_7.png,ok,10.51
+eCode pipeline,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_7.png,ok,10.55
+eCode pipeline,DataMatrix,rotate_10,DataMatrix_rotate_10_7.png,ok,15.14
+eCode pipeline,DataMatrix,rotate_30,DataMatrix_rotate_30_7.png,ok,29.29
+eCode pipeline,DataMatrix,rotate_45,DataMatrix_rotate_45_7.png,ok,24.91
+eCode pipeline,DataMatrix,rotate_90,DataMatrix_rotate_90_7.png,ok,12.65
+eCode pipeline,DataMatrix,perspective,DataMatrix_perspective_7.png,ok,12.04
+eCode pipeline,DataMatrix,small_0.5,DataMatrix_small_0.5_7.png,ok,3.97
+eCode pipeline,DataMatrix,small_0.35,DataMatrix_small_0.35_7.png,ok,2.19
+eCode pipeline,DataMatrix,inverted,DataMatrix_inverted_7.png,ok,162.50
+eCode pipeline,DataMatrix,shading,DataMatrix_shading_7.png,ok,13.60
+eCode pipeline,DataMatrix,poor_scan,DataMatrix_poor_scan_7.png,ok,11.91
+eCode pipeline,CODE128,clean,CODE128_clean_0.png,ok,15.44
+eCode pipeline,CODE128,blur_1.0,CODE128_blur_1.0_0.png,ok,12.99
+eCode pipeline,CODE128,blur_2.0,CODE128_blur_2.0_0.png,miss,182.75
+eCode pipeline,CODE128,blur_3.0,CODE128_blur_3.0_0.png,miss,164.73
+eCode pipeline,CODE128,noise_15,CODE128_noise_15_0.png,ok,16.38
+eCode pipeline,CODE128,noise_30,CODE128_noise_30_0.png,ok,60.72
+eCode pipeline,CODE128,noise_50,CODE128_noise_50_0.png,ok,723.45
+eCode pipeline,CODE128,jpeg_30,CODE128_jpeg_30_0.png,ok,13.03
+eCode pipeline,CODE128,jpeg_15,CODE128_jpeg_15_0.png,ok,11.79
+eCode pipeline,CODE128,jpeg_8,CODE128_jpeg_8_0.png,ok,168.61
+eCode pipeline,CODE128,contrast_0.5,CODE128_contrast_0.5_0.png,ok,12.57
+eCode pipeline,CODE128,contrast_0.25,CODE128_contrast_0.25_0.png,ok,12.29
+eCode pipeline,CODE128,rotate_10,CODE128_rotate_10_0.png,ok,16.53
+eCode pipeline,CODE128,rotate_30,CODE128_rotate_30_0.png,miss,305.57
+eCode pipeline,CODE128,rotate_45,CODE128_rotate_45_0.png,ok,322.60
+eCode pipeline,CODE128,rotate_90,CODE128_rotate_90_0.png,ok,12.25
+eCode pipeline,CODE128,perspective,CODE128_perspective_0.png,ok,11.14
+eCode pipeline,CODE128,small_0.5,CODE128_small_0.5_0.png,ok,45.46
+eCode pipeline,CODE128,small_0.35,CODE128_small_0.35_0.png,miss,28.86
+eCode pipeline,CODE128,inverted,CODE128_inverted_0.png,ok,148.66
+eCode pipeline,CODE128,shading,CODE128_shading_0.png,ok,163.92
+eCode pipeline,CODE128,poor_scan,CODE128_poor_scan_0.png,ok,12.19
+eCode pipeline,CODE128,clean,CODE128_clean_1.png,ok,12.34
+eCode pipeline,CODE128,blur_1.0,CODE128_blur_1.0_1.png,ok,12.16
+eCode pipeline,CODE128,blur_2.0,CODE128_blur_2.0_1.png,miss,189.91
+eCode pipeline,CODE128,blur_3.0,CODE128_blur_3.0_1.png,miss,155.12
+eCode pipeline,CODE128,noise_15,CODE128_noise_15_1.png,ok,15.32
+eCode pipeline,CODE128,noise_30,CODE128_noise_30_1.png,ok,60.25
+eCode pipeline,CODE128,noise_50,CODE128_noise_50_1.png,ok,644.38
+eCode pipeline,CODE128,jpeg_30,CODE128_jpeg_30_1.png,ok,12.35
+eCode pipeline,CODE128,jpeg_15,CODE128_jpeg_15_1.png,ok,11.34
+eCode pipeline,CODE128,jpeg_8,CODE128_jpeg_8_1.png,ok,162.67
+eCode pipeline,CODE128,contrast_0.5,CODE128_contrast_0.5_1.png,ok,11.72
+eCode pipeline,CODE128,contrast_0.25,CODE128_contrast_0.25_1.png,ok,12.01
+eCode pipeline,CODE128,rotate_10,CODE128_rotate_10_1.png,ok,15.10
+eCode pipeline,CODE128,rotate_30,CODE128_rotate_30_1.png,miss,288.14
+eCode pipeline,CODE128,rotate_45,CODE128_rotate_45_1.png,ok,317.73
+eCode pipeline,CODE128,rotate_90,CODE128_rotate_90_1.png,ok,12.43
+eCode pipeline,CODE128,perspective,CODE128_perspective_1.png,ok,12.85
+eCode pipeline,CODE128,small_0.5,CODE128_small_0.5_1.png,ok,48.87
+eCode pipeline,CODE128,small_0.35,CODE128_small_0.35_1.png,miss,30.40
+eCode pipeline,CODE128,inverted,CODE128_inverted_1.png,ok,152.01
+eCode pipeline,CODE128,shading,CODE128_shading_1.png,ok,176.44
+eCode pipeline,CODE128,poor_scan,CODE128_poor_scan_1.png,ok,12.05
+eCode pipeline,CODE128,clean,CODE128_clean_2.png,ok,12.15
+eCode pipeline,CODE128,blur_1.0,CODE128_blur_1.0_2.png,ok,12.29
+eCode pipeline,CODE128,blur_2.0,CODE128_blur_2.0_2.png,miss,176.60
+eCode pipeline,CODE128,blur_3.0,CODE128_blur_3.0_2.png,miss,166.60
+eCode pipeline,CODE128,noise_15,CODE128_noise_15_2.png,ok,16.16
+eCode pipeline,CODE128,noise_30,CODE128_noise_30_2.png,ok,60.31
+eCode pipeline,CODE128,noise_50,CODE128_noise_50_2.png,ok,674.83
+eCode pipeline,CODE128,jpeg_30,CODE128_jpeg_30_2.png,ok,12.51
+eCode pipeline,CODE128,jpeg_15,CODE128_jpeg_15_2.png,ok,11.16
+eCode pipeline,CODE128,jpeg_8,CODE128_jpeg_8_2.png,ok,185.25
+eCode pipeline,CODE128,contrast_0.5,CODE128_contrast_0.5_2.png,ok,11.58
+eCode pipeline,CODE128,contrast_0.25,CODE128_contrast_0.25_2.png,ok,11.32
+eCode pipeline,CODE128,rotate_10,CODE128_rotate_10_2.png,ok,16.27
+eCode pipeline,CODE128,rotate_30,CODE128_rotate_30_2.png,miss,302.82
+eCode pipeline,CODE128,rotate_45,CODE128_rotate_45_2.png,ok,323.18
+eCode pipeline,CODE128,rotate_90,CODE128_rotate_90_2.png,ok,12.31
+eCode pipeline,CODE128,perspective,CODE128_perspective_2.png,ok,12.88
+eCode pipeline,CODE128,small_0.5,CODE128_small_0.5_2.png,ok,47.45
+eCode pipeline,CODE128,small_0.35,CODE128_small_0.35_2.png,miss,28.20
+eCode pipeline,CODE128,inverted,CODE128_inverted_2.png,ok,148.44
+eCode pipeline,CODE128,shading,CODE128_shading_2.png,ok,162.00
+eCode pipeline,CODE128,poor_scan,CODE128_poor_scan_2.png,ok,11.37
+eCode pipeline,CODE128,clean,CODE128_clean_3.png,ok,12.13
+eCode pipeline,CODE128,blur_1.0,CODE128_blur_1.0_3.png,ok,12.14
+eCode pipeline,CODE128,blur_2.0,CODE128_blur_2.0_3.png,miss,187.71
+eCode pipeline,CODE128,blur_3.0,CODE128_blur_3.0_3.png,miss,164.69
+eCode pipeline,CODE128,noise_15,CODE128_noise_15_3.png,ok,17.10
+eCode pipeline,CODE128,noise_30,CODE128_noise_30_3.png,ok,59.23
+eCode pipeline,CODE128,noise_50,CODE128_noise_50_3.png,ok,635.11
+eCode pipeline,CODE128,jpeg_30,CODE128_jpeg_30_3.png,ok,12.49
+eCode pipeline,CODE128,jpeg_15,CODE128_jpeg_15_3.png,ok,11.83
+eCode pipeline,CODE128,jpeg_8,CODE128_jpeg_8_3.png,ok,12.84
+eCode pipeline,CODE128,contrast_0.5,CODE128_contrast_0.5_3.png,ok,14.26
+eCode pipeline,CODE128,contrast_0.25,CODE128_contrast_0.25_3.png,ok,13.91
+eCode pipeline,CODE128,rotate_10,CODE128_rotate_10_3.png,ok,16.72
+eCode pipeline,CODE128,rotate_30,CODE128_rotate_30_3.png,miss,306.18
+eCode pipeline,CODE128,rotate_45,CODE128_rotate_45_3.png,ok,328.91
+eCode pipeline,CODE128,rotate_90,CODE128_rotate_90_3.png,ok,12.36
+eCode pipeline,CODE128,perspective,CODE128_perspective_3.png,ok,13.34
+eCode pipeline,CODE128,small_0.5,CODE128_small_0.5_3.png,ok,3.84
+eCode pipeline,CODE128,small_0.35,CODE128_small_0.35_3.png,miss,27.05
+eCode pipeline,CODE128,inverted,CODE128_inverted_3.png,ok,160.34
+eCode pipeline,CODE128,shading,CODE128_shading_3.png,ok,166.97
+eCode pipeline,CODE128,poor_scan,CODE128_poor_scan_3.png,ok,12.83
+eCode pipeline,CODE128,clean,CODE128_clean_4.png,ok,12.64
+eCode pipeline,CODE128,blur_1.0,CODE128_blur_1.0_4.png,ok,12.23
+eCode pipeline,CODE128,blur_2.0,CODE128_blur_2.0_4.png,miss,176.33
+eCode pipeline,CODE128,blur_3.0,CODE128_blur_3.0_4.png,miss,178.40
+eCode pipeline,CODE128,noise_15,CODE128_noise_15_4.png,ok,17.79
+eCode pipeline,CODE128,noise_30,CODE128_noise_30_4.png,ok,61.37
+eCode pipeline,CODE128,noise_50,CODE128_noise_50_4.png,ok,666.17
+eCode pipeline,CODE128,jpeg_30,CODE128_jpeg_30_4.png,ok,12.31
+eCode pipeline,CODE128,jpeg_15,CODE128_jpeg_15_4.png,ok,13.00
+eCode pipeline,CODE128,jpeg_8,CODE128_jpeg_8_4.png,ok,12.23
+eCode pipeline,CODE128,contrast_0.5,CODE128_contrast_0.5_4.png,ok,12.29
+eCode pipeline,CODE128,contrast_0.25,CODE128_contrast_0.25_4.png,ok,12.00
+eCode pipeline,CODE128,rotate_10,CODE128_rotate_10_4.png,ok,17.08
+eCode pipeline,CODE128,rotate_30,CODE128_rotate_30_4.png,miss,311.87
+eCode pipeline,CODE128,rotate_45,CODE128_rotate_45_4.png,ok,340.81
+eCode pipeline,CODE128,rotate_90,CODE128_rotate_90_4.png,ok,13.40
+eCode pipeline,CODE128,perspective,CODE128_perspective_4.png,ok,12.19
+eCode pipeline,CODE128,small_0.5,CODE128_small_0.5_4.png,ok,48.40
+eCode pipeline,CODE128,small_0.35,CODE128_small_0.35_4.png,miss,27.68
+eCode pipeline,CODE128,inverted,CODE128_inverted_4.png,ok,150.55
+eCode pipeline,CODE128,shading,CODE128_shading_4.png,ok,163.70
+eCode pipeline,CODE128,poor_scan,CODE128_poor_scan_4.png,ok,11.14
+eCode pipeline,CODE128,clean,CODE128_clean_5.png,ok,11.87
+eCode pipeline,CODE128,blur_1.0,CODE128_blur_1.0_5.png,ok,11.99
+eCode pipeline,CODE128,blur_2.0,CODE128_blur_2.0_5.png,miss,166.31
+eCode pipeline,CODE128,blur_3.0,CODE128_blur_3.0_5.png,miss,156.40
+eCode pipeline,CODE128,noise_15,CODE128_noise_15_5.png,ok,15.87
+eCode pipeline,CODE128,noise_30,CODE128_noise_30_5.png,ok,60.93
+eCode pipeline,CODE128,noise_50,CODE128_noise_50_5.png,ok,658.33
+eCode pipeline,CODE128,jpeg_30,CODE128_jpeg_30_5.png,ok,13.13
+eCode pipeline,CODE128,jpeg_15,CODE128_jpeg_15_5.png,ok,12.37
+eCode pipeline,CODE128,jpeg_8,CODE128_jpeg_8_5.png,ok,167.27
+eCode pipeline,CODE128,contrast_0.5,CODE128_contrast_0.5_5.png,ok,13.23
+eCode pipeline,CODE128,contrast_0.25,CODE128_contrast_0.25_5.png,ok,12.50
+eCode pipeline,CODE128,rotate_10,CODE128_rotate_10_5.png,ok,17.09
+eCode pipeline,CODE128,rotate_30,CODE128_rotate_30_5.png,miss,313.10
+eCode pipeline,CODE128,rotate_45,CODE128_rotate_45_5.png,ok,335.59
+eCode pipeline,CODE128,rotate_90,CODE128_rotate_90_5.png,ok,13.34
+eCode pipeline,CODE128,perspective,CODE128_perspective_5.png,ok,12.61
+eCode pipeline,CODE128,small_0.5,CODE128_small_0.5_5.png,ok,48.82
+eCode pipeline,CODE128,small_0.35,CODE128_small_0.35_5.png,miss,26.15
+eCode pipeline,CODE128,inverted,CODE128_inverted_5.png,ok,146.07
+eCode pipeline,CODE128,shading,CODE128_shading_5.png,ok,168.53
+eCode pipeline,CODE128,poor_scan,CODE128_poor_scan_5.png,ok,12.81
+eCode pipeline,CODE128,clean,CODE128_clean_6.png,ok,13.42
+eCode pipeline,CODE128,blur_1.0,CODE128_blur_1.0_6.png,ok,12.63
+eCode pipeline,CODE128,blur_2.0,CODE128_blur_2.0_6.png,miss,167.30
+eCode pipeline,CODE128,blur_3.0,CODE128_blur_3.0_6.png,miss,177.44
+eCode pipeline,CODE128,noise_15,CODE128_noise_15_6.png,ok,15.78
+eCode pipeline,CODE128,noise_30,CODE128_noise_30_6.png,ok,61.45
+eCode pipeline,CODE128,noise_50,CODE128_noise_50_6.png,ok,641.50
+eCode pipeline,CODE128,jpeg_30,CODE128_jpeg_30_6.png,ok,12.97
+eCode pipeline,CODE128,jpeg_15,CODE128_jpeg_15_6.png,ok,12.44
+eCode pipeline,CODE128,jpeg_8,CODE128_jpeg_8_6.png,ok,13.70
+eCode pipeline,CODE128,contrast_0.5,CODE128_contrast_0.5_6.png,ok,12.71
+eCode pipeline,CODE128,contrast_0.25,CODE128_contrast_0.25_6.png,ok,12.64
+eCode pipeline,CODE128,rotate_10,CODE128_rotate_10_6.png,ok,17.00
+eCode pipeline,CODE128,rotate_30,CODE128_rotate_30_6.png,miss,304.76
+eCode pipeline,CODE128,rotate_45,CODE128_rotate_45_6.png,ok,315.11
+eCode pipeline,CODE128,rotate_90,CODE128_rotate_90_6.png,ok,13.42
+eCode pipeline,CODE128,perspective,CODE128_perspective_6.png,ok,12.94
+eCode pipeline,CODE128,small_0.5,CODE128_small_0.5_6.png,ok,48.85
+eCode pipeline,CODE128,small_0.35,CODE128_small_0.35_6.png,miss,27.10
+eCode pipeline,CODE128,inverted,CODE128_inverted_6.png,ok,152.52
+eCode pipeline,CODE128,shading,CODE128_shading_6.png,ok,166.49
+eCode pipeline,CODE128,poor_scan,CODE128_poor_scan_6.png,ok,13.23
+eCode pipeline,CODE128,clean,CODE128_clean_7.png,ok,13.01
+eCode pipeline,CODE128,blur_1.0,CODE128_blur_1.0_7.png,ok,12.28
+eCode pipeline,CODE128,blur_2.0,CODE128_blur_2.0_7.png,miss,161.37
+eCode pipeline,CODE128,blur_3.0,CODE128_blur_3.0_7.png,miss,157.75
+eCode pipeline,CODE128,noise_15,CODE128_noise_15_7.png,ok,16.26
+eCode pipeline,CODE128,noise_30,CODE128_noise_30_7.png,ok,60.64
+eCode pipeline,CODE128,noise_50,CODE128_noise_50_7.png,ok,658.06
+eCode pipeline,CODE128,jpeg_30,CODE128_jpeg_30_7.png,ok,12.93
+eCode pipeline,CODE128,jpeg_15,CODE128_jpeg_15_7.png,ok,12.40
+eCode pipeline,CODE128,jpeg_8,CODE128_jpeg_8_7.png,ok,12.33
+eCode pipeline,CODE128,contrast_0.5,CODE128_contrast_0.5_7.png,ok,12.46
+eCode pipeline,CODE128,contrast_0.25,CODE128_contrast_0.25_7.png,ok,12.61
+eCode pipeline,CODE128,rotate_10,CODE128_rotate_10_7.png,ok,17.04
+eCode pipeline,CODE128,rotate_30,CODE128_rotate_30_7.png,miss,308.46
+eCode pipeline,CODE128,rotate_45,CODE128_rotate_45_7.png,ok,325.56
+eCode pipeline,CODE128,rotate_90,CODE128_rotate_90_7.png,ok,13.39
+eCode pipeline,CODE128,perspective,CODE128_perspective_7.png,ok,12.50
+eCode pipeline,CODE128,small_0.5,CODE128_small_0.5_7.png,ok,47.11
+eCode pipeline,CODE128,small_0.35,CODE128_small_0.35_7.png,miss,26.93
+eCode pipeline,CODE128,inverted,CODE128_inverted_7.png,ok,154.01
+eCode pipeline,CODE128,shading,CODE128_shading_7.png,ok,168.04
+eCode pipeline,CODE128,poor_scan,CODE128_poor_scan_7.png,ok,12.28
+eCode pipeline,EAN13,clean,EAN13_clean_0.png,ok,11.27
+eCode pipeline,EAN13,blur_1.0,EAN13_blur_1.0_0.png,ok,11.85
+eCode pipeline,EAN13,blur_2.0,EAN13_blur_2.0_0.png,miss,151.46
+eCode pipeline,EAN13,blur_3.0,EAN13_blur_3.0_0.png,miss,153.24
+eCode pipeline,EAN13,noise_15,EAN13_noise_15_0.png,ok,14.77
+eCode pipeline,EAN13,noise_30,EAN13_noise_30_0.png,ok,65.34
+eCode pipeline,EAN13,noise_50,EAN13_noise_50_0.png,ok,707.92
+eCode pipeline,EAN13,jpeg_30,EAN13_jpeg_30_0.png,ok,12.20
+eCode pipeline,EAN13,jpeg_15,EAN13_jpeg_15_0.png,ok,12.54
+eCode pipeline,EAN13,jpeg_8,EAN13_jpeg_8_0.png,ok,11.63
+eCode pipeline,EAN13,contrast_0.5,EAN13_contrast_0.5_0.png,ok,12.13
+eCode pipeline,EAN13,contrast_0.25,EAN13_contrast_0.25_0.png,ok,12.04
+eCode pipeline,EAN13,rotate_10,EAN13_rotate_10_0.png,ok,17.00
+eCode pipeline,EAN13,rotate_30,EAN13_rotate_30_0.png,ok,309.91
+eCode pipeline,EAN13,rotate_45,EAN13_rotate_45_0.png,ok,311.74
+eCode pipeline,EAN13,rotate_90,EAN13_rotate_90_0.png,ok,13.00
+eCode pipeline,EAN13,perspective,EAN13_perspective_0.png,ok,22.02
+eCode pipeline,EAN13,small_0.5,EAN13_small_0.5_0.png,ok,50.70
+eCode pipeline,EAN13,small_0.35,EAN13_small_0.35_0.png,miss,26.47
+eCode pipeline,EAN13,inverted,EAN13_inverted_0.png,ok,151.16
+eCode pipeline,EAN13,shading,EAN13_shading_0.png,ok,169.11
+eCode pipeline,EAN13,poor_scan,EAN13_poor_scan_0.png,ok,12.69
+eCode pipeline,EAN13,clean,EAN13_clean_1.png,ok,12.56
+eCode pipeline,EAN13,blur_1.0,EAN13_blur_1.0_1.png,ok,11.89
+eCode pipeline,EAN13,blur_2.0,EAN13_blur_2.0_1.png,miss,152.80
+eCode pipeline,EAN13,blur_3.0,EAN13_blur_3.0_1.png,miss,150.74
+eCode pipeline,EAN13,noise_15,EAN13_noise_15_1.png,ok,15.64
+eCode pipeline,EAN13,noise_30,EAN13_noise_30_1.png,ok,63.83
+eCode pipeline,EAN13,noise_50,EAN13_noise_50_1.png,ok,681.98
+eCode pipeline,EAN13,jpeg_30,EAN13_jpeg_30_1.png,ok,13.52
+eCode pipeline,EAN13,jpeg_15,EAN13_jpeg_15_1.png,ok,11.83
+eCode pipeline,EAN13,jpeg_8,EAN13_jpeg_8_1.png,ok,11.34
+eCode pipeline,EAN13,contrast_0.5,EAN13_contrast_0.5_1.png,ok,11.74
+eCode pipeline,EAN13,contrast_0.25,EAN13_contrast_0.25_1.png,ok,12.43
+eCode pipeline,EAN13,rotate_10,EAN13_rotate_10_1.png,ok,15.86
+eCode pipeline,EAN13,rotate_30,EAN13_rotate_30_1.png,ok,277.26
+eCode pipeline,EAN13,rotate_45,EAN13_rotate_45_1.png,ok,303.72
+eCode pipeline,EAN13,rotate_90,EAN13_rotate_90_1.png,ok,12.40
+eCode pipeline,EAN13,perspective,EAN13_perspective_1.png,ok,11.94
+eCode pipeline,EAN13,small_0.5,EAN13_small_0.5_1.png,ok,42.68
+eCode pipeline,EAN13,small_0.35,EAN13_small_0.35_1.png,miss,24.44
+eCode pipeline,EAN13,inverted,EAN13_inverted_1.png,ok,139.70
+eCode pipeline,EAN13,shading,EAN13_shading_1.png,ok,158.86
+eCode pipeline,EAN13,poor_scan,EAN13_poor_scan_1.png,ok,11.14
+eCode pipeline,EAN13,clean,EAN13_clean_2.png,ok,12.20
+eCode pipeline,EAN13,blur_1.0,EAN13_blur_1.0_2.png,ok,13.36
+eCode pipeline,EAN13,blur_2.0,EAN13_blur_2.0_2.png,miss,152.81
+eCode pipeline,EAN13,blur_3.0,EAN13_blur_3.0_2.png,miss,151.27
+eCode pipeline,EAN13,noise_15,EAN13_noise_15_2.png,ok,15.81
+eCode pipeline,EAN13,noise_30,EAN13_noise_30_2.png,ok,65.59
+eCode pipeline,EAN13,noise_50,EAN13_noise_50_2.png,ok,698.87
+eCode pipeline,EAN13,jpeg_30,EAN13_jpeg_30_2.png,ok,13.14
+eCode pipeline,EAN13,jpeg_15,EAN13_jpeg_15_2.png,ok,12.20
+eCode pipeline,EAN13,jpeg_8,EAN13_jpeg_8_2.png,ok,11.70
+eCode pipeline,EAN13,contrast_0.5,EAN13_contrast_0.5_2.png,ok,12.05
+eCode pipeline,EAN13,contrast_0.25,EAN13_contrast_0.25_2.png,ok,11.90
+eCode pipeline,EAN13,rotate_10,EAN13_rotate_10_2.png,ok,16.38
+eCode pipeline,EAN13,rotate_30,EAN13_rotate_30_2.png,ok,284.66
+eCode pipeline,EAN13,rotate_45,EAN13_rotate_45_2.png,ok,307.71
+eCode pipeline,EAN13,rotate_90,EAN13_rotate_90_2.png,ok,12.84
+eCode pipeline,EAN13,perspective,EAN13_perspective_2.png,ok,12.11
+eCode pipeline,EAN13,small_0.5,EAN13_small_0.5_2.png,ok,44.24
+eCode pipeline,EAN13,small_0.35,EAN13_small_0.35_2.png,miss,25.54
+eCode pipeline,EAN13,inverted,EAN13_inverted_2.png,ok,141.84
+eCode pipeline,EAN13,shading,EAN13_shading_2.png,ok,155.82
+eCode pipeline,EAN13,poor_scan,EAN13_poor_scan_2.png,ok,11.82
+eCode pipeline,EAN13,clean,EAN13_clean_3.png,ok,14.87
+eCode pipeline,EAN13,blur_1.0,EAN13_blur_1.0_3.png,ok,11.29
+eCode pipeline,EAN13,blur_2.0,EAN13_blur_2.0_3.png,miss,153.53
+eCode pipeline,EAN13,blur_3.0,EAN13_blur_3.0_3.png,miss,157.28
+eCode pipeline,EAN13,noise_15,EAN13_noise_15_3.png,ok,15.82
+eCode pipeline,EAN13,noise_30,EAN13_noise_30_3.png,ok,76.17
+eCode pipeline,EAN13,noise_50,EAN13_noise_50_3.png,ok,686.51
+eCode pipeline,EAN13,jpeg_30,EAN13_jpeg_30_3.png,ok,12.39
+eCode pipeline,EAN13,jpeg_15,EAN13_jpeg_15_3.png,ok,11.95
+eCode pipeline,EAN13,jpeg_8,EAN13_jpeg_8_3.png,ok,11.59
+eCode pipeline,EAN13,contrast_0.5,EAN13_contrast_0.5_3.png,ok,11.84
+eCode pipeline,EAN13,contrast_0.25,EAN13_contrast_0.25_3.png,ok,11.86
+eCode pipeline,EAN13,rotate_10,EAN13_rotate_10_3.png,ok,15.41
+eCode pipeline,EAN13,rotate_30,EAN13_rotate_30_3.png,ok,296.53
+eCode pipeline,EAN13,rotate_45,EAN13_rotate_45_3.png,ok,310.83
+eCode pipeline,EAN13,rotate_90,EAN13_rotate_90_3.png,ok,12.66
+eCode pipeline,EAN13,perspective,EAN13_perspective_3.png,ok,11.59
+eCode pipeline,EAN13,small_0.5,EAN13_small_0.5_3.png,ok,44.04
+eCode pipeline,EAN13,small_0.35,EAN13_small_0.35_3.png,miss,25.43
+eCode pipeline,EAN13,inverted,EAN13_inverted_3.png,ok,146.49
+eCode pipeline,EAN13,shading,EAN13_shading_3.png,ok,163.20
+eCode pipeline,EAN13,poor_scan,EAN13_poor_scan_3.png,ok,10.46
+eCode pipeline,EAN13,clean,EAN13_clean_4.png,ok,12.16
+eCode pipeline,EAN13,blur_1.0,EAN13_blur_1.0_4.png,ok,11.17
+eCode pipeline,EAN13,blur_2.0,EAN13_blur_2.0_4.png,miss,152.99
+eCode pipeline,EAN13,blur_3.0,EAN13_blur_3.0_4.png,miss,164.43
+eCode pipeline,EAN13,noise_15,EAN13_noise_15_4.png,ok,17.11
+eCode pipeline,EAN13,noise_30,EAN13_noise_30_4.png,ok,63.79
+eCode pipeline,EAN13,noise_50,EAN13_noise_50_4.png,ok,692.75
+eCode pipeline,EAN13,jpeg_30,EAN13_jpeg_30_4.png,ok,11.69
+eCode pipeline,EAN13,jpeg_15,EAN13_jpeg_15_4.png,ok,13.12
+eCode pipeline,EAN13,jpeg_8,EAN13_jpeg_8_4.png,ok,10.94
+eCode pipeline,EAN13,contrast_0.5,EAN13_contrast_0.5_4.png,ok,12.37
+eCode pipeline,EAN13,contrast_0.25,EAN13_contrast_0.25_4.png,ok,12.33
+eCode pipeline,EAN13,rotate_10,EAN13_rotate_10_4.png,ok,16.22
+eCode pipeline,EAN13,rotate_30,EAN13_rotate_30_4.png,wrong,22.47
+eCode pipeline,EAN13,rotate_45,EAN13_rotate_45_4.png,ok,323.51
+eCode pipeline,EAN13,rotate_90,EAN13_rotate_90_4.png,ok,12.79
+eCode pipeline,EAN13,perspective,EAN13_perspective_4.png,ok,12.45
+eCode pipeline,EAN13,small_0.5,EAN13_small_0.5_4.png,ok,44.90
+eCode pipeline,EAN13,small_0.35,EAN13_small_0.35_4.png,miss,26.36
+eCode pipeline,EAN13,inverted,EAN13_inverted_4.png,ok,142.73
+eCode pipeline,EAN13,shading,EAN13_shading_4.png,ok,153.80
+eCode pipeline,EAN13,poor_scan,EAN13_poor_scan_4.png,ok,10.41
+eCode pipeline,EAN13,clean,EAN13_clean_5.png,ok,11.69
+eCode pipeline,EAN13,blur_1.0,EAN13_blur_1.0_5.png,ok,11.01
+eCode pipeline,EAN13,blur_2.0,EAN13_blur_2.0_5.png,miss,157.26
+eCode pipeline,EAN13,blur_3.0,EAN13_blur_3.0_5.png,miss,166.80
+eCode pipeline,EAN13,noise_15,EAN13_noise_15_5.png,ok,17.70
+eCode pipeline,EAN13,noise_30,EAN13_noise_30_5.png,ok,68.66
+eCode pipeline,EAN13,noise_50,EAN13_noise_50_5.png,ok,710.40
+eCode pipeline,EAN13,jpeg_30,EAN13_jpeg_30_5.png,ok,12.63
+eCode pipeline,EAN13,jpeg_15,EAN13_jpeg_15_5.png,ok,11.83
+eCode pipeline,EAN13,jpeg_8,EAN13_jpeg_8_5.png,ok,171.63
+eCode pipeline,EAN13,contrast_0.5,EAN13_contrast_0.5_5.png,ok,12.82
+eCode pipeline,EAN13,contrast_0.25,EAN13_contrast_0.25_5.png,ok,13.24
+eCode pipeline,EAN13,rotate_10,EAN13_rotate_10_5.png,ok,17.42
+eCode pipeline,EAN13,rotate_30,EAN13_rotate_30_5.png,wrong,22.18
+eCode pipeline,EAN13,rotate_45,EAN13_rotate_45_5.png,ok,305.55
+eCode pipeline,EAN13,rotate_90,EAN13_rotate_90_5.png,ok,12.55
+eCode pipeline,EAN13,perspective,EAN13_perspective_5.png,ok,11.23
+eCode pipeline,EAN13,small_0.5,EAN13_small_0.5_5.png,ok,42.44
+eCode pipeline,EAN13,small_0.35,EAN13_small_0.35_5.png,miss,25.35
+eCode pipeline,EAN13,inverted,EAN13_inverted_5.png,ok,137.94
+eCode pipeline,EAN13,shading,EAN13_shading_5.png,ok,165.17
+eCode pipeline,EAN13,poor_scan,EAN13_poor_scan_5.png,ok,10.97
+eCode pipeline,EAN13,clean,EAN13_clean_6.png,ok,12.67
+eCode pipeline,EAN13,blur_1.0,EAN13_blur_1.0_6.png,ok,11.92
+eCode pipeline,EAN13,blur_2.0,EAN13_blur_2.0_6.png,miss,157.48
+eCode pipeline,EAN13,blur_3.0,EAN13_blur_3.0_6.png,miss,151.55
+eCode pipeline,EAN13,noise_15,EAN13_noise_15_6.png,ok,16.61
+eCode pipeline,EAN13,noise_30,EAN13_noise_30_6.png,ok,65.37
+eCode pipeline,EAN13,noise_50,EAN13_noise_50_6.png,ok,673.29
+eCode pipeline,EAN13,jpeg_30,EAN13_jpeg_30_6.png,ok,12.58
+eCode pipeline,EAN13,jpeg_15,EAN13_jpeg_15_6.png,ok,11.70
+eCode pipeline,EAN13,jpeg_8,EAN13_jpeg_8_6.png,ok,11.36
+eCode pipeline,EAN13,contrast_0.5,EAN13_contrast_0.5_6.png,ok,11.69
+eCode pipeline,EAN13,contrast_0.25,EAN13_contrast_0.25_6.png,ok,11.93
+eCode pipeline,EAN13,rotate_10,EAN13_rotate_10_6.png,ok,14.51
+eCode pipeline,EAN13,rotate_30,EAN13_rotate_30_6.png,ok,284.84
+eCode pipeline,EAN13,rotate_45,EAN13_rotate_45_6.png,ok,308.79
+eCode pipeline,EAN13,rotate_90,EAN13_rotate_90_6.png,ok,12.77
+eCode pipeline,EAN13,perspective,EAN13_perspective_6.png,ok,11.65
+eCode pipeline,EAN13,small_0.5,EAN13_small_0.5_6.png,ok,42.82
+eCode pipeline,EAN13,small_0.35,EAN13_small_0.35_6.png,miss,24.05
+eCode pipeline,EAN13,inverted,EAN13_inverted_6.png,ok,143.14
+eCode pipeline,EAN13,shading,EAN13_shading_6.png,ok,160.67
+eCode pipeline,EAN13,poor_scan,EAN13_poor_scan_6.png,ok,15.00
+eCode pipeline,EAN13,clean,EAN13_clean_7.png,ok,12.24
+eCode pipeline,EAN13,blur_1.0,EAN13_blur_1.0_7.png,ok,11.80
+eCode pipeline,EAN13,blur_2.0,EAN13_blur_2.0_7.png,miss,161.11
+eCode pipeline,EAN13,blur_3.0,EAN13_blur_3.0_7.png,miss,151.80
+eCode pipeline,EAN13,noise_15,EAN13_noise_15_7.png,ok,15.33
+eCode pipeline,EAN13,noise_30,EAN13_noise_30_7.png,ok,63.49
+eCode pipeline,EAN13,noise_50,EAN13_noise_50_7.png,ok,685.37
+eCode pipeline,EAN13,jpeg_30,EAN13_jpeg_30_7.png,ok,12.55
+eCode pipeline,EAN13,jpeg_15,EAN13_jpeg_15_7.png,ok,12.72
+eCode pipeline,EAN13,jpeg_8,EAN13_jpeg_8_7.png,ok,10.89
+eCode pipeline,EAN13,contrast_0.5,EAN13_contrast_0.5_7.png,ok,12.69
+eCode pipeline,EAN13,contrast_0.25,EAN13_contrast_0.25_7.png,ok,12.59
+eCode pipeline,EAN13,rotate_10,EAN13_rotate_10_7.png,ok,15.57
+eCode pipeline,EAN13,rotate_30,EAN13_rotate_30_7.png,ok,295.02
+eCode pipeline,EAN13,rotate_45,EAN13_rotate_45_7.png,ok,302.05
+eCode pipeline,EAN13,rotate_90,EAN13_rotate_90_7.png,ok,12.41
+eCode pipeline,EAN13,perspective,EAN13_perspective_7.png,ok,10.88
+eCode pipeline,EAN13,small_0.5,EAN13_small_0.5_7.png,ok,43.68
+eCode pipeline,EAN13,small_0.35,EAN13_small_0.35_7.png,ok,24.66
+eCode pipeline,EAN13,inverted,EAN13_inverted_7.png,ok,138.38
+eCode pipeline,EAN13,shading,EAN13_shading_7.png,ok,168.97
+eCode pipeline,EAN13,poor_scan,EAN13_poor_scan_7.png,ok,11.01
+pyzbar (ZBar),QRCODE,clean,QRCODE_clean_0.png,ok,9.52
+pyzbar (ZBar),QRCODE,blur_1.0,QRCODE_blur_1.0_0.png,ok,10.54
+pyzbar (ZBar),QRCODE,blur_2.0,QRCODE_blur_2.0_0.png,miss,10.48
+pyzbar (ZBar),QRCODE,blur_3.0,QRCODE_blur_3.0_0.png,miss,7.31
+pyzbar (ZBar),QRCODE,noise_15,QRCODE_noise_15_0.png,ok,259.82
+pyzbar (ZBar),QRCODE,noise_30,QRCODE_noise_30_0.png,ok,118.46
+pyzbar (ZBar),QRCODE,noise_50,QRCODE_noise_50_0.png,ok,123.03
+pyzbar (ZBar),QRCODE,jpeg_30,QRCODE_jpeg_30_0.png,ok,10.90
+pyzbar (ZBar),QRCODE,jpeg_15,QRCODE_jpeg_15_0.png,ok,11.00
+pyzbar (ZBar),QRCODE,jpeg_8,QRCODE_jpeg_8_0.png,ok,10.58
+pyzbar (ZBar),QRCODE,contrast_0.5,QRCODE_contrast_0.5_0.png,ok,10.26
+pyzbar (ZBar),QRCODE,contrast_0.25,QRCODE_contrast_0.25_0.png,ok,10.53
+pyzbar (ZBar),QRCODE,rotate_10,QRCODE_rotate_10_0.png,ok,13.86
+pyzbar (ZBar),QRCODE,rotate_30,QRCODE_rotate_30_0.png,ok,19.59
+pyzbar (ZBar),QRCODE,rotate_45,QRCODE_rotate_45_0.png,ok,21.30
+pyzbar (ZBar),QRCODE,rotate_90,QRCODE_rotate_90_0.png,ok,11.07
+pyzbar (ZBar),QRCODE,perspective,QRCODE_perspective_0.png,ok,10.58
+pyzbar (ZBar),QRCODE,small_0.5,QRCODE_small_0.5_0.png,ok,2.69
+pyzbar (ZBar),QRCODE,small_0.35,QRCODE_small_0.35_0.png,miss,1.58
+pyzbar (ZBar),QRCODE,inverted,QRCODE_inverted_0.png,miss,7.55
+pyzbar (ZBar),QRCODE,shading,QRCODE_shading_0.png,ok,10.62
+pyzbar (ZBar),QRCODE,poor_scan,QRCODE_poor_scan_0.png,ok,14.23
+pyzbar (ZBar),QRCODE,clean,QRCODE_clean_1.png,ok,10.19
+pyzbar (ZBar),QRCODE,blur_1.0,QRCODE_blur_1.0_1.png,ok,10.45
+pyzbar (ZBar),QRCODE,blur_2.0,QRCODE_blur_2.0_1.png,miss,10.37
+pyzbar (ZBar),QRCODE,blur_3.0,QRCODE_blur_3.0_1.png,miss,7.33
+pyzbar (ZBar),QRCODE,noise_15,QRCODE_noise_15_1.png,ok,100.40
+pyzbar (ZBar),QRCODE,noise_30,QRCODE_noise_30_1.png,ok,117.96
+pyzbar (ZBar),QRCODE,noise_50,QRCODE_noise_50_1.png,ok,121.67
+pyzbar (ZBar),QRCODE,jpeg_30,QRCODE_jpeg_30_1.png,ok,10.67
+pyzbar (ZBar),QRCODE,jpeg_15,QRCODE_jpeg_15_1.png,ok,10.45
+pyzbar (ZBar),QRCODE,jpeg_8,QRCODE_jpeg_8_1.png,ok,11.04
+pyzbar (ZBar),QRCODE,contrast_0.5,QRCODE_contrast_0.5_1.png,ok,10.36
+pyzbar (ZBar),QRCODE,contrast_0.25,QRCODE_contrast_0.25_1.png,ok,10.12
+pyzbar (ZBar),QRCODE,rotate_10,QRCODE_rotate_10_1.png,ok,25.12
+pyzbar (ZBar),QRCODE,rotate_30,QRCODE_rotate_30_1.png,ok,19.15
+pyzbar (ZBar),QRCODE,rotate_45,QRCODE_rotate_45_1.png,ok,19.74
+pyzbar (ZBar),QRCODE,rotate_90,QRCODE_rotate_90_1.png,ok,9.94
+pyzbar (ZBar),QRCODE,perspective,QRCODE_perspective_1.png,ok,9.98
+pyzbar (ZBar),QRCODE,small_0.5,QRCODE_small_0.5_1.png,ok,2.91
+pyzbar (ZBar),QRCODE,small_0.35,QRCODE_small_0.35_1.png,miss,1.55
+pyzbar (ZBar),QRCODE,inverted,QRCODE_inverted_1.png,miss,7.49
+pyzbar (ZBar),QRCODE,shading,QRCODE_shading_1.png,ok,9.77
+pyzbar (ZBar),QRCODE,poor_scan,QRCODE_poor_scan_1.png,ok,13.49
+pyzbar (ZBar),QRCODE,clean,QRCODE_clean_2.png,ok,10.02
+pyzbar (ZBar),QRCODE,blur_1.0,QRCODE_blur_1.0_2.png,ok,10.15
+pyzbar (ZBar),QRCODE,blur_2.0,QRCODE_blur_2.0_2.png,miss,10.05
+pyzbar (ZBar),QRCODE,blur_3.0,QRCODE_blur_3.0_2.png,miss,7.69
+pyzbar (ZBar),QRCODE,noise_15,QRCODE_noise_15_2.png,ok,101.28
+pyzbar (ZBar),QRCODE,noise_30,QRCODE_noise_30_2.png,ok,117.90
+pyzbar (ZBar),QRCODE,noise_50,QRCODE_noise_50_2.png,ok,117.99
+pyzbar (ZBar),QRCODE,jpeg_30,QRCODE_jpeg_30_2.png,ok,10.58
+pyzbar (ZBar),QRCODE,jpeg_15,QRCODE_jpeg_15_2.png,ok,10.78
+pyzbar (ZBar),QRCODE,jpeg_8,QRCODE_jpeg_8_2.png,ok,10.71
+pyzbar (ZBar),QRCODE,contrast_0.5,QRCODE_contrast_0.5_2.png,ok,10.24
+pyzbar (ZBar),QRCODE,contrast_0.25,QRCODE_contrast_0.25_2.png,ok,10.63
+pyzbar (ZBar),QRCODE,rotate_10,QRCODE_rotate_10_2.png,ok,13.79
+pyzbar (ZBar),QRCODE,rotate_30,QRCODE_rotate_30_2.png,ok,19.13
+pyzbar (ZBar),QRCODE,rotate_45,QRCODE_rotate_45_2.png,ok,21.07
+pyzbar (ZBar),QRCODE,rotate_90,QRCODE_rotate_90_2.png,ok,9.82
+pyzbar (ZBar),QRCODE,perspective,QRCODE_perspective_2.png,ok,9.92
+pyzbar (ZBar),QRCODE,small_0.5,QRCODE_small_0.5_2.png,ok,2.68
+pyzbar (ZBar),QRCODE,small_0.35,QRCODE_small_0.35_2.png,miss,1.42
+pyzbar (ZBar),QRCODE,inverted,QRCODE_inverted_2.png,miss,7.19
+pyzbar (ZBar),QRCODE,shading,QRCODE_shading_2.png,ok,9.95
+pyzbar (ZBar),QRCODE,poor_scan,QRCODE_poor_scan_2.png,ok,13.44
+pyzbar (ZBar),QRCODE,clean,QRCODE_clean_3.png,ok,10.44
+pyzbar (ZBar),QRCODE,blur_1.0,QRCODE_blur_1.0_3.png,ok,10.91
+pyzbar (ZBar),QRCODE,blur_2.0,QRCODE_blur_2.0_3.png,miss,10.74
+pyzbar (ZBar),QRCODE,blur_3.0,QRCODE_blur_3.0_3.png,miss,7.57
+pyzbar (ZBar),QRCODE,noise_15,QRCODE_noise_15_3.png,ok,106.31
+pyzbar (ZBar),QRCODE,noise_30,QRCODE_noise_30_3.png,ok,117.03
+pyzbar (ZBar),QRCODE,noise_50,QRCODE_noise_50_3.png,ok,121.22
+pyzbar (ZBar),QRCODE,jpeg_30,QRCODE_jpeg_30_3.png,ok,11.34
+pyzbar (ZBar),QRCODE,jpeg_15,QRCODE_jpeg_15_3.png,ok,10.97
+pyzbar (ZBar),QRCODE,jpeg_8,QRCODE_jpeg_8_3.png,miss,10.99
+pyzbar (ZBar),QRCODE,contrast_0.5,QRCODE_contrast_0.5_3.png,ok,10.31
+pyzbar (ZBar),QRCODE,contrast_0.25,QRCODE_contrast_0.25_3.png,ok,10.40
+pyzbar (ZBar),QRCODE,rotate_10,QRCODE_rotate_10_3.png,ok,14.24
+pyzbar (ZBar),QRCODE,rotate_30,QRCODE_rotate_30_3.png,ok,19.59
+pyzbar (ZBar),QRCODE,rotate_45,QRCODE_rotate_45_3.png,ok,20.37
+pyzbar (ZBar),QRCODE,rotate_90,QRCODE_rotate_90_3.png,ok,10.48
+pyzbar (ZBar),QRCODE,perspective,QRCODE_perspective_3.png,ok,10.44
+pyzbar (ZBar),QRCODE,small_0.5,QRCODE_small_0.5_3.png,ok,2.90
+pyzbar (ZBar),QRCODE,small_0.35,QRCODE_small_0.35_3.png,miss,1.59
+pyzbar (ZBar),QRCODE,inverted,QRCODE_inverted_3.png,miss,7.36
+pyzbar (ZBar),QRCODE,shading,QRCODE_shading_3.png,ok,10.38
+pyzbar (ZBar),QRCODE,poor_scan,QRCODE_poor_scan_3.png,miss,17.13
+pyzbar (ZBar),QRCODE,clean,QRCODE_clean_4.png,ok,10.61
+pyzbar (ZBar),QRCODE,blur_1.0,QRCODE_blur_1.0_4.png,ok,10.75
+pyzbar (ZBar),QRCODE,blur_2.0,QRCODE_blur_2.0_4.png,miss,10.41
+pyzbar (ZBar),QRCODE,blur_3.0,QRCODE_blur_3.0_4.png,miss,7.36
+pyzbar (ZBar),QRCODE,noise_15,QRCODE_noise_15_4.png,ok,103.53
+pyzbar (ZBar),QRCODE,noise_30,QRCODE_noise_30_4.png,ok,119.67
+pyzbar (ZBar),QRCODE,noise_50,QRCODE_noise_50_4.png,ok,121.05
+pyzbar (ZBar),QRCODE,jpeg_30,QRCODE_jpeg_30_4.png,ok,10.72
+pyzbar (ZBar),QRCODE,jpeg_15,QRCODE_jpeg_15_4.png,ok,10.81
+pyzbar (ZBar),QRCODE,jpeg_8,QRCODE_jpeg_8_4.png,ok,11.47
+pyzbar (ZBar),QRCODE,contrast_0.5,QRCODE_contrast_0.5_4.png,ok,11.20
+pyzbar (ZBar),QRCODE,contrast_0.25,QRCODE_contrast_0.25_4.png,ok,9.60
+pyzbar (ZBar),QRCODE,rotate_10,QRCODE_rotate_10_4.png,ok,13.67
+pyzbar (ZBar),QRCODE,rotate_30,QRCODE_rotate_30_4.png,ok,19.33
+pyzbar (ZBar),QRCODE,rotate_45,QRCODE_rotate_45_4.png,ok,20.46
+pyzbar (ZBar),QRCODE,rotate_90,QRCODE_rotate_90_4.png,ok,10.37
+pyzbar (ZBar),QRCODE,perspective,QRCODE_perspective_4.png,ok,10.50
+pyzbar (ZBar),QRCODE,small_0.5,QRCODE_small_0.5_4.png,miss,2.75
+pyzbar (ZBar),QRCODE,small_0.35,QRCODE_small_0.35_4.png,miss,1.56
+pyzbar (ZBar),QRCODE,inverted,QRCODE_inverted_4.png,miss,6.92
+pyzbar (ZBar),QRCODE,shading,QRCODE_shading_4.png,ok,10.03
+pyzbar (ZBar),QRCODE,poor_scan,QRCODE_poor_scan_4.png,miss,13.12
+pyzbar (ZBar),QRCODE,clean,QRCODE_clean_5.png,ok,11.56
+pyzbar (ZBar),QRCODE,blur_1.0,QRCODE_blur_1.0_5.png,ok,10.20
+pyzbar (ZBar),QRCODE,blur_2.0,QRCODE_blur_2.0_5.png,miss,12.54
+pyzbar (ZBar),QRCODE,blur_3.0,QRCODE_blur_3.0_5.png,miss,7.87
+pyzbar (ZBar),QRCODE,noise_15,QRCODE_noise_15_5.png,ok,103.56
+pyzbar (ZBar),QRCODE,noise_30,QRCODE_noise_30_5.png,ok,120.82
+pyzbar (ZBar),QRCODE,noise_50,QRCODE_noise_50_5.png,ok,123.55
+pyzbar (ZBar),QRCODE,jpeg_30,QRCODE_jpeg_30_5.png,ok,11.21
+pyzbar (ZBar),QRCODE,jpeg_15,QRCODE_jpeg_15_5.png,ok,11.18
+pyzbar (ZBar),QRCODE,jpeg_8,QRCODE_jpeg_8_5.png,ok,11.05
+pyzbar (ZBar),QRCODE,contrast_0.5,QRCODE_contrast_0.5_5.png,ok,10.04
+pyzbar (ZBar),QRCODE,contrast_0.25,QRCODE_contrast_0.25_5.png,ok,10.06
+pyzbar (ZBar),QRCODE,rotate_10,QRCODE_rotate_10_5.png,ok,13.42
+pyzbar (ZBar),QRCODE,rotate_30,QRCODE_rotate_30_5.png,ok,19.30
+pyzbar (ZBar),QRCODE,rotate_45,QRCODE_rotate_45_5.png,ok,20.02
+pyzbar (ZBar),QRCODE,rotate_90,QRCODE_rotate_90_5.png,ok,9.85
+pyzbar (ZBar),QRCODE,perspective,QRCODE_perspective_5.png,ok,10.36
+pyzbar (ZBar),QRCODE,small_0.5,QRCODE_small_0.5_5.png,ok,2.87
+pyzbar (ZBar),QRCODE,small_0.35,QRCODE_small_0.35_5.png,miss,1.58
+pyzbar (ZBar),QRCODE,inverted,QRCODE_inverted_5.png,miss,7.41
+pyzbar (ZBar),QRCODE,shading,QRCODE_shading_5.png,ok,10.42
+pyzbar (ZBar),QRCODE,poor_scan,QRCODE_poor_scan_5.png,miss,14.66
+pyzbar (ZBar),QRCODE,clean,QRCODE_clean_6.png,ok,10.15
+pyzbar (ZBar),QRCODE,blur_1.0,QRCODE_blur_1.0_6.png,ok,10.37
+pyzbar (ZBar),QRCODE,blur_2.0,QRCODE_blur_2.0_6.png,miss,10.57
+pyzbar (ZBar),QRCODE,blur_3.0,QRCODE_blur_3.0_6.png,miss,7.37
+pyzbar (ZBar),QRCODE,noise_15,QRCODE_noise_15_6.png,ok,101.86
+pyzbar (ZBar),QRCODE,noise_30,QRCODE_noise_30_6.png,ok,124.61
+pyzbar (ZBar),QRCODE,noise_50,QRCODE_noise_50_6.png,ok,124.97
+pyzbar (ZBar),QRCODE,jpeg_30,QRCODE_jpeg_30_6.png,ok,11.34
+pyzbar (ZBar),QRCODE,jpeg_15,QRCODE_jpeg_15_6.png,ok,11.33
+pyzbar (ZBar),QRCODE,jpeg_8,QRCODE_jpeg_8_6.png,miss,10.96
+pyzbar (ZBar),QRCODE,contrast_0.5,QRCODE_contrast_0.5_6.png,ok,10.43
+pyzbar (ZBar),QRCODE,contrast_0.25,QRCODE_contrast_0.25_6.png,ok,10.43
+pyzbar (ZBar),QRCODE,rotate_10,QRCODE_rotate_10_6.png,ok,14.02
+pyzbar (ZBar),QRCODE,rotate_30,QRCODE_rotate_30_6.png,ok,19.73
+pyzbar (ZBar),QRCODE,rotate_45,QRCODE_rotate_45_6.png,ok,21.61
+pyzbar (ZBar),QRCODE,rotate_90,QRCODE_rotate_90_6.png,ok,11.15
+pyzbar (ZBar),QRCODE,perspective,QRCODE_perspective_6.png,ok,10.67
+pyzbar (ZBar),QRCODE,small_0.5,QRCODE_small_0.5_6.png,ok,2.88
+pyzbar (ZBar),QRCODE,small_0.35,QRCODE_small_0.35_6.png,miss,1.60
+pyzbar (ZBar),QRCODE,inverted,QRCODE_inverted_6.png,miss,7.38
+pyzbar (ZBar),QRCODE,shading,QRCODE_shading_6.png,ok,10.22
+pyzbar (ZBar),QRCODE,poor_scan,QRCODE_poor_scan_6.png,ok,13.46
+pyzbar (ZBar),QRCODE,clean,QRCODE_clean_7.png,ok,9.89
+pyzbar (ZBar),QRCODE,blur_1.0,QRCODE_blur_1.0_7.png,ok,10.43
+pyzbar (ZBar),QRCODE,blur_2.0,QRCODE_blur_2.0_7.png,miss,10.44
+pyzbar (ZBar),QRCODE,blur_3.0,QRCODE_blur_3.0_7.png,miss,7.49
+pyzbar (ZBar),QRCODE,noise_15,QRCODE_noise_15_7.png,ok,100.65
+pyzbar (ZBar),QRCODE,noise_30,QRCODE_noise_30_7.png,ok,116.69
+pyzbar (ZBar),QRCODE,noise_50,QRCODE_noise_50_7.png,ok,120.54
+pyzbar (ZBar),QRCODE,jpeg_30,QRCODE_jpeg_30_7.png,ok,11.39
+pyzbar (ZBar),QRCODE,jpeg_15,QRCODE_jpeg_15_7.png,ok,12.80
+pyzbar (ZBar),QRCODE,jpeg_8,QRCODE_jpeg_8_7.png,ok,11.96
+pyzbar (ZBar),QRCODE,contrast_0.5,QRCODE_contrast_0.5_7.png,ok,10.59
+pyzbar (ZBar),QRCODE,contrast_0.25,QRCODE_contrast_0.25_7.png,ok,11.10
+pyzbar (ZBar),QRCODE,rotate_10,QRCODE_rotate_10_7.png,ok,14.58
+pyzbar (ZBar),QRCODE,rotate_30,QRCODE_rotate_30_7.png,ok,19.29
+pyzbar (ZBar),QRCODE,rotate_45,QRCODE_rotate_45_7.png,ok,20.46
+pyzbar (ZBar),QRCODE,rotate_90,QRCODE_rotate_90_7.png,ok,9.74
+pyzbar (ZBar),QRCODE,perspective,QRCODE_perspective_7.png,ok,9.94
+pyzbar (ZBar),QRCODE,small_0.5,QRCODE_small_0.5_7.png,ok,2.99
+pyzbar (ZBar),QRCODE,small_0.35,QRCODE_small_0.35_7.png,miss,1.55
+pyzbar (ZBar),QRCODE,inverted,QRCODE_inverted_7.png,miss,7.62
+pyzbar (ZBar),QRCODE,shading,QRCODE_shading_7.png,ok,10.47
+pyzbar (ZBar),QRCODE,poor_scan,QRCODE_poor_scan_7.png,ok,13.79
+pyzbar (ZBar),CODE128,clean,CODE128_clean_0.png,ok,9.35
+pyzbar (ZBar),CODE128,blur_1.0,CODE128_blur_1.0_0.png,ok,9.27
+pyzbar (ZBar),CODE128,blur_2.0,CODE128_blur_2.0_0.png,miss,9.00
+pyzbar (ZBar),CODE128,blur_3.0,CODE128_blur_3.0_0.png,miss,8.99
+pyzbar (ZBar),CODE128,noise_15,CODE128_noise_15_0.png,miss,100.45
+pyzbar (ZBar),CODE128,noise_30,CODE128_noise_30_0.png,miss,113.27
+pyzbar (ZBar),CODE128,noise_50,CODE128_noise_50_0.png,miss,113.41
+pyzbar (ZBar),CODE128,jpeg_30,CODE128_jpeg_30_0.png,ok,9.46
+pyzbar (ZBar),CODE128,jpeg_15,CODE128_jpeg_15_0.png,miss,8.80
+pyzbar (ZBar),CODE128,jpeg_8,CODE128_jpeg_8_0.png,miss,8.71
+pyzbar (ZBar),CODE128,contrast_0.5,CODE128_contrast_0.5_0.png,ok,9.13
+pyzbar (ZBar),CODE128,contrast_0.25,CODE128_contrast_0.25_0.png,ok,9.32
+pyzbar (ZBar),CODE128,rotate_10,CODE128_rotate_10_0.png,ok,12.55
+pyzbar (ZBar),CODE128,rotate_30,CODE128_rotate_30_0.png,miss,16.42
+pyzbar (ZBar),CODE128,rotate_45,CODE128_rotate_45_0.png,miss,16.10
+pyzbar (ZBar),CODE128,rotate_90,CODE128_rotate_90_0.png,ok,8.57
+pyzbar (ZBar),CODE128,perspective,CODE128_perspective_0.png,ok,8.84
+pyzbar (ZBar),CODE128,small_0.5,CODE128_small_0.5_0.png,ok,2.56
+pyzbar (ZBar),CODE128,small_0.35,CODE128_small_0.35_0.png,miss,2.11
+pyzbar (ZBar),CODE128,inverted,CODE128_inverted_0.png,miss,8.29
+pyzbar (ZBar),CODE128,shading,CODE128_shading_0.png,ok,8.84
+pyzbar (ZBar),CODE128,poor_scan,CODE128_poor_scan_0.png,ok,13.62
+pyzbar (ZBar),CODE128,clean,CODE128_clean_1.png,ok,9.58
+pyzbar (ZBar),CODE128,blur_1.0,CODE128_blur_1.0_1.png,ok,9.12
+pyzbar (ZBar),CODE128,blur_2.0,CODE128_blur_2.0_1.png,miss,8.28
+pyzbar (ZBar),CODE128,blur_3.0,CODE128_blur_3.0_1.png,miss,8.43
+pyzbar (ZBar),CODE128,noise_15,CODE128_noise_15_1.png,miss,95.85
+pyzbar (ZBar),CODE128,noise_30,CODE128_noise_30_1.png,miss,110.38
+pyzbar (ZBar),CODE128,noise_50,CODE128_noise_50_1.png,miss,114.43
+pyzbar (ZBar),CODE128,jpeg_30,CODE128_jpeg_30_1.png,ok,10.44
+pyzbar (ZBar),CODE128,jpeg_15,CODE128_jpeg_15_1.png,miss,10.99
+pyzbar (ZBar),CODE128,jpeg_8,CODE128_jpeg_8_1.png,ok,9.61
+pyzbar (ZBar),CODE128,contrast_0.5,CODE128_contrast_0.5_1.png,ok,8.76
+pyzbar (ZBar),CODE128,contrast_0.25,CODE128_contrast_0.25_1.png,ok,9.18
+pyzbar (ZBar),CODE128,rotate_10,CODE128_rotate_10_1.png,ok,12.79
+pyzbar (ZBar),CODE128,rotate_30,CODE128_rotate_30_1.png,miss,16.91
+pyzbar (ZBar),CODE128,rotate_45,CODE128_rotate_45_1.png,miss,17.17
+pyzbar (ZBar),CODE128,rotate_90,CODE128_rotate_90_1.png,ok,9.62
+pyzbar (ZBar),CODE128,perspective,CODE128_perspective_1.png,ok,9.22
+pyzbar (ZBar),CODE128,small_0.5,CODE128_small_0.5_1.png,miss,2.74
+pyzbar (ZBar),CODE128,small_0.35,CODE128_small_0.35_1.png,miss,1.64
+pyzbar (ZBar),CODE128,inverted,CODE128_inverted_1.png,miss,8.91
+pyzbar (ZBar),CODE128,shading,CODE128_shading_1.png,ok,9.03
+pyzbar (ZBar),CODE128,poor_scan,CODE128_poor_scan_1.png,ok,14.87
+pyzbar (ZBar),CODE128,clean,CODE128_clean_2.png,ok,9.17
+pyzbar (ZBar),CODE128,blur_1.0,CODE128_blur_1.0_2.png,ok,9.37
+pyzbar (ZBar),CODE128,blur_2.0,CODE128_blur_2.0_2.png,miss,8.91
+pyzbar (ZBar),CODE128,blur_3.0,CODE128_blur_3.0_2.png,miss,8.47
+pyzbar (ZBar),CODE128,noise_15,CODE128_noise_15_2.png,miss,97.28
+pyzbar (ZBar),CODE128,noise_30,CODE128_noise_30_2.png,miss,112.99
+pyzbar (ZBar),CODE128,noise_50,CODE128_noise_50_2.png,miss,116.77
+pyzbar (ZBar),CODE128,jpeg_30,CODE128_jpeg_30_2.png,ok,9.27
+pyzbar (ZBar),CODE128,jpeg_15,CODE128_jpeg_15_2.png,ok,9.38
+pyzbar (ZBar),CODE128,jpeg_8,CODE128_jpeg_8_2.png,miss,10.87
+pyzbar (ZBar),CODE128,contrast_0.5,CODE128_contrast_0.5_2.png,ok,9.40
+pyzbar (ZBar),CODE128,contrast_0.25,CODE128_contrast_0.25_2.png,ok,9.10
+pyzbar (ZBar),CODE128,rotate_10,CODE128_rotate_10_2.png,ok,12.65
+pyzbar (ZBar),CODE128,rotate_30,CODE128_rotate_30_2.png,miss,18.93
+pyzbar (ZBar),CODE128,rotate_45,CODE128_rotate_45_2.png,miss,18.25
+pyzbar (ZBar),CODE128,rotate_90,CODE128_rotate_90_2.png,ok,8.86
+pyzbar (ZBar),CODE128,perspective,CODE128_perspective_2.png,ok,8.80
+pyzbar (ZBar),CODE128,small_0.5,CODE128_small_0.5_2.png,ok,2.64
+pyzbar (ZBar),CODE128,small_0.35,CODE128_small_0.35_2.png,miss,1.52
+pyzbar (ZBar),CODE128,inverted,CODE128_inverted_2.png,miss,9.27
+pyzbar (ZBar),CODE128,shading,CODE128_shading_2.png,ok,9.38
+pyzbar (ZBar),CODE128,poor_scan,CODE128_poor_scan_2.png,ok,14.57
+pyzbar (ZBar),CODE128,clean,CODE128_clean_3.png,ok,9.29
+pyzbar (ZBar),CODE128,blur_1.0,CODE128_blur_1.0_3.png,ok,8.91
+pyzbar (ZBar),CODE128,blur_2.0,CODE128_blur_2.0_3.png,miss,8.75
+pyzbar (ZBar),CODE128,blur_3.0,CODE128_blur_3.0_3.png,miss,8.10
+pyzbar (ZBar),CODE128,noise_15,CODE128_noise_15_3.png,miss,99.53
+pyzbar (ZBar),CODE128,noise_30,CODE128_noise_30_3.png,miss,109.71
+pyzbar (ZBar),CODE128,noise_50,CODE128_noise_50_3.png,miss,117.41
+pyzbar (ZBar),CODE128,jpeg_30,CODE128_jpeg_30_3.png,ok,10.32
+pyzbar (ZBar),CODE128,jpeg_15,CODE128_jpeg_15_3.png,ok,10.30
+pyzbar (ZBar),CODE128,jpeg_8,CODE128_jpeg_8_3.png,ok,10.19
+pyzbar (ZBar),CODE128,contrast_0.5,CODE128_contrast_0.5_3.png,ok,9.05
+pyzbar (ZBar),CODE128,contrast_0.25,CODE128_contrast_0.25_3.png,ok,8.72
+pyzbar (ZBar),CODE128,rotate_10,CODE128_rotate_10_3.png,ok,17.82
+pyzbar (ZBar),CODE128,rotate_30,CODE128_rotate_30_3.png,miss,16.27
+pyzbar (ZBar),CODE128,rotate_45,CODE128_rotate_45_3.png,miss,17.30
+pyzbar (ZBar),CODE128,rotate_90,CODE128_rotate_90_3.png,ok,13.10
+pyzbar (ZBar),CODE128,perspective,CODE128_perspective_3.png,ok,9.41
+pyzbar (ZBar),CODE128,small_0.5,CODE128_small_0.5_3.png,ok,2.81
+pyzbar (ZBar),CODE128,small_0.35,CODE128_small_0.35_3.png,miss,1.64
+pyzbar (ZBar),CODE128,inverted,CODE128_inverted_3.png,miss,9.09
+pyzbar (ZBar),CODE128,shading,CODE128_shading_3.png,ok,9.45
+pyzbar (ZBar),CODE128,poor_scan,CODE128_poor_scan_3.png,ok,14.25
+pyzbar (ZBar),CODE128,clean,CODE128_clean_4.png,ok,9.23
+pyzbar (ZBar),CODE128,blur_1.0,CODE128_blur_1.0_4.png,ok,9.31
+pyzbar (ZBar),CODE128,blur_2.0,CODE128_blur_2.0_4.png,miss,10.42
+pyzbar (ZBar),CODE128,blur_3.0,CODE128_blur_3.0_4.png,miss,8.42
+pyzbar (ZBar),CODE128,noise_15,CODE128_noise_15_4.png,miss,98.48
+pyzbar (ZBar),CODE128,noise_30,CODE128_noise_30_4.png,miss,115.13
+pyzbar (ZBar),CODE128,noise_50,CODE128_noise_50_4.png,miss,112.10
+pyzbar (ZBar),CODE128,jpeg_30,CODE128_jpeg_30_4.png,ok,11.43
+pyzbar (ZBar),CODE128,jpeg_15,CODE128_jpeg_15_4.png,ok,10.68
+pyzbar (ZBar),CODE128,jpeg_8,CODE128_jpeg_8_4.png,ok,9.90
+pyzbar (ZBar),CODE128,contrast_0.5,CODE128_contrast_0.5_4.png,ok,9.07
+pyzbar (ZBar),CODE128,contrast_0.25,CODE128_contrast_0.25_4.png,ok,9.36
+pyzbar (ZBar),CODE128,rotate_10,CODE128_rotate_10_4.png,ok,12.42
+pyzbar (ZBar),CODE128,rotate_30,CODE128_rotate_30_4.png,miss,16.91
+pyzbar (ZBar),CODE128,rotate_45,CODE128_rotate_45_4.png,miss,16.91
+pyzbar (ZBar),CODE128,rotate_90,CODE128_rotate_90_4.png,ok,8.91
+pyzbar (ZBar),CODE128,perspective,CODE128_perspective_4.png,ok,9.12
+pyzbar (ZBar),CODE128,small_0.5,CODE128_small_0.5_4.png,ok,2.57
+pyzbar (ZBar),CODE128,small_0.35,CODE128_small_0.35_4.png,miss,1.59
+pyzbar (ZBar),CODE128,inverted,CODE128_inverted_4.png,miss,8.28
+pyzbar (ZBar),CODE128,shading,CODE128_shading_4.png,ok,9.23
+pyzbar (ZBar),CODE128,poor_scan,CODE128_poor_scan_4.png,ok,13.67
+pyzbar (ZBar),CODE128,clean,CODE128_clean_5.png,ok,8.69
+pyzbar (ZBar),CODE128,blur_1.0,CODE128_blur_1.0_5.png,ok,8.60
+pyzbar (ZBar),CODE128,blur_2.0,CODE128_blur_2.0_5.png,miss,8.73
+pyzbar (ZBar),CODE128,blur_3.0,CODE128_blur_3.0_5.png,miss,8.15
+pyzbar (ZBar),CODE128,noise_15,CODE128_noise_15_5.png,miss,98.68
+pyzbar (ZBar),CODE128,noise_30,CODE128_noise_30_5.png,miss,114.43
+pyzbar (ZBar),CODE128,noise_50,CODE128_noise_50_5.png,miss,114.12
+pyzbar (ZBar),CODE128,jpeg_30,CODE128_jpeg_30_5.png,ok,9.36
+pyzbar (ZBar),CODE128,jpeg_15,CODE128_jpeg_15_5.png,ok,9.42
+pyzbar (ZBar),CODE128,jpeg_8,CODE128_jpeg_8_5.png,ok,8.74
+pyzbar (ZBar),CODE128,contrast_0.5,CODE128_contrast_0.5_5.png,ok,9.19
+pyzbar (ZBar),CODE128,contrast_0.25,CODE128_contrast_0.25_5.png,ok,9.65
+pyzbar (ZBar),CODE128,rotate_10,CODE128_rotate_10_5.png,ok,12.28
+pyzbar (ZBar),CODE128,rotate_30,CODE128_rotate_30_5.png,miss,15.65
+pyzbar (ZBar),CODE128,rotate_45,CODE128_rotate_45_5.png,miss,16.54
+pyzbar (ZBar),CODE128,rotate_90,CODE128_rotate_90_5.png,ok,8.77
+pyzbar (ZBar),CODE128,perspective,CODE128_perspective_5.png,ok,8.55
+pyzbar (ZBar),CODE128,small_0.5,CODE128_small_0.5_5.png,ok,2.72
+pyzbar (ZBar),CODE128,small_0.35,CODE128_small_0.35_5.png,miss,1.49
+pyzbar (ZBar),CODE128,inverted,CODE128_inverted_5.png,miss,9.26
+pyzbar (ZBar),CODE128,shading,CODE128_shading_5.png,ok,9.80
+pyzbar (ZBar),CODE128,poor_scan,CODE128_poor_scan_5.png,ok,14.63
+pyzbar (ZBar),CODE128,clean,CODE128_clean_6.png,ok,9.33
+pyzbar (ZBar),CODE128,blur_1.0,CODE128_blur_1.0_6.png,ok,9.28
+pyzbar (ZBar),CODE128,blur_2.0,CODE128_blur_2.0_6.png,miss,8.86
+pyzbar (ZBar),CODE128,blur_3.0,CODE128_blur_3.0_6.png,miss,8.71
+pyzbar (ZBar),CODE128,noise_15,CODE128_noise_15_6.png,miss,96.30
+pyzbar (ZBar),CODE128,noise_30,CODE128_noise_30_6.png,miss,111.04
+pyzbar (ZBar),CODE128,noise_50,CODE128_noise_50_6.png,miss,114.32
+pyzbar (ZBar),CODE128,jpeg_30,CODE128_jpeg_30_6.png,ok,10.10
+pyzbar (ZBar),CODE128,jpeg_15,CODE128_jpeg_15_6.png,ok,10.18
+pyzbar (ZBar),CODE128,jpeg_8,CODE128_jpeg_8_6.png,ok,10.00
+pyzbar (ZBar),CODE128,contrast_0.5,CODE128_contrast_0.5_6.png,ok,9.46
+pyzbar (ZBar),CODE128,contrast_0.25,CODE128_contrast_0.25_6.png,ok,9.32
+pyzbar (ZBar),CODE128,rotate_10,CODE128_rotate_10_6.png,ok,12.56
+pyzbar (ZBar),CODE128,rotate_30,CODE128_rotate_30_6.png,miss,17.10
+pyzbar (ZBar),CODE128,rotate_45,CODE128_rotate_45_6.png,miss,17.47
+pyzbar (ZBar),CODE128,rotate_90,CODE128_rotate_90_6.png,ok,9.06
+pyzbar (ZBar),CODE128,perspective,CODE128_perspective_6.png,ok,9.49
+pyzbar (ZBar),CODE128,small_0.5,CODE128_small_0.5_6.png,ok,2.88
+pyzbar (ZBar),CODE128,small_0.35,CODE128_small_0.35_6.png,miss,1.58
+pyzbar (ZBar),CODE128,inverted,CODE128_inverted_6.png,miss,8.92
+pyzbar (ZBar),CODE128,shading,CODE128_shading_6.png,ok,9.36
+pyzbar (ZBar),CODE128,poor_scan,CODE128_poor_scan_6.png,ok,14.49
+pyzbar (ZBar),CODE128,clean,CODE128_clean_7.png,ok,9.22
+pyzbar (ZBar),CODE128,blur_1.0,CODE128_blur_1.0_7.png,ok,9.41
+pyzbar (ZBar),CODE128,blur_2.0,CODE128_blur_2.0_7.png,miss,9.05
+pyzbar (ZBar),CODE128,blur_3.0,CODE128_blur_3.0_7.png,miss,8.57
+pyzbar (ZBar),CODE128,noise_15,CODE128_noise_15_7.png,miss,93.46
+pyzbar (ZBar),CODE128,noise_30,CODE128_noise_30_7.png,miss,112.42
+pyzbar (ZBar),CODE128,noise_50,CODE128_noise_50_7.png,miss,115.26
+pyzbar (ZBar),CODE128,jpeg_30,CODE128_jpeg_30_7.png,ok,11.40
+pyzbar (ZBar),CODE128,jpeg_15,CODE128_jpeg_15_7.png,miss,13.83
+pyzbar (ZBar),CODE128,jpeg_8,CODE128_jpeg_8_7.png,miss,10.84
+pyzbar (ZBar),CODE128,contrast_0.5,CODE128_contrast_0.5_7.png,ok,9.32
+pyzbar (ZBar),CODE128,contrast_0.25,CODE128_contrast_0.25_7.png,ok,9.80
+pyzbar (ZBar),CODE128,rotate_10,CODE128_rotate_10_7.png,ok,13.18
+pyzbar (ZBar),CODE128,rotate_30,CODE128_rotate_30_7.png,miss,16.96
+pyzbar (ZBar),CODE128,rotate_45,CODE128_rotate_45_7.png,miss,17.50
+pyzbar (ZBar),CODE128,rotate_90,CODE128_rotate_90_7.png,ok,8.86
+pyzbar (ZBar),CODE128,perspective,CODE128_perspective_7.png,ok,9.33
+pyzbar (ZBar),CODE128,small_0.5,CODE128_small_0.5_7.png,ok,2.84
+pyzbar (ZBar),CODE128,small_0.35,CODE128_small_0.35_7.png,miss,1.58
+pyzbar (ZBar),CODE128,inverted,CODE128_inverted_7.png,miss,8.94
+pyzbar (ZBar),CODE128,shading,CODE128_shading_7.png,ok,9.44
+pyzbar (ZBar),CODE128,poor_scan,CODE128_poor_scan_7.png,ok,14.45
+pyzbar (ZBar),EAN13,clean,EAN13_clean_0.png,ok,9.15
+pyzbar (ZBar),EAN13,blur_1.0,EAN13_blur_1.0_0.png,ok,8.86
+pyzbar (ZBar),EAN13,blur_2.0,EAN13_blur_2.0_0.png,miss,8.18
+pyzbar (ZBar),EAN13,blur_3.0,EAN13_blur_3.0_0.png,miss,7.73
+pyzbar (ZBar),EAN13,noise_15,EAN13_noise_15_0.png,ok,98.48
+pyzbar (ZBar),EAN13,noise_30,EAN13_noise_30_0.png,ok,113.58
+pyzbar (ZBar),EAN13,noise_50,EAN13_noise_50_0.png,ok,116.41
+pyzbar (ZBar),EAN13,jpeg_30,EAN13_jpeg_30_0.png,ok,9.37
+pyzbar (ZBar),EAN13,jpeg_15,EAN13_jpeg_15_0.png,ok,8.62
+pyzbar (ZBar),EAN13,jpeg_8,EAN13_jpeg_8_0.png,ok,9.47
+pyzbar (ZBar),EAN13,contrast_0.5,EAN13_contrast_0.5_0.png,ok,9.18
+pyzbar (ZBar),EAN13,contrast_0.25,EAN13_contrast_0.25_0.png,ok,8.87
+pyzbar (ZBar),EAN13,rotate_10,EAN13_rotate_10_0.png,ok,11.42
+pyzbar (ZBar),EAN13,rotate_30,EAN13_rotate_30_0.png,ok,14.79
+pyzbar (ZBar),EAN13,rotate_45,EAN13_rotate_45_0.png,miss,15.25
+pyzbar (ZBar),EAN13,rotate_90,EAN13_rotate_90_0.png,ok,8.36
+pyzbar (ZBar),EAN13,perspective,EAN13_perspective_0.png,ok,8.48
+pyzbar (ZBar),EAN13,small_0.5,EAN13_small_0.5_0.png,ok,2.69
+pyzbar (ZBar),EAN13,small_0.35,EAN13_small_0.35_0.png,miss,1.57
+pyzbar (ZBar),EAN13,inverted,EAN13_inverted_0.png,miss,7.99
+pyzbar (ZBar),EAN13,shading,EAN13_shading_0.png,ok,8.83
+pyzbar (ZBar),EAN13,poor_scan,EAN13_poor_scan_0.png,ok,12.50
+pyzbar (ZBar),EAN13,clean,EAN13_clean_1.png,ok,8.52
+pyzbar (ZBar),EAN13,blur_1.0,EAN13_blur_1.0_1.png,ok,8.52
+pyzbar (ZBar),EAN13,blur_2.0,EAN13_blur_2.0_1.png,miss,7.46
+pyzbar (ZBar),EAN13,blur_3.0,EAN13_blur_3.0_1.png,miss,7.38
+pyzbar (ZBar),EAN13,noise_15,EAN13_noise_15_1.png,ok,96.21
+pyzbar (ZBar),EAN13,noise_30,EAN13_noise_30_1.png,ok,114.84
+pyzbar (ZBar),EAN13,noise_50,EAN13_noise_50_1.png,ok,115.51
+pyzbar (ZBar),EAN13,jpeg_30,EAN13_jpeg_30_1.png,ok,9.51
+pyzbar (ZBar),EAN13,jpeg_15,EAN13_jpeg_15_1.png,ok,9.18
+pyzbar (ZBar),EAN13,jpeg_8,EAN13_jpeg_8_1.png,ok,9.33
+pyzbar (ZBar),EAN13,contrast_0.5,EAN13_contrast_0.5_1.png,ok,8.85
+pyzbar (ZBar),EAN13,contrast_0.25,EAN13_contrast_0.25_1.png,ok,9.02
+pyzbar (ZBar),EAN13,rotate_10,EAN13_rotate_10_1.png,ok,11.85
+pyzbar (ZBar),EAN13,rotate_30,EAN13_rotate_30_1.png,miss,19.71
+pyzbar (ZBar),EAN13,rotate_45,EAN13_rotate_45_1.png,miss,21.64
+pyzbar (ZBar),EAN13,rotate_90,EAN13_rotate_90_1.png,ok,8.93
+pyzbar (ZBar),EAN13,perspective,EAN13_perspective_1.png,ok,9.13
+pyzbar (ZBar),EAN13,small_0.5,EAN13_small_0.5_1.png,miss,2.26
+pyzbar (ZBar),EAN13,small_0.35,EAN13_small_0.35_1.png,miss,1.48
+pyzbar (ZBar),EAN13,inverted,EAN13_inverted_1.png,miss,8.14
+pyzbar (ZBar),EAN13,shading,EAN13_shading_1.png,ok,9.53
+pyzbar (ZBar),EAN13,poor_scan,EAN13_poor_scan_1.png,ok,13.25
+pyzbar (ZBar),EAN13,clean,EAN13_clean_2.png,ok,8.96
+pyzbar (ZBar),EAN13,blur_1.0,EAN13_blur_1.0_2.png,ok,8.76
+pyzbar (ZBar),EAN13,blur_2.0,EAN13_blur_2.0_2.png,miss,7.75
+pyzbar (ZBar),EAN13,blur_3.0,EAN13_blur_3.0_2.png,miss,7.76
+pyzbar (ZBar),EAN13,noise_15,EAN13_noise_15_2.png,ok,99.95
+pyzbar (ZBar),EAN13,noise_30,EAN13_noise_30_2.png,ok,116.11
+pyzbar (ZBar),EAN13,noise_50,EAN13_noise_50_2.png,ok,118.57
+pyzbar (ZBar),EAN13,jpeg_30,EAN13_jpeg_30_2.png,ok,9.17
+pyzbar (ZBar),EAN13,jpeg_15,EAN13_jpeg_15_2.png,ok,9.13
+pyzbar (ZBar),EAN13,jpeg_8,EAN13_jpeg_8_2.png,ok,9.39
+pyzbar (ZBar),EAN13,contrast_0.5,EAN13_contrast_0.5_2.png,ok,11.87
+pyzbar (ZBar),EAN13,contrast_0.25,EAN13_contrast_0.25_2.png,ok,9.06
+pyzbar (ZBar),EAN13,rotate_10,EAN13_rotate_10_2.png,ok,11.66
+pyzbar (ZBar),EAN13,rotate_30,EAN13_rotate_30_2.png,ok,15.49
+pyzbar (ZBar),EAN13,rotate_45,EAN13_rotate_45_2.png,miss,16.06
+pyzbar (ZBar),EAN13,rotate_90,EAN13_rotate_90_2.png,ok,8.98
+pyzbar (ZBar),EAN13,perspective,EAN13_perspective_2.png,ok,9.10
+pyzbar (ZBar),EAN13,small_0.5,EAN13_small_0.5_2.png,ok,2.64
+pyzbar (ZBar),EAN13,small_0.35,EAN13_small_0.35_2.png,miss,1.39
+pyzbar (ZBar),EAN13,inverted,EAN13_inverted_2.png,miss,8.41
+pyzbar (ZBar),EAN13,shading,EAN13_shading_2.png,ok,9.50
+pyzbar (ZBar),EAN13,poor_scan,EAN13_poor_scan_2.png,ok,13.02
+pyzbar (ZBar),EAN13,clean,EAN13_clean_3.png,ok,9.73
+pyzbar (ZBar),EAN13,blur_1.0,EAN13_blur_1.0_3.png,ok,9.32
+pyzbar (ZBar),EAN13,blur_2.0,EAN13_blur_2.0_3.png,miss,7.50
+pyzbar (ZBar),EAN13,blur_3.0,EAN13_blur_3.0_3.png,miss,7.13
+pyzbar (ZBar),EAN13,noise_15,EAN13_noise_15_3.png,ok,99.06
+pyzbar (ZBar),EAN13,noise_30,EAN13_noise_30_3.png,ok,114.77
+pyzbar (ZBar),EAN13,noise_50,EAN13_noise_50_3.png,ok,116.54
+pyzbar (ZBar),EAN13,jpeg_30,EAN13_jpeg_30_3.png,ok,8.54
+pyzbar (ZBar),EAN13,jpeg_15,EAN13_jpeg_15_3.png,ok,9.36
+pyzbar (ZBar),EAN13,jpeg_8,EAN13_jpeg_8_3.png,ok,9.39
+pyzbar (ZBar),EAN13,contrast_0.5,EAN13_contrast_0.5_3.png,ok,8.92
+pyzbar (ZBar),EAN13,contrast_0.25,EAN13_contrast_0.25_3.png,ok,9.13
+pyzbar (ZBar),EAN13,rotate_10,EAN13_rotate_10_3.png,ok,11.80
+pyzbar (ZBar),EAN13,rotate_30,EAN13_rotate_30_3.png,ok,17.35
+pyzbar (ZBar),EAN13,rotate_45,EAN13_rotate_45_3.png,miss,16.61
+pyzbar (ZBar),EAN13,rotate_90,EAN13_rotate_90_3.png,ok,8.82
+pyzbar (ZBar),EAN13,perspective,EAN13_perspective_3.png,ok,9.13
+pyzbar (ZBar),EAN13,small_0.5,EAN13_small_0.5_3.png,ok,3.00
+pyzbar (ZBar),EAN13,small_0.35,EAN13_small_0.35_3.png,miss,1.36
+pyzbar (ZBar),EAN13,inverted,EAN13_inverted_3.png,miss,8.05
+pyzbar (ZBar),EAN13,shading,EAN13_shading_3.png,ok,10.09
+pyzbar (ZBar),EAN13,poor_scan,EAN13_poor_scan_3.png,ok,13.79
+pyzbar (ZBar),EAN13,clean,EAN13_clean_4.png,ok,8.67
+pyzbar (ZBar),EAN13,blur_1.0,EAN13_blur_1.0_4.png,ok,8.58
+pyzbar (ZBar),EAN13,blur_2.0,EAN13_blur_2.0_4.png,miss,7.90
+pyzbar (ZBar),EAN13,blur_3.0,EAN13_blur_3.0_4.png,miss,7.55
+pyzbar (ZBar),EAN13,noise_15,EAN13_noise_15_4.png,ok,100.85
+pyzbar (ZBar),EAN13,noise_30,EAN13_noise_30_4.png,ok,112.66
+pyzbar (ZBar),EAN13,noise_50,EAN13_noise_50_4.png,ok,116.26
+pyzbar (ZBar),EAN13,jpeg_30,EAN13_jpeg_30_4.png,ok,9.54
+pyzbar (ZBar),EAN13,jpeg_15,EAN13_jpeg_15_4.png,ok,9.39
+pyzbar (ZBar),EAN13,jpeg_8,EAN13_jpeg_8_4.png,ok,9.38
+pyzbar (ZBar),EAN13,contrast_0.5,EAN13_contrast_0.5_4.png,ok,8.82
+pyzbar (ZBar),EAN13,contrast_0.25,EAN13_contrast_0.25_4.png,ok,8.98
+pyzbar (ZBar),EAN13,rotate_10,EAN13_rotate_10_4.png,ok,11.85
+pyzbar (ZBar),EAN13,rotate_30,EAN13_rotate_30_4.png,ok,14.59
+pyzbar (ZBar),EAN13,rotate_45,EAN13_rotate_45_4.png,miss,14.93
+pyzbar (ZBar),EAN13,rotate_90,EAN13_rotate_90_4.png,ok,8.39
+pyzbar (ZBar),EAN13,perspective,EAN13_perspective_4.png,ok,8.38
+pyzbar (ZBar),EAN13,small_0.5,EAN13_small_0.5_4.png,miss,2.17
+pyzbar (ZBar),EAN13,small_0.35,EAN13_small_0.35_4.png,miss,1.67
+pyzbar (ZBar),EAN13,inverted,EAN13_inverted_4.png,miss,7.65
+pyzbar (ZBar),EAN13,shading,EAN13_shading_4.png,ok,9.21
+pyzbar (ZBar),EAN13,poor_scan,EAN13_poor_scan_4.png,ok,14.93
+pyzbar (ZBar),EAN13,clean,EAN13_clean_5.png,ok,9.18
+pyzbar (ZBar),EAN13,blur_1.0,EAN13_blur_1.0_5.png,ok,8.94
+pyzbar (ZBar),EAN13,blur_2.0,EAN13_blur_2.0_5.png,miss,8.20
+pyzbar (ZBar),EAN13,blur_3.0,EAN13_blur_3.0_5.png,miss,7.73
+pyzbar (ZBar),EAN13,noise_15,EAN13_noise_15_5.png,ok,97.64
+pyzbar (ZBar),EAN13,noise_30,EAN13_noise_30_5.png,ok,118.98
+pyzbar (ZBar),EAN13,noise_50,EAN13_noise_50_5.png,ok,118.29
+pyzbar (ZBar),EAN13,jpeg_30,EAN13_jpeg_30_5.png,ok,8.95
+pyzbar (ZBar),EAN13,jpeg_15,EAN13_jpeg_15_5.png,ok,9.82
+pyzbar (ZBar),EAN13,jpeg_8,EAN13_jpeg_8_5.png,ok,9.33
+pyzbar (ZBar),EAN13,contrast_0.5,EAN13_contrast_0.5_5.png,ok,9.26
+pyzbar (ZBar),EAN13,contrast_0.25,EAN13_contrast_0.25_5.png,ok,9.13
+pyzbar (ZBar),EAN13,rotate_10,EAN13_rotate_10_5.png,ok,11.91
+pyzbar (ZBar),EAN13,rotate_30,EAN13_rotate_30_5.png,ok,15.54
+pyzbar (ZBar),EAN13,rotate_45,EAN13_rotate_45_5.png,miss,20.37
+pyzbar (ZBar),EAN13,rotate_90,EAN13_rotate_90_5.png,ok,9.04
+pyzbar (ZBar),EAN13,perspective,EAN13_perspective_5.png,ok,9.34
+pyzbar (ZBar),EAN13,small_0.5,EAN13_small_0.5_5.png,miss,2.30
+pyzbar (ZBar),EAN13,small_0.35,EAN13_small_0.35_5.png,miss,1.32
+pyzbar (ZBar),EAN13,inverted,EAN13_inverted_5.png,miss,11.00
+pyzbar (ZBar),EAN13,shading,EAN13_shading_5.png,ok,9.04
+pyzbar (ZBar),EAN13,poor_scan,EAN13_poor_scan_5.png,ok,14.30
+pyzbar (ZBar),EAN13,clean,EAN13_clean_6.png,ok,9.63
+pyzbar (ZBar),EAN13,blur_1.0,EAN13_blur_1.0_6.png,ok,11.07
+pyzbar (ZBar),EAN13,blur_2.0,EAN13_blur_2.0_6.png,miss,8.19
+pyzbar (ZBar),EAN13,blur_3.0,EAN13_blur_3.0_6.png,miss,7.94
+pyzbar (ZBar),EAN13,noise_15,EAN13_noise_15_6.png,ok,96.47
+pyzbar (ZBar),EAN13,noise_30,EAN13_noise_30_6.png,ok,114.68
+pyzbar (ZBar),EAN13,noise_50,EAN13_noise_50_6.png,ok,123.80
+pyzbar (ZBar),EAN13,jpeg_30,EAN13_jpeg_30_6.png,ok,9.79
+pyzbar (ZBar),EAN13,jpeg_15,EAN13_jpeg_15_6.png,ok,9.40
+pyzbar (ZBar),EAN13,jpeg_8,EAN13_jpeg_8_6.png,ok,9.97
+pyzbar (ZBar),EAN13,contrast_0.5,EAN13_contrast_0.5_6.png,ok,9.52
+pyzbar (ZBar),EAN13,contrast_0.25,EAN13_contrast_0.25_6.png,ok,8.97
+pyzbar (ZBar),EAN13,rotate_10,EAN13_rotate_10_6.png,ok,11.79
+pyzbar (ZBar),EAN13,rotate_30,EAN13_rotate_30_6.png,miss,16.22
+pyzbar (ZBar),EAN13,rotate_45,EAN13_rotate_45_6.png,miss,17.66
+pyzbar (ZBar),EAN13,rotate_90,EAN13_rotate_90_6.png,ok,9.62
+pyzbar (ZBar),EAN13,perspective,EAN13_perspective_6.png,ok,9.49
+pyzbar (ZBar),EAN13,small_0.5,EAN13_small_0.5_6.png,miss,2.50
+pyzbar (ZBar),EAN13,small_0.35,EAN13_small_0.35_6.png,miss,1.38
+pyzbar (ZBar),EAN13,inverted,EAN13_inverted_6.png,miss,8.53
+pyzbar (ZBar),EAN13,shading,EAN13_shading_6.png,ok,9.56
+pyzbar (ZBar),EAN13,poor_scan,EAN13_poor_scan_6.png,ok,14.10
+pyzbar (ZBar),EAN13,clean,EAN13_clean_7.png,ok,9.53
+pyzbar (ZBar),EAN13,blur_1.0,EAN13_blur_1.0_7.png,ok,9.65
+pyzbar (ZBar),EAN13,blur_2.0,EAN13_blur_2.0_7.png,miss,8.54
+pyzbar (ZBar),EAN13,blur_3.0,EAN13_blur_3.0_7.png,miss,8.12
+pyzbar (ZBar),EAN13,noise_15,EAN13_noise_15_7.png,ok,103.61
+pyzbar (ZBar),EAN13,noise_30,EAN13_noise_30_7.png,ok,118.22
+pyzbar (ZBar),EAN13,noise_50,EAN13_noise_50_7.png,ok,119.87
+pyzbar (ZBar),EAN13,jpeg_30,EAN13_jpeg_30_7.png,ok,10.68
+pyzbar (ZBar),EAN13,jpeg_15,EAN13_jpeg_15_7.png,ok,10.97
+pyzbar (ZBar),EAN13,jpeg_8,EAN13_jpeg_8_7.png,ok,10.05
+pyzbar (ZBar),EAN13,contrast_0.5,EAN13_contrast_0.5_7.png,ok,9.09
+pyzbar (ZBar),EAN13,contrast_0.25,EAN13_contrast_0.25_7.png,ok,9.56
+pyzbar (ZBar),EAN13,rotate_10,EAN13_rotate_10_7.png,ok,12.62
+pyzbar (ZBar),EAN13,rotate_30,EAN13_rotate_30_7.png,ok,15.68
+pyzbar (ZBar),EAN13,rotate_45,EAN13_rotate_45_7.png,miss,16.42
+pyzbar (ZBar),EAN13,rotate_90,EAN13_rotate_90_7.png,ok,9.12
+pyzbar (ZBar),EAN13,perspective,EAN13_perspective_7.png,ok,8.91
+pyzbar (ZBar),EAN13,small_0.5,EAN13_small_0.5_7.png,miss,2.42
+pyzbar (ZBar),EAN13,small_0.35,EAN13_small_0.35_7.png,miss,1.32
+pyzbar (ZBar),EAN13,inverted,EAN13_inverted_7.png,miss,8.17
+pyzbar (ZBar),EAN13,shading,EAN13_shading_7.png,ok,9.04
+pyzbar (ZBar),EAN13,poor_scan,EAN13_poor_scan_7.png,ok,13.09
+pylibdmtx,DataMatrix,clean,DataMatrix_clean_0.png,ok,55.61
+pylibdmtx,DataMatrix,blur_1.0,DataMatrix_blur_1.0_0.png,ok,54.74
+pylibdmtx,DataMatrix,blur_2.0,DataMatrix_blur_2.0_0.png,ok,54.97
+pylibdmtx,DataMatrix,blur_3.0,DataMatrix_blur_3.0_0.png,ok,55.99
+pylibdmtx,DataMatrix,noise_15,DataMatrix_noise_15_0.png,ok,610.74
+pylibdmtx,DataMatrix,noise_30,DataMatrix_noise_30_0.png,miss,1996.13
+pylibdmtx,DataMatrix,noise_50,DataMatrix_noise_50_0.png,miss,2003.22
+pylibdmtx,DataMatrix,jpeg_30,DataMatrix_jpeg_30_0.png,ok,55.69
+pylibdmtx,DataMatrix,jpeg_15,DataMatrix_jpeg_15_0.png,ok,54.56
+pylibdmtx,DataMatrix,jpeg_8,DataMatrix_jpeg_8_0.png,ok,53.53
+pylibdmtx,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_0.png,ok,54.14
+pylibdmtx,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_0.png,ok,54.04
+pylibdmtx,DataMatrix,rotate_10,DataMatrix_rotate_10_0.png,ok,203.70
+pylibdmtx,DataMatrix,rotate_30,DataMatrix_rotate_30_0.png,ok,108.35
+pylibdmtx,DataMatrix,rotate_45,DataMatrix_rotate_45_0.png,ok,117.09
+pylibdmtx,DataMatrix,rotate_90,DataMatrix_rotate_90_0.png,ok,92.02
+pylibdmtx,DataMatrix,perspective,DataMatrix_perspective_0.png,ok,59.61
+pylibdmtx,DataMatrix,small_0.5,DataMatrix_small_0.5_0.png,ok,14.62
+pylibdmtx,DataMatrix,small_0.35,DataMatrix_small_0.35_0.png,ok,8.65
+pylibdmtx,DataMatrix,inverted,DataMatrix_inverted_0.png,ok,54.38
+pylibdmtx,DataMatrix,shading,DataMatrix_shading_0.png,ok,57.50
+pylibdmtx,DataMatrix,poor_scan,DataMatrix_poor_scan_0.png,ok,142.20
+pylibdmtx,DataMatrix,clean,DataMatrix_clean_1.png,ok,55.80
+pylibdmtx,DataMatrix,blur_1.0,DataMatrix_blur_1.0_1.png,ok,54.51
+pylibdmtx,DataMatrix,blur_2.0,DataMatrix_blur_2.0_1.png,ok,53.57
+pylibdmtx,DataMatrix,blur_3.0,DataMatrix_blur_3.0_1.png,ok,56.64
+pylibdmtx,DataMatrix,noise_15,DataMatrix_noise_15_1.png,ok,618.00
+pylibdmtx,DataMatrix,noise_30,DataMatrix_noise_30_1.png,miss,2001.74
+pylibdmtx,DataMatrix,noise_50,DataMatrix_noise_50_1.png,miss,2000.73
+pylibdmtx,DataMatrix,jpeg_30,DataMatrix_jpeg_30_1.png,ok,54.40
+pylibdmtx,DataMatrix,jpeg_15,DataMatrix_jpeg_15_1.png,ok,54.56
+pylibdmtx,DataMatrix,jpeg_8,DataMatrix_jpeg_8_1.png,ok,56.16
+pylibdmtx,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_1.png,ok,56.64
+pylibdmtx,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_1.png,ok,55.27
+pylibdmtx,DataMatrix,rotate_10,DataMatrix_rotate_10_1.png,ok,1123.92
+pylibdmtx,DataMatrix,rotate_30,DataMatrix_rotate_30_1.png,ok,123.81
+pylibdmtx,DataMatrix,rotate_45,DataMatrix_rotate_45_1.png,ok,151.01
+pylibdmtx,DataMatrix,rotate_90,DataMatrix_rotate_90_1.png,ok,59.57
+pylibdmtx,DataMatrix,perspective,DataMatrix_perspective_1.png,ok,59.12
+pylibdmtx,DataMatrix,small_0.5,DataMatrix_small_0.5_1.png,ok,14.52
+pylibdmtx,DataMatrix,small_0.35,DataMatrix_small_0.35_1.png,ok,9.14
+pylibdmtx,DataMatrix,inverted,DataMatrix_inverted_1.png,ok,54.65
+pylibdmtx,DataMatrix,shading,DataMatrix_shading_1.png,ok,58.24
+pylibdmtx,DataMatrix,poor_scan,DataMatrix_poor_scan_1.png,ok,138.83
+pylibdmtx,DataMatrix,clean,DataMatrix_clean_2.png,ok,54.76
+pylibdmtx,DataMatrix,blur_1.0,DataMatrix_blur_1.0_2.png,ok,56.53
+pylibdmtx,DataMatrix,blur_2.0,DataMatrix_blur_2.0_2.png,ok,54.95
+pylibdmtx,DataMatrix,blur_3.0,DataMatrix_blur_3.0_2.png,ok,57.48
+pylibdmtx,DataMatrix,noise_15,DataMatrix_noise_15_2.png,ok,615.20
+pylibdmtx,DataMatrix,noise_30,DataMatrix_noise_30_2.png,ok,996.73
+pylibdmtx,DataMatrix,noise_50,DataMatrix_noise_50_2.png,ok,2009.05
+pylibdmtx,DataMatrix,jpeg_30,DataMatrix_jpeg_30_2.png,ok,53.98
+pylibdmtx,DataMatrix,jpeg_15,DataMatrix_jpeg_15_2.png,ok,57.73
+pylibdmtx,DataMatrix,jpeg_8,DataMatrix_jpeg_8_2.png,ok,58.89
+pylibdmtx,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_2.png,ok,55.45
+pylibdmtx,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_2.png,ok,56.05
+pylibdmtx,DataMatrix,rotate_10,DataMatrix_rotate_10_2.png,ok,102.34
+pylibdmtx,DataMatrix,rotate_30,DataMatrix_rotate_30_2.png,ok,116.74
+pylibdmtx,DataMatrix,rotate_45,DataMatrix_rotate_45_2.png,ok,123.59
+pylibdmtx,DataMatrix,rotate_90,DataMatrix_rotate_90_2.png,ok,61.18
+pylibdmtx,DataMatrix,perspective,DataMatrix_perspective_2.png,ok,60.00
+pylibdmtx,DataMatrix,small_0.5,DataMatrix_small_0.5_2.png,ok,13.69
+pylibdmtx,DataMatrix,small_0.35,DataMatrix_small_0.35_2.png,ok,9.43
+pylibdmtx,DataMatrix,inverted,DataMatrix_inverted_2.png,ok,55.42
+pylibdmtx,DataMatrix,shading,DataMatrix_shading_2.png,ok,58.42
+pylibdmtx,DataMatrix,poor_scan,DataMatrix_poor_scan_2.png,ok,143.44
+pylibdmtx,DataMatrix,clean,DataMatrix_clean_3.png,ok,52.93
+pylibdmtx,DataMatrix,blur_1.0,DataMatrix_blur_1.0_3.png,ok,55.10
+pylibdmtx,DataMatrix,blur_2.0,DataMatrix_blur_2.0_3.png,ok,54.82
+pylibdmtx,DataMatrix,blur_3.0,DataMatrix_blur_3.0_3.png,ok,59.06
+pylibdmtx,DataMatrix,noise_15,DataMatrix_noise_15_3.png,ok,624.33
+pylibdmtx,DataMatrix,noise_30,DataMatrix_noise_30_3.png,ok,966.65
+pylibdmtx,DataMatrix,noise_50,DataMatrix_noise_50_3.png,miss,2011.79
+pylibdmtx,DataMatrix,jpeg_30,DataMatrix_jpeg_30_3.png,ok,55.66
+pylibdmtx,DataMatrix,jpeg_15,DataMatrix_jpeg_15_3.png,ok,55.03
+pylibdmtx,DataMatrix,jpeg_8,DataMatrix_jpeg_8_3.png,ok,55.37
+pylibdmtx,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_3.png,ok,52.87
+pylibdmtx,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_3.png,ok,53.84
+pylibdmtx,DataMatrix,rotate_10,DataMatrix_rotate_10_3.png,miss,1992.03
+pylibdmtx,DataMatrix,rotate_30,DataMatrix_rotate_30_3.png,ok,110.30
+pylibdmtx,DataMatrix,rotate_45,DataMatrix_rotate_45_3.png,ok,120.64
+pylibdmtx,DataMatrix,rotate_90,DataMatrix_rotate_90_3.png,ok,60.69
+pylibdmtx,DataMatrix,perspective,DataMatrix_perspective_3.png,ok,59.80
+pylibdmtx,DataMatrix,small_0.5,DataMatrix_small_0.5_3.png,ok,14.56
+pylibdmtx,DataMatrix,small_0.35,DataMatrix_small_0.35_3.png,ok,8.57
+pylibdmtx,DataMatrix,inverted,DataMatrix_inverted_3.png,ok,55.52
+pylibdmtx,DataMatrix,shading,DataMatrix_shading_3.png,ok,55.62
+pylibdmtx,DataMatrix,poor_scan,DataMatrix_poor_scan_3.png,ok,143.90
+pylibdmtx,DataMatrix,clean,DataMatrix_clean_4.png,ok,61.51
+pylibdmtx,DataMatrix,blur_1.0,DataMatrix_blur_1.0_4.png,ok,62.22
+pylibdmtx,DataMatrix,blur_2.0,DataMatrix_blur_2.0_4.png,ok,55.73
+pylibdmtx,DataMatrix,blur_3.0,DataMatrix_blur_3.0_4.png,ok,56.05
+pylibdmtx,DataMatrix,noise_15,DataMatrix_noise_15_4.png,ok,615.49
+pylibdmtx,DataMatrix,noise_30,DataMatrix_noise_30_4.png,ok,942.15
+pylibdmtx,DataMatrix,noise_50,DataMatrix_noise_50_4.png,miss,1999.60
+pylibdmtx,DataMatrix,jpeg_30,DataMatrix_jpeg_30_4.png,ok,55.99
+pylibdmtx,DataMatrix,jpeg_15,DataMatrix_jpeg_15_4.png,ok,55.41
+pylibdmtx,DataMatrix,jpeg_8,DataMatrix_jpeg_8_4.png,ok,55.61
+pylibdmtx,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_4.png,ok,56.33
+pylibdmtx,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_4.png,ok,102.90
+pylibdmtx,DataMatrix,rotate_10,DataMatrix_rotate_10_4.png,ok,1045.06
+pylibdmtx,DataMatrix,rotate_30,DataMatrix_rotate_30_4.png,ok,117.74
+pylibdmtx,DataMatrix,rotate_45,DataMatrix_rotate_45_4.png,ok,134.70
+pylibdmtx,DataMatrix,rotate_90,DataMatrix_rotate_90_4.png,ok,59.47
+pylibdmtx,DataMatrix,perspective,DataMatrix_perspective_4.png,ok,61.77
+pylibdmtx,DataMatrix,small_0.5,DataMatrix_small_0.5_4.png,ok,15.67
+pylibdmtx,DataMatrix,small_0.35,DataMatrix_small_0.35_4.png,ok,8.69
+pylibdmtx,DataMatrix,inverted,DataMatrix_inverted_4.png,ok,56.51
+pylibdmtx,DataMatrix,shading,DataMatrix_shading_4.png,ok,58.52
+pylibdmtx,DataMatrix,poor_scan,DataMatrix_poor_scan_4.png,ok,145.05
+pylibdmtx,DataMatrix,clean,DataMatrix_clean_5.png,ok,56.04
+pylibdmtx,DataMatrix,blur_1.0,DataMatrix_blur_1.0_5.png,ok,57.23
+pylibdmtx,DataMatrix,blur_2.0,DataMatrix_blur_2.0_5.png,ok,55.44
+pylibdmtx,DataMatrix,blur_3.0,DataMatrix_blur_3.0_5.png,ok,58.33
+pylibdmtx,DataMatrix,noise_15,DataMatrix_noise_15_5.png,ok,616.67
+pylibdmtx,DataMatrix,noise_30,DataMatrix_noise_30_5.png,ok,938.60
+pylibdmtx,DataMatrix,noise_50,DataMatrix_noise_50_5.png,ok,1859.13
+pylibdmtx,DataMatrix,jpeg_30,DataMatrix_jpeg_30_5.png,ok,56.29
+pylibdmtx,DataMatrix,jpeg_15,DataMatrix_jpeg_15_5.png,ok,56.43
+pylibdmtx,DataMatrix,jpeg_8,DataMatrix_jpeg_8_5.png,ok,56.09
+pylibdmtx,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_5.png,ok,55.16
+pylibdmtx,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_5.png,ok,55.30
+pylibdmtx,DataMatrix,rotate_10,DataMatrix_rotate_10_5.png,ok,1409.87
+pylibdmtx,DataMatrix,rotate_30,DataMatrix_rotate_30_5.png,ok,107.30
+pylibdmtx,DataMatrix,rotate_45,DataMatrix_rotate_45_5.png,ok,119.61
+pylibdmtx,DataMatrix,rotate_90,DataMatrix_rotate_90_5.png,ok,117.80
+pylibdmtx,DataMatrix,perspective,DataMatrix_perspective_5.png,ok,60.06
+pylibdmtx,DataMatrix,small_0.5,DataMatrix_small_0.5_5.png,ok,15.00
+pylibdmtx,DataMatrix,small_0.35,DataMatrix_small_0.35_5.png,ok,8.67
+pylibdmtx,DataMatrix,inverted,DataMatrix_inverted_5.png,ok,54.98
+pylibdmtx,DataMatrix,shading,DataMatrix_shading_5.png,ok,58.27
+pylibdmtx,DataMatrix,poor_scan,DataMatrix_poor_scan_5.png,ok,140.48
+pylibdmtx,DataMatrix,clean,DataMatrix_clean_6.png,ok,53.95
+pylibdmtx,DataMatrix,blur_1.0,DataMatrix_blur_1.0_6.png,ok,54.25
+pylibdmtx,DataMatrix,blur_2.0,DataMatrix_blur_2.0_6.png,ok,54.66
+pylibdmtx,DataMatrix,blur_3.0,DataMatrix_blur_3.0_6.png,ok,53.95
+pylibdmtx,DataMatrix,noise_15,DataMatrix_noise_15_6.png,ok,622.15
+pylibdmtx,DataMatrix,noise_30,DataMatrix_noise_30_6.png,ok,934.21
+pylibdmtx,DataMatrix,noise_50,DataMatrix_noise_50_6.png,miss,2000.63
+pylibdmtx,DataMatrix,jpeg_30,DataMatrix_jpeg_30_6.png,ok,56.76
+pylibdmtx,DataMatrix,jpeg_15,DataMatrix_jpeg_15_6.png,ok,55.77
+pylibdmtx,DataMatrix,jpeg_8,DataMatrix_jpeg_8_6.png,ok,58.51
+pylibdmtx,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_6.png,ok,56.82
+pylibdmtx,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_6.png,ok,54.99
+pylibdmtx,DataMatrix,rotate_10,DataMatrix_rotate_10_6.png,miss,1998.73
+pylibdmtx,DataMatrix,rotate_30,DataMatrix_rotate_30_6.png,ok,110.80
+pylibdmtx,DataMatrix,rotate_45,DataMatrix_rotate_45_6.png,ok,159.54
+pylibdmtx,DataMatrix,rotate_90,DataMatrix_rotate_90_6.png,ok,59.44
+pylibdmtx,DataMatrix,perspective,DataMatrix_perspective_6.png,ok,59.82
+pylibdmtx,DataMatrix,small_0.5,DataMatrix_small_0.5_6.png,ok,14.40
+pylibdmtx,DataMatrix,small_0.35,DataMatrix_small_0.35_6.png,ok,8.71
+pylibdmtx,DataMatrix,inverted,DataMatrix_inverted_6.png,ok,56.59
+pylibdmtx,DataMatrix,shading,DataMatrix_shading_6.png,ok,55.84
+pylibdmtx,DataMatrix,poor_scan,DataMatrix_poor_scan_6.png,ok,140.46
+pylibdmtx,DataMatrix,clean,DataMatrix_clean_7.png,ok,53.19
+pylibdmtx,DataMatrix,blur_1.0,DataMatrix_blur_1.0_7.png,ok,54.58
+pylibdmtx,DataMatrix,blur_2.0,DataMatrix_blur_2.0_7.png,ok,53.87
+pylibdmtx,DataMatrix,blur_3.0,DataMatrix_blur_3.0_7.png,ok,55.82
+pylibdmtx,DataMatrix,noise_15,DataMatrix_noise_15_7.png,ok,615.51
+pylibdmtx,DataMatrix,noise_30,DataMatrix_noise_30_7.png,miss,1992.42
+pylibdmtx,DataMatrix,noise_50,DataMatrix_noise_50_7.png,miss,1988.36
+pylibdmtx,DataMatrix,jpeg_30,DataMatrix_jpeg_30_7.png,ok,55.40
+pylibdmtx,DataMatrix,jpeg_15,DataMatrix_jpeg_15_7.png,ok,56.83
+pylibdmtx,DataMatrix,jpeg_8,DataMatrix_jpeg_8_7.png,ok,55.34
+pylibdmtx,DataMatrix,contrast_0.5,DataMatrix_contrast_0.5_7.png,ok,54.97
+pylibdmtx,DataMatrix,contrast_0.25,DataMatrix_contrast_0.25_7.png,ok,55.27
+pylibdmtx,DataMatrix,rotate_10,DataMatrix_rotate_10_7.png,ok,78.28
+pylibdmtx,DataMatrix,rotate_30,DataMatrix_rotate_30_7.png,ok,107.26
+pylibdmtx,DataMatrix,rotate_45,DataMatrix_rotate_45_7.png,ok,139.99
+pylibdmtx,DataMatrix,rotate_90,DataMatrix_rotate_90_7.png,ok,56.67
+pylibdmtx,DataMatrix,perspective,DataMatrix_perspective_7.png,ok,59.01
+pylibdmtx,DataMatrix,small_0.5,DataMatrix_small_0.5_7.png,ok,14.32
+pylibdmtx,DataMatrix,small_0.35,DataMatrix_small_0.35_7.png,ok,9.57
+pylibdmtx,DataMatrix,inverted,DataMatrix_inverted_7.png,ok,55.44
+pylibdmtx,DataMatrix,shading,DataMatrix_shading_7.png,ok,57.09
+pylibdmtx,DataMatrix,poor_scan,DataMatrix_poor_scan_7.png,ok,143.64
+OpenCV QRCodeDetector,QRCODE,clean,QRCODE_clean_0.png,ok,33.74
+OpenCV QRCodeDetector,QRCODE,blur_1.0,QRCODE_blur_1.0_0.png,ok,34.89
+OpenCV QRCodeDetector,QRCODE,blur_2.0,QRCODE_blur_2.0_0.png,miss,18.16
+OpenCV QRCodeDetector,QRCODE,blur_3.0,QRCODE_blur_3.0_0.png,miss,18.05
+OpenCV QRCodeDetector,QRCODE,noise_15,QRCODE_noise_15_0.png,ok,36.97
+OpenCV QRCodeDetector,QRCODE,noise_30,QRCODE_noise_30_0.png,ok,42.36
+OpenCV QRCodeDetector,QRCODE,noise_50,QRCODE_noise_50_0.png,ok,43.45
+OpenCV QRCodeDetector,QRCODE,jpeg_30,QRCODE_jpeg_30_0.png,ok,42.61
+OpenCV QRCodeDetector,QRCODE,jpeg_15,QRCODE_jpeg_15_0.png,ok,36.61
+OpenCV QRCodeDetector,QRCODE,jpeg_8,QRCODE_jpeg_8_0.png,ok,38.36
+OpenCV QRCodeDetector,QRCODE,contrast_0.5,QRCODE_contrast_0.5_0.png,ok,40.73
+OpenCV QRCodeDetector,QRCODE,contrast_0.25,QRCODE_contrast_0.25_0.png,ok,36.43
+OpenCV QRCodeDetector,QRCODE,rotate_10,QRCODE_rotate_10_0.png,ok,45.99
+OpenCV QRCodeDetector,QRCODE,rotate_30,QRCODE_rotate_30_0.png,miss,38.01
+OpenCV QRCodeDetector,QRCODE,rotate_45,QRCODE_rotate_45_0.png,ok,72.88
+OpenCV QRCodeDetector,QRCODE,rotate_90,QRCODE_rotate_90_0.png,ok,40.61
+OpenCV QRCodeDetector,QRCODE,perspective,QRCODE_perspective_0.png,ok,35.87
+OpenCV QRCodeDetector,QRCODE,small_0.5,QRCODE_small_0.5_0.png,miss,8.84
+OpenCV QRCodeDetector,QRCODE,small_0.35,QRCODE_small_0.35_0.png,miss,7.70
+OpenCV QRCodeDetector,QRCODE,inverted,QRCODE_inverted_0.png,miss,19.06
+OpenCV QRCodeDetector,QRCODE,shading,QRCODE_shading_0.png,ok,38.20
+OpenCV QRCodeDetector,QRCODE,poor_scan,QRCODE_poor_scan_0.png,ok,41.49
+OpenCV QRCodeDetector,QRCODE,clean,QRCODE_clean_1.png,ok,33.80
+OpenCV QRCodeDetector,QRCODE,blur_1.0,QRCODE_blur_1.0_1.png,ok,37.87
+OpenCV QRCodeDetector,QRCODE,blur_2.0,QRCODE_blur_2.0_1.png,miss,36.80
+OpenCV QRCodeDetector,QRCODE,blur_3.0,QRCODE_blur_3.0_1.png,miss,18.38
+OpenCV QRCodeDetector,QRCODE,noise_15,QRCODE_noise_15_1.png,ok,42.99
+OpenCV QRCodeDetector,QRCODE,noise_30,QRCODE_noise_30_1.png,ok,43.30
+OpenCV QRCodeDetector,QRCODE,noise_50,QRCODE_noise_50_1.png,ok,42.94
+OpenCV QRCodeDetector,QRCODE,jpeg_30,QRCODE_jpeg_30_1.png,ok,37.08
+OpenCV QRCodeDetector,QRCODE,jpeg_15,QRCODE_jpeg_15_1.png,ok,38.44
+OpenCV QRCodeDetector,QRCODE,jpeg_8,QRCODE_jpeg_8_1.png,miss,57.66
+OpenCV QRCodeDetector,QRCODE,contrast_0.5,QRCODE_contrast_0.5_1.png,ok,38.58
+OpenCV QRCodeDetector,QRCODE,contrast_0.25,QRCODE_contrast_0.25_1.png,ok,37.12
+OpenCV QRCodeDetector,QRCODE,rotate_10,QRCODE_rotate_10_1.png,ok,49.65
+OpenCV QRCodeDetector,QRCODE,rotate_30,QRCODE_rotate_30_1.png,ok,65.73
+OpenCV QRCodeDetector,QRCODE,rotate_45,QRCODE_rotate_45_1.png,ok,69.83
+OpenCV QRCodeDetector,QRCODE,rotate_90,QRCODE_rotate_90_1.png,ok,37.05
+OpenCV QRCodeDetector,QRCODE,perspective,QRCODE_perspective_1.png,ok,37.95
+OpenCV QRCodeDetector,QRCODE,small_0.5,QRCODE_small_0.5_1.png,miss,8.68
+OpenCV QRCodeDetector,QRCODE,small_0.35,QRCODE_small_0.35_1.png,miss,10.05
+OpenCV QRCodeDetector,QRCODE,inverted,QRCODE_inverted_1.png,miss,18.27
+OpenCV QRCodeDetector,QRCODE,shading,QRCODE_shading_1.png,ok,37.29
+OpenCV QRCodeDetector,QRCODE,poor_scan,QRCODE_poor_scan_1.png,ok,42.02
+OpenCV QRCodeDetector,QRCODE,clean,QRCODE_clean_2.png,ok,36.72
+OpenCV QRCodeDetector,QRCODE,blur_1.0,QRCODE_blur_1.0_2.png,ok,37.65
+OpenCV QRCodeDetector,QRCODE,blur_2.0,QRCODE_blur_2.0_2.png,miss,34.82
+OpenCV QRCodeDetector,QRCODE,blur_3.0,QRCODE_blur_3.0_2.png,miss,18.78
+OpenCV QRCodeDetector,QRCODE,noise_15,QRCODE_noise_15_2.png,ok,37.38
+OpenCV QRCodeDetector,QRCODE,noise_30,QRCODE_noise_30_2.png,ok,38.94
+OpenCV QRCodeDetector,QRCODE,noise_50,QRCODE_noise_50_2.png,miss,38.95
+OpenCV QRCodeDetector,QRCODE,jpeg_30,QRCODE_jpeg_30_2.png,ok,34.68
+OpenCV QRCodeDetector,QRCODE,jpeg_15,QRCODE_jpeg_15_2.png,ok,33.98
+OpenCV QRCodeDetector,QRCODE,jpeg_8,QRCODE_jpeg_8_2.png,ok,33.84
+OpenCV QRCodeDetector,QRCODE,contrast_0.5,QRCODE_contrast_0.5_2.png,ok,37.04
+OpenCV QRCodeDetector,QRCODE,contrast_0.25,QRCODE_contrast_0.25_2.png,ok,36.37
+OpenCV QRCodeDetector,QRCODE,rotate_10,QRCODE_rotate_10_2.png,ok,43.46
+OpenCV QRCodeDetector,QRCODE,rotate_30,QRCODE_rotate_30_2.png,ok,61.63
+OpenCV QRCodeDetector,QRCODE,rotate_45,QRCODE_rotate_45_2.png,ok,66.23
+OpenCV QRCodeDetector,QRCODE,rotate_90,QRCODE_rotate_90_2.png,ok,34.55
+OpenCV QRCodeDetector,QRCODE,perspective,QRCODE_perspective_2.png,ok,35.32
+OpenCV QRCodeDetector,QRCODE,small_0.5,QRCODE_small_0.5_2.png,miss,8.83
+OpenCV QRCodeDetector,QRCODE,small_0.35,QRCODE_small_0.35_2.png,miss,7.27
+OpenCV QRCodeDetector,QRCODE,inverted,QRCODE_inverted_2.png,miss,20.04
+OpenCV QRCodeDetector,QRCODE,shading,QRCODE_shading_2.png,ok,33.42
+OpenCV QRCodeDetector,QRCODE,poor_scan,QRCODE_poor_scan_2.png,ok,39.35
+OpenCV QRCodeDetector,QRCODE,clean,QRCODE_clean_3.png,ok,34.21
+OpenCV QRCodeDetector,QRCODE,blur_1.0,QRCODE_blur_1.0_3.png,ok,36.33
+OpenCV QRCodeDetector,QRCODE,blur_2.0,QRCODE_blur_2.0_3.png,miss,34.89
+OpenCV QRCodeDetector,QRCODE,blur_3.0,QRCODE_blur_3.0_3.png,miss,20.10
+OpenCV QRCodeDetector,QRCODE,noise_15,QRCODE_noise_15_3.png,ok,38.83
+OpenCV QRCodeDetector,QRCODE,noise_30,QRCODE_noise_30_3.png,ok,38.95
+OpenCV QRCodeDetector,QRCODE,noise_50,QRCODE_noise_50_3.png,ok,42.20
+OpenCV QRCodeDetector,QRCODE,jpeg_30,QRCODE_jpeg_30_3.png,ok,34.20
+OpenCV QRCodeDetector,QRCODE,jpeg_15,QRCODE_jpeg_15_3.png,ok,37.16
+OpenCV QRCodeDetector,QRCODE,jpeg_8,QRCODE_jpeg_8_3.png,ok,37.24
+OpenCV QRCodeDetector,QRCODE,contrast_0.5,QRCODE_contrast_0.5_3.png,ok,44.55
+OpenCV QRCodeDetector,QRCODE,contrast_0.25,QRCODE_contrast_0.25_3.png,ok,37.23
+OpenCV QRCodeDetector,QRCODE,rotate_10,QRCODE_rotate_10_3.png,ok,47.99
+OpenCV QRCodeDetector,QRCODE,rotate_30,QRCODE_rotate_30_3.png,ok,66.49
+OpenCV QRCodeDetector,QRCODE,rotate_45,QRCODE_rotate_45_3.png,ok,71.19
+OpenCV QRCodeDetector,QRCODE,rotate_90,QRCODE_rotate_90_3.png,ok,35.50
+OpenCV QRCodeDetector,QRCODE,perspective,QRCODE_perspective_3.png,ok,37.08
+OpenCV QRCodeDetector,QRCODE,small_0.5,QRCODE_small_0.5_3.png,ok,12.67
+OpenCV QRCodeDetector,QRCODE,small_0.35,QRCODE_small_0.35_3.png,miss,19.35
+OpenCV QRCodeDetector,QRCODE,inverted,QRCODE_inverted_3.png,miss,19.96
+OpenCV QRCodeDetector,QRCODE,shading,QRCODE_shading_3.png,ok,36.01
+OpenCV QRCodeDetector,QRCODE,poor_scan,QRCODE_poor_scan_3.png,ok,39.29
+OpenCV QRCodeDetector,QRCODE,clean,QRCODE_clean_4.png,ok,38.37
+OpenCV QRCodeDetector,QRCODE,blur_1.0,QRCODE_blur_1.0_4.png,ok,33.16
+OpenCV QRCodeDetector,QRCODE,blur_2.0,QRCODE_blur_2.0_4.png,miss,19.37
+OpenCV QRCodeDetector,QRCODE,blur_3.0,QRCODE_blur_3.0_4.png,miss,18.13
+OpenCV QRCodeDetector,QRCODE,noise_15,QRCODE_noise_15_4.png,ok,38.79
+OpenCV QRCodeDetector,QRCODE,noise_30,QRCODE_noise_30_4.png,ok,37.61
+OpenCV QRCodeDetector,QRCODE,noise_50,QRCODE_noise_50_4.png,ok,159.08
+OpenCV QRCodeDetector,QRCODE,jpeg_30,QRCODE_jpeg_30_4.png,ok,34.35
+OpenCV QRCodeDetector,QRCODE,jpeg_15,QRCODE_jpeg_15_4.png,ok,32.51
+OpenCV QRCodeDetector,QRCODE,jpeg_8,QRCODE_jpeg_8_4.png,ok,33.86
+OpenCV QRCodeDetector,QRCODE,contrast_0.5,QRCODE_contrast_0.5_4.png,ok,34.21
+OpenCV QRCodeDetector,QRCODE,contrast_0.25,QRCODE_contrast_0.25_4.png,ok,34.49
+OpenCV QRCodeDetector,QRCODE,rotate_10,QRCODE_rotate_10_4.png,ok,44.83
+OpenCV QRCodeDetector,QRCODE,rotate_30,QRCODE_rotate_30_4.png,ok,64.64
+OpenCV QRCodeDetector,QRCODE,rotate_45,QRCODE_rotate_45_4.png,ok,69.09
+OpenCV QRCodeDetector,QRCODE,rotate_90,QRCODE_rotate_90_4.png,ok,34.96
+OpenCV QRCodeDetector,QRCODE,perspective,QRCODE_perspective_4.png,ok,34.51
+OpenCV QRCodeDetector,QRCODE,small_0.5,QRCODE_small_0.5_4.png,miss,12.37
+OpenCV QRCodeDetector,QRCODE,small_0.35,QRCODE_small_0.35_4.png,miss,10.44
+OpenCV QRCodeDetector,QRCODE,inverted,QRCODE_inverted_4.png,miss,18.29
+OpenCV QRCodeDetector,QRCODE,shading,QRCODE_shading_4.png,ok,35.10
+OpenCV QRCodeDetector,QRCODE,poor_scan,QRCODE_poor_scan_4.png,ok,40.24
+OpenCV QRCodeDetector,QRCODE,clean,QRCODE_clean_5.png,ok,34.71
+OpenCV QRCodeDetector,QRCODE,blur_1.0,QRCODE_blur_1.0_5.png,ok,33.00
+OpenCV QRCodeDetector,QRCODE,blur_2.0,QRCODE_blur_2.0_5.png,miss,33.86
+OpenCV QRCodeDetector,QRCODE,blur_3.0,QRCODE_blur_3.0_5.png,miss,18.57
+OpenCV QRCodeDetector,QRCODE,noise_15,QRCODE_noise_15_5.png,ok,38.28
+OpenCV QRCodeDetector,QRCODE,noise_30,QRCODE_noise_30_5.png,ok,41.50
+OpenCV QRCodeDetector,QRCODE,noise_50,QRCODE_noise_50_5.png,ok,39.14
+OpenCV QRCodeDetector,QRCODE,jpeg_30,QRCODE_jpeg_30_5.png,ok,34.49
+OpenCV QRCodeDetector,QRCODE,jpeg_15,QRCODE_jpeg_15_5.png,ok,33.61
+OpenCV QRCodeDetector,QRCODE,jpeg_8,QRCODE_jpeg_8_5.png,ok,33.34
+OpenCV QRCodeDetector,QRCODE,contrast_0.5,QRCODE_contrast_0.5_5.png,ok,34.61
+OpenCV QRCodeDetector,QRCODE,contrast_0.25,QRCODE_contrast_0.25_5.png,ok,34.10
+OpenCV QRCodeDetector,QRCODE,rotate_10,QRCODE_rotate_10_5.png,ok,42.07
+OpenCV QRCodeDetector,QRCODE,rotate_30,QRCODE_rotate_30_5.png,ok,64.31
+OpenCV QRCodeDetector,QRCODE,rotate_45,QRCODE_rotate_45_5.png,ok,75.70
+OpenCV QRCodeDetector,QRCODE,rotate_90,QRCODE_rotate_90_5.png,ok,38.53
+OpenCV QRCodeDetector,QRCODE,perspective,QRCODE_perspective_5.png,ok,36.46
+OpenCV QRCodeDetector,QRCODE,small_0.5,QRCODE_small_0.5_5.png,ok,12.70
+OpenCV QRCodeDetector,QRCODE,small_0.35,QRCODE_small_0.35_5.png,miss,7.78
+OpenCV QRCodeDetector,QRCODE,inverted,QRCODE_inverted_5.png,miss,53.42
+OpenCV QRCodeDetector,QRCODE,shading,QRCODE_shading_5.png,ok,36.63
+OpenCV QRCodeDetector,QRCODE,poor_scan,QRCODE_poor_scan_5.png,ok,40.18
+OpenCV QRCodeDetector,QRCODE,clean,QRCODE_clean_6.png,ok,34.35
+OpenCV QRCodeDetector,QRCODE,blur_1.0,QRCODE_blur_1.0_6.png,ok,35.37
+OpenCV QRCodeDetector,QRCODE,blur_2.0,QRCODE_blur_2.0_6.png,miss,34.66
+OpenCV QRCodeDetector,QRCODE,blur_3.0,QRCODE_blur_3.0_6.png,miss,18.99
+OpenCV QRCodeDetector,QRCODE,noise_15,QRCODE_noise_15_6.png,ok,41.24
+OpenCV QRCodeDetector,QRCODE,noise_30,QRCODE_noise_30_6.png,ok,38.71
+OpenCV QRCodeDetector,QRCODE,noise_50,QRCODE_noise_50_6.png,ok,40.63
+OpenCV QRCodeDetector,QRCODE,jpeg_30,QRCODE_jpeg_30_6.png,ok,33.48
+OpenCV QRCodeDetector,QRCODE,jpeg_15,QRCODE_jpeg_15_6.png,ok,32.92
+OpenCV QRCodeDetector,QRCODE,jpeg_8,QRCODE_jpeg_8_6.png,ok,34.77
+OpenCV QRCodeDetector,QRCODE,contrast_0.5,QRCODE_contrast_0.5_6.png,ok,32.19
+OpenCV QRCodeDetector,QRCODE,contrast_0.25,QRCODE_contrast_0.25_6.png,ok,34.25
+OpenCV QRCodeDetector,QRCODE,rotate_10,QRCODE_rotate_10_6.png,ok,42.46
+OpenCV QRCodeDetector,QRCODE,rotate_30,QRCODE_rotate_30_6.png,ok,64.24
+OpenCV QRCodeDetector,QRCODE,rotate_45,QRCODE_rotate_45_6.png,ok,67.28
+OpenCV QRCodeDetector,QRCODE,rotate_90,QRCODE_rotate_90_6.png,ok,34.45
+OpenCV QRCodeDetector,QRCODE,perspective,QRCODE_perspective_6.png,ok,33.79
+OpenCV QRCodeDetector,QRCODE,small_0.5,QRCODE_small_0.5_6.png,miss,13.93
+OpenCV QRCodeDetector,QRCODE,small_0.35,QRCODE_small_0.35_6.png,miss,8.55
+OpenCV QRCodeDetector,QRCODE,inverted,QRCODE_inverted_6.png,miss,26.08
+OpenCV QRCodeDetector,QRCODE,shading,QRCODE_shading_6.png,ok,35.21
+OpenCV QRCodeDetector,QRCODE,poor_scan,QRCODE_poor_scan_6.png,ok,42.85
+OpenCV QRCodeDetector,QRCODE,clean,QRCODE_clean_7.png,ok,36.60
+OpenCV QRCodeDetector,QRCODE,blur_1.0,QRCODE_blur_1.0_7.png,miss,36.29
+OpenCV QRCodeDetector,QRCODE,blur_2.0,QRCODE_blur_2.0_7.png,miss,18.36
+OpenCV QRCodeDetector,QRCODE,blur_3.0,QRCODE_blur_3.0_7.png,miss,18.07
+OpenCV QRCodeDetector,QRCODE,noise_15,QRCODE_noise_15_7.png,ok,39.92
+OpenCV QRCodeDetector,QRCODE,noise_30,QRCODE_noise_30_7.png,ok,38.08
+OpenCV QRCodeDetector,QRCODE,noise_50,QRCODE_noise_50_7.png,ok,42.48
+OpenCV QRCodeDetector,QRCODE,jpeg_30,QRCODE_jpeg_30_7.png,ok,36.33
+OpenCV QRCodeDetector,QRCODE,jpeg_15,QRCODE_jpeg_15_7.png,ok,33.62
+OpenCV QRCodeDetector,QRCODE,jpeg_8,QRCODE_jpeg_8_7.png,ok,34.06
+OpenCV QRCodeDetector,QRCODE,contrast_0.5,QRCODE_contrast_0.5_7.png,ok,32.62
+OpenCV QRCodeDetector,QRCODE,contrast_0.25,QRCODE_contrast_0.25_7.png,ok,33.26
+OpenCV QRCodeDetector,QRCODE,rotate_10,QRCODE_rotate_10_7.png,ok,42.81
+OpenCV QRCodeDetector,QRCODE,rotate_30,QRCODE_rotate_30_7.png,ok,60.14
+OpenCV QRCodeDetector,QRCODE,rotate_45,QRCODE_rotate_45_7.png,ok,69.97
+OpenCV QRCodeDetector,QRCODE,rotate_90,QRCODE_rotate_90_7.png,ok,35.81
+OpenCV QRCodeDetector,QRCODE,perspective,QRCODE_perspective_7.png,ok,36.37
+OpenCV QRCodeDetector,QRCODE,small_0.5,QRCODE_small_0.5_7.png,miss,11.90
+OpenCV QRCodeDetector,QRCODE,small_0.35,QRCODE_small_0.35_7.png,miss,8.66
+OpenCV QRCodeDetector,QRCODE,inverted,QRCODE_inverted_7.png,miss,20.39
+OpenCV QRCodeDetector,QRCODE,shading,QRCODE_shading_7.png,ok,36.09
+OpenCV QRCodeDetector,QRCODE,poor_scan,QRCODE_poor_scan_7.png,ok,39.00
+OpenCV QRCodeDetectorAruco,QRCODE,clean,QRCODE_clean_0.png,ok,23.88
+OpenCV QRCodeDetectorAruco,QRCODE,blur_1.0,QRCODE_blur_1.0_0.png,miss,21.89
+OpenCV QRCodeDetectorAruco,QRCODE,blur_2.0,QRCODE_blur_2.0_0.png,miss,8.92
+OpenCV QRCodeDetectorAruco,QRCODE,blur_3.0,QRCODE_blur_3.0_0.png,miss,1.89
+OpenCV QRCodeDetectorAruco,QRCODE,noise_15,QRCODE_noise_15_0.png,ok,76.08
+OpenCV QRCodeDetectorAruco,QRCODE,noise_30,QRCODE_noise_30_0.png,ok,85.88
+OpenCV QRCodeDetectorAruco,QRCODE,noise_50,QRCODE_noise_50_0.png,miss,90.45
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_30,QRCODE_jpeg_30_0.png,ok,21.71
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_15,QRCODE_jpeg_15_0.png,ok,21.11
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_8,QRCODE_jpeg_8_0.png,ok,21.55
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.5,QRCODE_contrast_0.5_0.png,ok,20.14
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.25,QRCODE_contrast_0.25_0.png,ok,20.44
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_10,QRCODE_rotate_10_0.png,ok,28.15
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_30,QRCODE_rotate_30_0.png,ok,41.38
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_45,QRCODE_rotate_45_0.png,ok,50.19
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_90,QRCODE_rotate_90_0.png,ok,22.09
+OpenCV QRCodeDetectorAruco,QRCODE,perspective,QRCODE_perspective_0.png,ok,20.52
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.5,QRCODE_small_0.5_0.png,ok,5.67
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.35,QRCODE_small_0.35_0.png,miss,1.44
+OpenCV QRCodeDetectorAruco,QRCODE,inverted,QRCODE_inverted_0.png,miss,4.43
+OpenCV QRCodeDetectorAruco,QRCODE,shading,QRCODE_shading_0.png,ok,22.24
+OpenCV QRCodeDetectorAruco,QRCODE,poor_scan,QRCODE_poor_scan_0.png,miss,25.42
+OpenCV QRCodeDetectorAruco,QRCODE,clean,QRCODE_clean_1.png,ok,22.17
+OpenCV QRCodeDetectorAruco,QRCODE,blur_1.0,QRCODE_blur_1.0_1.png,miss,22.33
+OpenCV QRCodeDetectorAruco,QRCODE,blur_2.0,QRCODE_blur_2.0_1.png,miss,8.14
+OpenCV QRCodeDetectorAruco,QRCODE,blur_3.0,QRCODE_blur_3.0_1.png,miss,1.60
+OpenCV QRCodeDetectorAruco,QRCODE,noise_15,QRCODE_noise_15_1.png,ok,73.50
+OpenCV QRCodeDetectorAruco,QRCODE,noise_30,QRCODE_noise_30_1.png,ok,90.32
+OpenCV QRCodeDetectorAruco,QRCODE,noise_50,QRCODE_noise_50_1.png,ok,89.51
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_30,QRCODE_jpeg_30_1.png,ok,21.00
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_15,QRCODE_jpeg_15_1.png,ok,21.27
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_8,QRCODE_jpeg_8_1.png,miss,20.61
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.5,QRCODE_contrast_0.5_1.png,ok,20.42
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.25,QRCODE_contrast_0.25_1.png,ok,20.20
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_10,QRCODE_rotate_10_1.png,ok,28.53
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_30,QRCODE_rotate_30_1.png,ok,47.33
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_45,QRCODE_rotate_45_1.png,ok,47.52
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_90,QRCODE_rotate_90_1.png,ok,19.80
+OpenCV QRCodeDetectorAruco,QRCODE,perspective,QRCODE_perspective_1.png,ok,18.76
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.5,QRCODE_small_0.5_1.png,ok,5.63
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.35,QRCODE_small_0.35_1.png,miss,1.38
+OpenCV QRCodeDetectorAruco,QRCODE,inverted,QRCODE_inverted_1.png,miss,2.19
+OpenCV QRCodeDetectorAruco,QRCODE,shading,QRCODE_shading_1.png,ok,19.52
+OpenCV QRCodeDetectorAruco,QRCODE,poor_scan,QRCODE_poor_scan_1.png,miss,25.02
+OpenCV QRCodeDetectorAruco,QRCODE,clean,QRCODE_clean_2.png,ok,20.38
+OpenCV QRCodeDetectorAruco,QRCODE,blur_1.0,QRCODE_blur_1.0_2.png,miss,20.27
+OpenCV QRCodeDetectorAruco,QRCODE,blur_2.0,QRCODE_blur_2.0_2.png,miss,20.29
+OpenCV QRCodeDetectorAruco,QRCODE,blur_3.0,QRCODE_blur_3.0_2.png,miss,1.62
+OpenCV QRCodeDetectorAruco,QRCODE,noise_15,QRCODE_noise_15_2.png,ok,74.82
+OpenCV QRCodeDetectorAruco,QRCODE,noise_30,QRCODE_noise_30_2.png,ok,84.36
+OpenCV QRCodeDetectorAruco,QRCODE,noise_50,QRCODE_noise_50_2.png,miss,84.79
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_30,QRCODE_jpeg_30_2.png,ok,21.15
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_15,QRCODE_jpeg_15_2.png,ok,20.98
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_8,QRCODE_jpeg_8_2.png,ok,21.15
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.5,QRCODE_contrast_0.5_2.png,ok,20.14
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.25,QRCODE_contrast_0.25_2.png,ok,20.66
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_10,QRCODE_rotate_10_2.png,ok,26.85
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_30,QRCODE_rotate_30_2.png,ok,45.69
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_45,QRCODE_rotate_45_2.png,miss,49.83
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_90,QRCODE_rotate_90_2.png,ok,20.67
+OpenCV QRCodeDetectorAruco,QRCODE,perspective,QRCODE_perspective_2.png,ok,18.54
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.5,QRCODE_small_0.5_2.png,ok,5.59
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.35,QRCODE_small_0.35_2.png,miss,3.70
+OpenCV QRCodeDetectorAruco,QRCODE,inverted,QRCODE_inverted_2.png,miss,2.28
+OpenCV QRCodeDetectorAruco,QRCODE,shading,QRCODE_shading_2.png,ok,19.42
+OpenCV QRCodeDetectorAruco,QRCODE,poor_scan,QRCODE_poor_scan_2.png,miss,22.37
+OpenCV QRCodeDetectorAruco,QRCODE,clean,QRCODE_clean_3.png,ok,20.20
+OpenCV QRCodeDetectorAruco,QRCODE,blur_1.0,QRCODE_blur_1.0_3.png,ok,20.34
+OpenCV QRCodeDetectorAruco,QRCODE,blur_2.0,QRCODE_blur_2.0_3.png,miss,19.06
+OpenCV QRCodeDetectorAruco,QRCODE,blur_3.0,QRCODE_blur_3.0_3.png,miss,1.47
+OpenCV QRCodeDetectorAruco,QRCODE,noise_15,QRCODE_noise_15_3.png,ok,68.57
+OpenCV QRCodeDetectorAruco,QRCODE,noise_30,QRCODE_noise_30_3.png,ok,80.26
+OpenCV QRCodeDetectorAruco,QRCODE,noise_50,QRCODE_noise_50_3.png,ok,82.27
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_30,QRCODE_jpeg_30_3.png,ok,21.61
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_15,QRCODE_jpeg_15_3.png,ok,21.17
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_8,QRCODE_jpeg_8_3.png,ok,20.22
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.5,QRCODE_contrast_0.5_3.png,ok,20.76
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.25,QRCODE_contrast_0.25_3.png,ok,20.31
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_10,QRCODE_rotate_10_3.png,ok,29.53
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_30,QRCODE_rotate_30_3.png,ok,45.61
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_45,QRCODE_rotate_45_3.png,ok,55.73
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_90,QRCODE_rotate_90_3.png,ok,21.44
+OpenCV QRCodeDetectorAruco,QRCODE,perspective,QRCODE_perspective_3.png,ok,22.40
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.5,QRCODE_small_0.5_3.png,ok,6.12
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.35,QRCODE_small_0.35_3.png,miss,1.34
+OpenCV QRCodeDetectorAruco,QRCODE,inverted,QRCODE_inverted_3.png,miss,2.21
+OpenCV QRCodeDetectorAruco,QRCODE,shading,QRCODE_shading_3.png,ok,19.46
+OpenCV QRCodeDetectorAruco,QRCODE,poor_scan,QRCODE_poor_scan_3.png,miss,23.34
+OpenCV QRCodeDetectorAruco,QRCODE,clean,QRCODE_clean_4.png,ok,20.51
+OpenCV QRCodeDetectorAruco,QRCODE,blur_1.0,QRCODE_blur_1.0_4.png,miss,19.99
+OpenCV QRCodeDetectorAruco,QRCODE,blur_2.0,QRCODE_blur_2.0_4.png,miss,23.47
+OpenCV QRCodeDetectorAruco,QRCODE,blur_3.0,QRCODE_blur_3.0_4.png,miss,4.43
+OpenCV QRCodeDetectorAruco,QRCODE,noise_15,QRCODE_noise_15_4.png,ok,72.12
+OpenCV QRCodeDetectorAruco,QRCODE,noise_30,QRCODE_noise_30_4.png,ok,83.84
+OpenCV QRCodeDetectorAruco,QRCODE,noise_50,QRCODE_noise_50_4.png,miss,89.64
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_30,QRCODE_jpeg_30_4.png,ok,21.13
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_15,QRCODE_jpeg_15_4.png,ok,20.95
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_8,QRCODE_jpeg_8_4.png,ok,21.46
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.5,QRCODE_contrast_0.5_4.png,ok,20.57
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.25,QRCODE_contrast_0.25_4.png,ok,19.68
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_10,QRCODE_rotate_10_4.png,ok,28.13
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_30,QRCODE_rotate_30_4.png,ok,45.60
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_45,QRCODE_rotate_45_4.png,miss,51.71
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_90,QRCODE_rotate_90_4.png,ok,20.98
+OpenCV QRCodeDetectorAruco,QRCODE,perspective,QRCODE_perspective_4.png,ok,19.14
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.5,QRCODE_small_0.5_4.png,miss,2.28
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.35,QRCODE_small_0.35_4.png,miss,0.61
+OpenCV QRCodeDetectorAruco,QRCODE,inverted,QRCODE_inverted_4.png,miss,2.12
+OpenCV QRCodeDetectorAruco,QRCODE,shading,QRCODE_shading_4.png,ok,19.08
+OpenCV QRCodeDetectorAruco,QRCODE,poor_scan,QRCODE_poor_scan_4.png,miss,22.97
+OpenCV QRCodeDetectorAruco,QRCODE,clean,QRCODE_clean_5.png,ok,20.73
+OpenCV QRCodeDetectorAruco,QRCODE,blur_1.0,QRCODE_blur_1.0_5.png,miss,20.58
+OpenCV QRCodeDetectorAruco,QRCODE,blur_2.0,QRCODE_blur_2.0_5.png,miss,20.63
+OpenCV QRCodeDetectorAruco,QRCODE,blur_3.0,QRCODE_blur_3.0_5.png,miss,1.71
+OpenCV QRCodeDetectorAruco,QRCODE,noise_15,QRCODE_noise_15_5.png,ok,76.88
+OpenCV QRCodeDetectorAruco,QRCODE,noise_30,QRCODE_noise_30_5.png,ok,85.20
+OpenCV QRCodeDetectorAruco,QRCODE,noise_50,QRCODE_noise_50_5.png,ok,89.33
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_30,QRCODE_jpeg_30_5.png,ok,22.27
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_15,QRCODE_jpeg_15_5.png,ok,23.09
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_8,QRCODE_jpeg_8_5.png,ok,21.21
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.5,QRCODE_contrast_0.5_5.png,ok,19.68
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.25,QRCODE_contrast_0.25_5.png,ok,19.62
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_10,QRCODE_rotate_10_5.png,ok,28.55
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_30,QRCODE_rotate_30_5.png,miss,51.62
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_45,QRCODE_rotate_45_5.png,ok,49.22
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_90,QRCODE_rotate_90_5.png,ok,21.97
+OpenCV QRCodeDetectorAruco,QRCODE,perspective,QRCODE_perspective_5.png,miss,18.75
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.5,QRCODE_small_0.5_5.png,ok,5.86
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.35,QRCODE_small_0.35_5.png,miss,1.32
+OpenCV QRCodeDetectorAruco,QRCODE,inverted,QRCODE_inverted_5.png,miss,2.24
+OpenCV QRCodeDetectorAruco,QRCODE,shading,QRCODE_shading_5.png,ok,19.13
+OpenCV QRCodeDetectorAruco,QRCODE,poor_scan,QRCODE_poor_scan_5.png,ok,22.92
+OpenCV QRCodeDetectorAruco,QRCODE,clean,QRCODE_clean_6.png,ok,18.75
+OpenCV QRCodeDetectorAruco,QRCODE,blur_1.0,QRCODE_blur_1.0_6.png,miss,19.08
+OpenCV QRCodeDetectorAruco,QRCODE,blur_2.0,QRCODE_blur_2.0_6.png,miss,20.24
+OpenCV QRCodeDetectorAruco,QRCODE,blur_3.0,QRCODE_blur_3.0_6.png,miss,1.67
+OpenCV QRCodeDetectorAruco,QRCODE,noise_15,QRCODE_noise_15_6.png,ok,69.43
+OpenCV QRCodeDetectorAruco,QRCODE,noise_30,QRCODE_noise_30_6.png,ok,82.77
+OpenCV QRCodeDetectorAruco,QRCODE,noise_50,QRCODE_noise_50_6.png,ok,83.28
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_30,QRCODE_jpeg_30_6.png,ok,20.51
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_15,QRCODE_jpeg_15_6.png,ok,20.80
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_8,QRCODE_jpeg_8_6.png,miss,19.59
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.5,QRCODE_contrast_0.5_6.png,ok,19.91
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.25,QRCODE_contrast_0.25_6.png,ok,20.72
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_10,QRCODE_rotate_10_6.png,ok,30.49
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_30,QRCODE_rotate_30_6.png,ok,46.22
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_45,QRCODE_rotate_45_6.png,ok,47.45
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_90,QRCODE_rotate_90_6.png,ok,20.70
+OpenCV QRCodeDetectorAruco,QRCODE,perspective,QRCODE_perspective_6.png,ok,21.58
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.5,QRCODE_small_0.5_6.png,miss,2.14
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.35,QRCODE_small_0.35_6.png,miss,1.26
+OpenCV QRCodeDetectorAruco,QRCODE,inverted,QRCODE_inverted_6.png,miss,2.31
+OpenCV QRCodeDetectorAruco,QRCODE,shading,QRCODE_shading_6.png,ok,20.81
+OpenCV QRCodeDetectorAruco,QRCODE,poor_scan,QRCODE_poor_scan_6.png,ok,24.85
+OpenCV QRCodeDetectorAruco,QRCODE,clean,QRCODE_clean_7.png,ok,20.58
+OpenCV QRCodeDetectorAruco,QRCODE,blur_1.0,QRCODE_blur_1.0_7.png,miss,19.65
+OpenCV QRCodeDetectorAruco,QRCODE,blur_2.0,QRCODE_blur_2.0_7.png,miss,8.56
+OpenCV QRCodeDetectorAruco,QRCODE,blur_3.0,QRCODE_blur_3.0_7.png,miss,1.53
+OpenCV QRCodeDetectorAruco,QRCODE,noise_15,QRCODE_noise_15_7.png,ok,69.69
+OpenCV QRCodeDetectorAruco,QRCODE,noise_30,QRCODE_noise_30_7.png,ok,78.75
+OpenCV QRCodeDetectorAruco,QRCODE,noise_50,QRCODE_noise_50_7.png,ok,80.60
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_30,QRCODE_jpeg_30_7.png,ok,21.02
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_15,QRCODE_jpeg_15_7.png,ok,21.16
+OpenCV QRCodeDetectorAruco,QRCODE,jpeg_8,QRCODE_jpeg_8_7.png,ok,21.72
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.5,QRCODE_contrast_0.5_7.png,ok,20.89
+OpenCV QRCodeDetectorAruco,QRCODE,contrast_0.25,QRCODE_contrast_0.25_7.png,ok,19.22
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_10,QRCODE_rotate_10_7.png,ok,30.67
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_30,QRCODE_rotate_30_7.png,ok,49.76
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_45,QRCODE_rotate_45_7.png,ok,54.93
+OpenCV QRCodeDetectorAruco,QRCODE,rotate_90,QRCODE_rotate_90_7.png,ok,20.97
+OpenCV QRCodeDetectorAruco,QRCODE,perspective,QRCODE_perspective_7.png,ok,19.17
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.5,QRCODE_small_0.5_7.png,miss,6.13
+OpenCV QRCodeDetectorAruco,QRCODE,small_0.35,QRCODE_small_0.35_7.png,miss,4.44
+OpenCV QRCodeDetectorAruco,QRCODE,inverted,QRCODE_inverted_7.png,miss,2.35
+OpenCV QRCodeDetectorAruco,QRCODE,shading,QRCODE_shading_7.png,ok,21.02
+OpenCV QRCodeDetectorAruco,QRCODE,poor_scan,QRCODE_poor_scan_7.png,miss,25.04
+OpenCV BarcodeDetector,EAN13,clean,EAN13_clean_0.png,miss,10.69
+OpenCV BarcodeDetector,EAN13,blur_1.0,EAN13_blur_1.0_0.png,ok,10.22
+OpenCV BarcodeDetector,EAN13,blur_2.0,EAN13_blur_2.0_0.png,miss,10.64
+OpenCV BarcodeDetector,EAN13,blur_3.0,EAN13_blur_3.0_0.png,miss,10.74
+OpenCV BarcodeDetector,EAN13,noise_15,EAN13_noise_15_0.png,ok,11.51
+OpenCV BarcodeDetector,EAN13,noise_30,EAN13_noise_30_0.png,ok,12.10
+OpenCV BarcodeDetector,EAN13,noise_50,EAN13_noise_50_0.png,ok,10.82
+OpenCV BarcodeDetector,EAN13,jpeg_30,EAN13_jpeg_30_0.png,ok,9.79
+OpenCV BarcodeDetector,EAN13,jpeg_15,EAN13_jpeg_15_0.png,ok,10.08
+OpenCV BarcodeDetector,EAN13,jpeg_8,EAN13_jpeg_8_0.png,ok,10.36
+OpenCV BarcodeDetector,EAN13,contrast_0.5,EAN13_contrast_0.5_0.png,miss,11.06
+OpenCV BarcodeDetector,EAN13,contrast_0.25,EAN13_contrast_0.25_0.png,miss,11.14
+OpenCV BarcodeDetector,EAN13,rotate_10,EAN13_rotate_10_0.png,ok,11.71
+OpenCV BarcodeDetector,EAN13,rotate_30,EAN13_rotate_30_0.png,ok,11.12
+OpenCV BarcodeDetector,EAN13,rotate_45,EAN13_rotate_45_0.png,ok,9.70
+OpenCV BarcodeDetector,EAN13,rotate_90,EAN13_rotate_90_0.png,ok,10.93
+OpenCV BarcodeDetector,EAN13,perspective,EAN13_perspective_0.png,ok,10.56
+OpenCV BarcodeDetector,EAN13,small_0.5,EAN13_small_0.5_0.png,ok,3.20
+OpenCV BarcodeDetector,EAN13,small_0.35,EAN13_small_0.35_0.png,miss,2.79
+OpenCV BarcodeDetector,EAN13,inverted,EAN13_inverted_0.png,miss,11.21
+OpenCV BarcodeDetector,EAN13,shading,EAN13_shading_0.png,miss,11.49
+OpenCV BarcodeDetector,EAN13,poor_scan,EAN13_poor_scan_0.png,ok,10.73
+OpenCV BarcodeDetector,EAN13,clean,EAN13_clean_1.png,ok,10.24
+OpenCV BarcodeDetector,EAN13,blur_1.0,EAN13_blur_1.0_1.png,ok,9.96
+OpenCV BarcodeDetector,EAN13,blur_2.0,EAN13_blur_2.0_1.png,miss,11.25
+OpenCV BarcodeDetector,EAN13,blur_3.0,EAN13_blur_3.0_1.png,miss,10.72
+OpenCV BarcodeDetector,EAN13,noise_15,EAN13_noise_15_1.png,ok,11.77
+OpenCV BarcodeDetector,EAN13,noise_30,EAN13_noise_30_1.png,ok,11.25
+OpenCV BarcodeDetector,EAN13,noise_50,EAN13_noise_50_1.png,ok,11.75
+OpenCV BarcodeDetector,EAN13,jpeg_30,EAN13_jpeg_30_1.png,ok,9.42
+OpenCV BarcodeDetector,EAN13,jpeg_15,EAN13_jpeg_15_1.png,ok,10.04
+OpenCV BarcodeDetector,EAN13,jpeg_8,EAN13_jpeg_8_1.png,ok,9.99
+OpenCV BarcodeDetector,EAN13,contrast_0.5,EAN13_contrast_0.5_1.png,ok,9.99
+OpenCV BarcodeDetector,EAN13,contrast_0.25,EAN13_contrast_0.25_1.png,ok,9.99
+OpenCV BarcodeDetector,EAN13,rotate_10,EAN13_rotate_10_1.png,ok,10.06
+OpenCV BarcodeDetector,EAN13,rotate_30,EAN13_rotate_30_1.png,ok,10.12
+OpenCV BarcodeDetector,EAN13,rotate_45,EAN13_rotate_45_1.png,ok,9.25
+OpenCV BarcodeDetector,EAN13,rotate_90,EAN13_rotate_90_1.png,miss,13.42
+OpenCV BarcodeDetector,EAN13,perspective,EAN13_perspective_1.png,ok,10.77
+OpenCV BarcodeDetector,EAN13,small_0.5,EAN13_small_0.5_1.png,miss,3.46
+OpenCV BarcodeDetector,EAN13,small_0.35,EAN13_small_0.35_1.png,miss,2.11
+OpenCV BarcodeDetector,EAN13,inverted,EAN13_inverted_1.png,miss,13.38
+OpenCV BarcodeDetector,EAN13,shading,EAN13_shading_1.png,ok,10.44
+OpenCV BarcodeDetector,EAN13,poor_scan,EAN13_poor_scan_1.png,ok,10.90
+OpenCV BarcodeDetector,EAN13,clean,EAN13_clean_2.png,ok,10.14
+OpenCV BarcodeDetector,EAN13,blur_1.0,EAN13_blur_1.0_2.png,ok,9.98
+OpenCV BarcodeDetector,EAN13,blur_2.0,EAN13_blur_2.0_2.png,miss,10.86
+OpenCV BarcodeDetector,EAN13,blur_3.0,EAN13_blur_3.0_2.png,miss,10.42
+OpenCV BarcodeDetector,EAN13,noise_15,EAN13_noise_15_2.png,ok,13.32
+OpenCV BarcodeDetector,EAN13,noise_30,EAN13_noise_30_2.png,ok,12.69
+OpenCV BarcodeDetector,EAN13,noise_50,EAN13_noise_50_2.png,ok,11.25
+OpenCV BarcodeDetector,EAN13,jpeg_30,EAN13_jpeg_30_2.png,ok,12.14
+OpenCV BarcodeDetector,EAN13,jpeg_15,EAN13_jpeg_15_2.png,ok,11.93
+OpenCV BarcodeDetector,EAN13,jpeg_8,EAN13_jpeg_8_2.png,ok,11.78
+OpenCV BarcodeDetector,EAN13,contrast_0.5,EAN13_contrast_0.5_2.png,ok,10.43
+OpenCV BarcodeDetector,EAN13,contrast_0.25,EAN13_contrast_0.25_2.png,ok,10.28
+OpenCV BarcodeDetector,EAN13,rotate_10,EAN13_rotate_10_2.png,ok,9.49
+OpenCV BarcodeDetector,EAN13,rotate_30,EAN13_rotate_30_2.png,ok,8.38
+OpenCV BarcodeDetector,EAN13,rotate_45,EAN13_rotate_45_2.png,ok,7.70
+OpenCV BarcodeDetector,EAN13,rotate_90,EAN13_rotate_90_2.png,ok,9.79
+OpenCV BarcodeDetector,EAN13,perspective,EAN13_perspective_2.png,ok,10.53
+OpenCV BarcodeDetector,EAN13,small_0.5,EAN13_small_0.5_2.png,miss,2.85
+OpenCV BarcodeDetector,EAN13,small_0.35,EAN13_small_0.35_2.png,miss,2.27
+OpenCV BarcodeDetector,EAN13,inverted,EAN13_inverted_2.png,miss,10.84
+OpenCV BarcodeDetector,EAN13,shading,EAN13_shading_2.png,ok,10.53
+OpenCV BarcodeDetector,EAN13,poor_scan,EAN13_poor_scan_2.png,ok,10.93
+OpenCV BarcodeDetector,EAN13,clean,EAN13_clean_3.png,miss,9.36
+OpenCV BarcodeDetector,EAN13,blur_1.0,EAN13_blur_1.0_3.png,ok,10.32
+OpenCV BarcodeDetector,EAN13,blur_2.0,EAN13_blur_2.0_3.png,miss,13.62
+OpenCV BarcodeDetector,EAN13,blur_3.0,EAN13_blur_3.0_3.png,miss,10.35
+OpenCV BarcodeDetector,EAN13,noise_15,EAN13_noise_15_3.png,ok,11.77
+OpenCV BarcodeDetector,EAN13,noise_30,EAN13_noise_30_3.png,ok,11.65
+OpenCV BarcodeDetector,EAN13,noise_50,EAN13_noise_50_3.png,ok,11.40
+OpenCV BarcodeDetector,EAN13,jpeg_30,EAN13_jpeg_30_3.png,miss,12.08
+OpenCV BarcodeDetector,EAN13,jpeg_15,EAN13_jpeg_15_3.png,ok,10.28
+OpenCV BarcodeDetector,EAN13,jpeg_8,EAN13_jpeg_8_3.png,ok,10.22
+OpenCV BarcodeDetector,EAN13,contrast_0.5,EAN13_contrast_0.5_3.png,miss,9.50
+OpenCV BarcodeDetector,EAN13,contrast_0.25,EAN13_contrast_0.25_3.png,miss,9.53
+OpenCV BarcodeDetector,EAN13,rotate_10,EAN13_rotate_10_3.png,ok,9.75
+OpenCV BarcodeDetector,EAN13,rotate_30,EAN13_rotate_30_3.png,ok,8.31
+OpenCV BarcodeDetector,EAN13,rotate_45,EAN13_rotate_45_3.png,ok,7.86
+OpenCV BarcodeDetector,EAN13,rotate_90,EAN13_rotate_90_3.png,miss,11.20
+OpenCV BarcodeDetector,EAN13,perspective,EAN13_perspective_3.png,ok,10.26
+OpenCV BarcodeDetector,EAN13,small_0.5,EAN13_small_0.5_3.png,ok,2.59
+OpenCV BarcodeDetector,EAN13,small_0.35,EAN13_small_0.35_3.png,miss,2.02
+OpenCV BarcodeDetector,EAN13,inverted,EAN13_inverted_3.png,miss,10.45
+OpenCV BarcodeDetector,EAN13,shading,EAN13_shading_3.png,miss,9.46
+OpenCV BarcodeDetector,EAN13,poor_scan,EAN13_poor_scan_3.png,ok,10.14
+OpenCV BarcodeDetector,EAN13,clean,EAN13_clean_4.png,miss,11.45
+OpenCV BarcodeDetector,EAN13,blur_1.0,EAN13_blur_1.0_4.png,ok,10.46
+OpenCV BarcodeDetector,EAN13,blur_2.0,EAN13_blur_2.0_4.png,miss,11.40
+OpenCV BarcodeDetector,EAN13,blur_3.0,EAN13_blur_3.0_4.png,miss,11.98
+OpenCV BarcodeDetector,EAN13,noise_15,EAN13_noise_15_4.png,ok,11.69
+OpenCV BarcodeDetector,EAN13,noise_30,EAN13_noise_30_4.png,ok,11.37
+OpenCV BarcodeDetector,EAN13,noise_50,EAN13_noise_50_4.png,ok,13.13
+OpenCV BarcodeDetector,EAN13,jpeg_30,EAN13_jpeg_30_4.png,miss,11.15
+OpenCV BarcodeDetector,EAN13,jpeg_15,EAN13_jpeg_15_4.png,miss,10.86
+OpenCV BarcodeDetector,EAN13,jpeg_8,EAN13_jpeg_8_4.png,ok,10.57
+OpenCV BarcodeDetector,EAN13,contrast_0.5,EAN13_contrast_0.5_4.png,miss,11.80
+OpenCV BarcodeDetector,EAN13,contrast_0.25,EAN13_contrast_0.25_4.png,miss,11.49
+OpenCV BarcodeDetector,EAN13,rotate_10,EAN13_rotate_10_4.png,ok,10.39
+OpenCV BarcodeDetector,EAN13,rotate_30,EAN13_rotate_30_4.png,ok,8.93
+OpenCV BarcodeDetector,EAN13,rotate_45,EAN13_rotate_45_4.png,ok,8.20
+OpenCV BarcodeDetector,EAN13,rotate_90,EAN13_rotate_90_4.png,miss,12.94
+OpenCV BarcodeDetector,EAN13,perspective,EAN13_perspective_4.png,ok,12.14
+OpenCV BarcodeDetector,EAN13,small_0.5,EAN13_small_0.5_4.png,miss,3.91
+OpenCV BarcodeDetector,EAN13,small_0.35,EAN13_small_0.35_4.png,miss,2.59
+OpenCV BarcodeDetector,EAN13,inverted,EAN13_inverted_4.png,miss,11.66
+OpenCV BarcodeDetector,EAN13,shading,EAN13_shading_4.png,miss,13.49
+OpenCV BarcodeDetector,EAN13,poor_scan,EAN13_poor_scan_4.png,ok,10.54
+OpenCV BarcodeDetector,EAN13,clean,EAN13_clean_5.png,ok,10.31
+OpenCV BarcodeDetector,EAN13,blur_1.0,EAN13_blur_1.0_5.png,ok,10.23
+OpenCV BarcodeDetector,EAN13,blur_2.0,EAN13_blur_2.0_5.png,miss,10.48
+OpenCV BarcodeDetector,EAN13,blur_3.0,EAN13_blur_3.0_5.png,miss,10.74
+OpenCV BarcodeDetector,EAN13,noise_15,EAN13_noise_15_5.png,ok,12.03
+OpenCV BarcodeDetector,EAN13,noise_30,EAN13_noise_30_5.png,ok,11.60
+OpenCV BarcodeDetector,EAN13,noise_50,EAN13_noise_50_5.png,ok,23.71
+OpenCV BarcodeDetector,EAN13,jpeg_30,EAN13_jpeg_30_5.png,ok,12.47
+OpenCV BarcodeDetector,EAN13,jpeg_15,EAN13_jpeg_15_5.png,ok,11.96
+OpenCV BarcodeDetector,EAN13,jpeg_8,EAN13_jpeg_8_5.png,ok,13.06
+OpenCV BarcodeDetector,EAN13,contrast_0.5,EAN13_contrast_0.5_5.png,ok,11.45
+OpenCV BarcodeDetector,EAN13,contrast_0.25,EAN13_contrast_0.25_5.png,ok,10.08
+OpenCV BarcodeDetector,EAN13,rotate_10,EAN13_rotate_10_5.png,ok,11.14
+OpenCV BarcodeDetector,EAN13,rotate_30,EAN13_rotate_30_5.png,ok,11.24
+OpenCV BarcodeDetector,EAN13,rotate_45,EAN13_rotate_45_5.png,ok,9.62
+OpenCV BarcodeDetector,EAN13,rotate_90,EAN13_rotate_90_5.png,miss,12.38
+OpenCV BarcodeDetector,EAN13,perspective,EAN13_perspective_5.png,ok,11.88
+OpenCV BarcodeDetector,EAN13,small_0.5,EAN13_small_0.5_5.png,ok,3.41
+OpenCV BarcodeDetector,EAN13,small_0.35,EAN13_small_0.35_5.png,miss,2.42
+OpenCV BarcodeDetector,EAN13,inverted,EAN13_inverted_5.png,miss,12.89
+OpenCV BarcodeDetector,EAN13,shading,EAN13_shading_5.png,ok,10.93
+OpenCV BarcodeDetector,EAN13,poor_scan,EAN13_poor_scan_5.png,ok,11.05
+OpenCV BarcodeDetector,EAN13,clean,EAN13_clean_6.png,miss,11.40
+OpenCV BarcodeDetector,EAN13,blur_1.0,EAN13_blur_1.0_6.png,ok,10.29
+OpenCV BarcodeDetector,EAN13,blur_2.0,EAN13_blur_2.0_6.png,miss,10.87
+OpenCV BarcodeDetector,EAN13,blur_3.0,EAN13_blur_3.0_6.png,miss,13.47
+OpenCV BarcodeDetector,EAN13,noise_15,EAN13_noise_15_6.png,ok,11.06
+OpenCV BarcodeDetector,EAN13,noise_30,EAN13_noise_30_6.png,ok,11.36
+OpenCV BarcodeDetector,EAN13,noise_50,EAN13_noise_50_6.png,ok,13.17
+OpenCV BarcodeDetector,EAN13,jpeg_30,EAN13_jpeg_30_6.png,miss,11.23
+OpenCV BarcodeDetector,EAN13,jpeg_15,EAN13_jpeg_15_6.png,ok,10.12
+OpenCV BarcodeDetector,EAN13,jpeg_8,EAN13_jpeg_8_6.png,ok,10.28
+OpenCV BarcodeDetector,EAN13,contrast_0.5,EAN13_contrast_0.5_6.png,miss,13.11
+OpenCV BarcodeDetector,EAN13,contrast_0.25,EAN13_contrast_0.25_6.png,miss,12.30
+OpenCV BarcodeDetector,EAN13,rotate_10,EAN13_rotate_10_6.png,ok,9.50
+OpenCV BarcodeDetector,EAN13,rotate_30,EAN13_rotate_30_6.png,ok,10.47
+OpenCV BarcodeDetector,EAN13,rotate_45,EAN13_rotate_45_6.png,ok,10.31
+OpenCV BarcodeDetector,EAN13,rotate_90,EAN13_rotate_90_6.png,ok,10.56
+OpenCV BarcodeDetector,EAN13,perspective,EAN13_perspective_6.png,ok,12.46
+OpenCV BarcodeDetector,EAN13,small_0.5,EAN13_small_0.5_6.png,miss,3.96
+OpenCV BarcodeDetector,EAN13,small_0.35,EAN13_small_0.35_6.png,miss,2.62
+OpenCV BarcodeDetector,EAN13,inverted,EAN13_inverted_6.png,miss,11.60
+OpenCV BarcodeDetector,EAN13,shading,EAN13_shading_6.png,miss,12.24
+OpenCV BarcodeDetector,EAN13,poor_scan,EAN13_poor_scan_6.png,ok,12.39
+OpenCV BarcodeDetector,EAN13,clean,EAN13_clean_7.png,ok,9.93
+OpenCV BarcodeDetector,EAN13,blur_1.0,EAN13_blur_1.0_7.png,ok,9.69
+OpenCV BarcodeDetector,EAN13,blur_2.0,EAN13_blur_2.0_7.png,miss,10.40
+OpenCV BarcodeDetector,EAN13,blur_3.0,EAN13_blur_3.0_7.png,miss,10.61
+OpenCV BarcodeDetector,EAN13,noise_15,EAN13_noise_15_7.png,ok,11.84
+OpenCV BarcodeDetector,EAN13,noise_30,EAN13_noise_30_7.png,ok,11.51
+OpenCV BarcodeDetector,EAN13,noise_50,EAN13_noise_50_7.png,ok,11.18
+OpenCV BarcodeDetector,EAN13,jpeg_30,EAN13_jpeg_30_7.png,ok,11.65
+OpenCV BarcodeDetector,EAN13,jpeg_15,EAN13_jpeg_15_7.png,ok,12.19
+OpenCV BarcodeDetector,EAN13,jpeg_8,EAN13_jpeg_8_7.png,ok,12.46
+OpenCV BarcodeDetector,EAN13,contrast_0.5,EAN13_contrast_0.5_7.png,ok,10.91
+OpenCV BarcodeDetector,EAN13,contrast_0.25,EAN13_contrast_0.25_7.png,ok,10.29
+OpenCV BarcodeDetector,EAN13,rotate_10,EAN13_rotate_10_7.png,ok,9.77
+OpenCV BarcodeDetector,EAN13,rotate_30,EAN13_rotate_30_7.png,ok,7.86
+OpenCV BarcodeDetector,EAN13,rotate_45,EAN13_rotate_45_7.png,ok,8.03
+OpenCV BarcodeDetector,EAN13,rotate_90,EAN13_rotate_90_7.png,miss,11.56
+OpenCV BarcodeDetector,EAN13,perspective,EAN13_perspective_7.png,ok,9.78
+OpenCV BarcodeDetector,EAN13,small_0.5,EAN13_small_0.5_7.png,ok,2.89
+OpenCV BarcodeDetector,EAN13,small_0.35,EAN13_small_0.35_7.png,miss,2.55
+OpenCV BarcodeDetector,EAN13,inverted,EAN13_inverted_7.png,miss,10.37
+OpenCV BarcodeDetector,EAN13,shading,EAN13_shading_7.png,ok,9.77
+OpenCV BarcodeDetector,EAN13,poor_scan,EAN13_poor_scan_7.png,ok,10.34

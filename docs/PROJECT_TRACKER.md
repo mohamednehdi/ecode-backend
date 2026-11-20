@@ -75,13 +75,28 @@ Why: closes the only unmet item of the cahier and gives the report a real archit
 
 ### F2. Decoder comparison study (priority 2)
 Why: turns "I chose zxing-cpp" into a measured, defensible engineering decision.
-- Build a labelled dataset: clean, blur, noise, JPEG compression, low contrast, skew, perspective, small codes, inverted.
-- Compare zxing-cpp, pyzbar, pylibdmtx, OpenCV `BarcodeDetector` (and `wechat_qrcode` for QR) on accuracy and time.
+- Dataset of 704 labelled images: 4 code types x 22 degradation conditions x 8 contents, fixed seeds.
+- Compared: eCode pipeline, zxing-cpp, pyzbar, pylibdmtx, OpenCV QRCodeDetector / QRCodeDetectorAruco / BarcodeDetector.
 - Acceptance criteria:
-  - [ ] Reproducible script `bench/compare_decoders.py` and dataset generator
-  - [ ] Result tables and charts per degradation type
-  - [ ] Short analysis: strengths, weaknesses, why the final choice
-- Size: 5. Status: TODO
+  - [x] Reproducible scripts `bench/make_dataset.py`, `bench/run_benchmark.py`, `bench/analyze.py`
+  - [x] Result tables and charts per condition and per code type (`bench/results/summary.md`, `bench/figures/`)
+  - [x] Analysis: strengths, weaknesses, limits of the study, why the final choice (`docs/DECODER_STUDY.md`)
+- Findings: zxing-cpp is the best 2D reader (DataMatrix 100 % vs 94 % for pylibdmtx, 4.4x faster); the clean-up passes add
+  +24 / +27 points on Code 128 / EAN-13; every decoder fails on 1D codes after blur sigma >= 2.
+- Lesson: the first dataset had 1 to 2 px bars (many cells at 0 % for everybody); recalibrated to about 3 px per module
+  before drawing conclusions, all measurements redone.
+- Size: 5. Status: DONE
+
+### F2b. Fix the weaknesses found by F2 (new)
+- Misreads: on EAN-13 at 30 degrees, zxing-cpp and our pipeline return another valid EAN-13 (2 of 176 images, 1.1 %);
+  idea: accept an inclined 1D code only when two different passes agree.
+- Gap between 20 and 30 degrees for Code 128 (nobody reads it; ours from 35): add +-22 and +-30 degree passes.
+- Rule: tune on NEW seeds (a separate tuning set), and keep the F2 dataset only for the final score.
+- Acceptance criteria:
+  - [ ] Separate tuning dataset (different seeds)
+  - [ ] Misread rate on EAN-13 down to 0 on the F2 dataset, without losing more than 2 points of correct reads
+  - [ ] Code 128 read at 20 to 30 degrees; F2 table re-run and compared before/after
+- Size: 3. Status: TODO
 
 ### F3. Barcode localisation stage (priority 3)
 Why: the project title says "localisation et extraction"; localisation is currently only a by-product of decoding.
@@ -190,3 +205,4 @@ Short notes after each work session (date, what was done, what was learned, what
 | 2026-11-19 | Tracker created. F1a/F1b written: Redis quota counters (29 tests pass), Docker/Nginx/compose files, `init-db` (fixes fresh-database setup), `/health`, trusted-proxy IP handling. | Install Docker Desktop, run `docker compose up`, fix what breaks, then F1c measurements |
 | 2026-11-19 | Docker Desktop installed (WSL updated). `docker compose up -d --build` works. End-to-end through Nginx: admin login, key creation, PDF with 5 codes read, quota 2 -> 200/200/429 with both app containers serving (Redis key holds the count), wrong key 401. | F1c: scaling measurements, then F2 |
 | 2026-11-19 | F1c benchmark: 1/2/4 containers, two workloads, 0 failures; throughput flat (CPU-bound on 4 cores). First run invalid (wrong port) and discarded; script now checks `/health`. Results in `docs/PERFORMANCE.md`. | F2: decoder comparison study |
+| 2026-11-19 | F2 decoder study: dataset of 704 images, 7 decoders compared, tables + charts + study document. First dataset recalibrated (1D bars too thin: everybody at 0 %). Found 2 weaknesses of our own decoder (EAN-13 misreads at 30 degrees, gap at 20-30 degrees) -> F2b. | F2b or F3 (localisation) |
