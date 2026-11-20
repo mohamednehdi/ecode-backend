@@ -7,6 +7,7 @@ from datetime import datetime, timedelta
 from flask import Blueprint, current_app, request, jsonify
 
 from ..extensions import db
+from .openapi import build_spec
 from ..models.api_token import ApiToken, ApiUsage, hash_key
 from ..scans.services import (
     extract_document, is_pdf, InvalidImageError, InvalidPdfError, TooManyPagesError,
@@ -49,6 +50,12 @@ def _log_usage(token, now, status, duration_ms, file_bytes, thorough, **outcome)
     except Exception:
         db.session.rollback()
         logger.exception('Could not write the request log for token %s', token.id)
+
+
+@api_bp.route('/openapi.json', methods=['GET'])
+def openapi():
+    """The OpenAPI description of this service (shown by Swagger UI at /api/docs)."""
+    return jsonify(build_spec(current_app.config))
 
 
 @api_bp.route('/extract', methods=['POST'])

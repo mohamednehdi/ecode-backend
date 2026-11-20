@@ -720,6 +720,115 @@ def test_demo_data_commands(ctx):
         assert ApiUsage.query.count() == 0 and ApiToken.query.count() == 0
 
 
+# ---------------------------------------------------------------- API documentation (F5): the spec must tell the truth
+
+def _spec_validates(instance, schema, spec):
+    """Validates `instance` against a schema of the spec (its $refs point into the spec's components)."""
+    import jsonschema
+    jsonschema.validate(instance, {**schema, 'components': spec['components']})
+
+
+def _normalised(message):
+    import re
+    return re.sub(r'\d+', 'N', message)          # quota and limit numbers differ between the example and the real answer
+
+
+def test_api_documentation_is_served_and_valid(ctx):
+    from openapi_spec_validator import validate
+    from app.scans.decoder import SUPPORTED_TYPES
+    c, _, _ = ctx
+    r = c.get('/api/v1/openapi.json')
+    assert r.status_code == 200 and r.json['openapi'].startswith('3.')
+    validate(r.json)                                                           # a valid OpenAPI 3 document
+    assert set(r.json['paths']) == {'/api/v1/extract', '/health'}
+    assert r.json['components']['schemas']['Barcode']['properties']['type']['enum'] == list(SUPPORTED_TYPES)
+    page = c.get('/api/docs/', follow_redirects=True)
+    assert page.status_code == 200 and b'swagger-ui' in page.data and b'/api/v1/openapi.json' in page.data
+    assert c.get('/api/docs/swagger-ui-bundle.js').status_code == 200          # served from the package: works offline
+
+
+def test_documented_examples_fit_their_own_schemas(ctx):
+    c, _, _ = ctx
+    spec = c.get('/api/v1/openapi.json').json
+    checked = 0
+    for path in spec['paths'].values():
+        for operation in path.values():
+            for status, response in operation['responses'].items():
+                for media in response.get('content', {}).values():
+                    examples = [e['value'] for e in media.get('examples', {}).values()] + ([media['example']] if 'example' in media else [])
+                    for example in examples:
+                        _spec_validates(example, media['schema'], spec)
+                        checked += 1
+    assert checked >= 15
+
+
+def test_every_documented_answer_is_what_the_service_really_sends(ctx, monkeypatch):
+    """One real request per documented status/message: the answer must be one of the documented examples and fit the schema."""
+    import app.api.routes as api_routes
+    from datetime import datetime, timedelta
+    c, _, app = ctx
+    spec = c.get('/api/v1/openapi.json').json
+    responses = spec['paths']['/api/v1/extract']['post']['responses']
+    png, _ = _sample_image()
+    pdf = _sample_pdf()
+    key, tid = _new_key(c)
+
+    def call(api_key, data=None, name='a.png', query=''):
+        files = {'file': (io.BytesIO(data), name)} if data is not None else {}
+        headers = {'X-API-Key': api_key} if api_key else {}
+        return c.post('/api/v1/extract' + query, headers=headers, data=files, content_type='multipart/form-data')
+
+    def documented(response, status):
+        assert response.status_code == status, (status, response.json)
+        assert status == 200 or _normalised(response.json['error']) in {
+            _normalised(e['value']['error']) for e in responses[str(status)]['content']['application/json']['examples'].values()}, response.json
+        schema = responses[str(status)]['content']['application/json']['schema']
+        _spec_validates(response.json, schema, spec)
+        return response.json
+
+    # 200: an image, a PDF, the thorough mode
+    ok = documented(call(key, png), 200)
+    assert ok['file_type'] == 'image' and ok['barcodes'] and all(len(b['polygon']) == 4 for b in ok['barcodes'])
+    assert documented(call(key, pdf, 'd.pdf'), 200)['page_count'] == 3
+    documented(call(key, png, query='?thorough=1'), 200)
+    # 400: every message
+    documented(call(key), 400)                                                                  # no file
+    documented(call(key, png, 'a.pdf'), 400)                                                    # extension != content
+    documented(call(key, b'not an image'), 400)                                                 # unreadable image
+    documented(call(key, b'%PDF-1.4 broken', 'a.pdf'), 400)                                     # unreadable PDF
+    monkeypatch.setitem(app.config, 'PDF_MAX_PAGES', 1)
+    documented(call(key, pdf, 'd.pdf'), 400)                                                    # too many pages
+    monkeypatch.setitem(app.config, 'PDF_MAX_PAGES', 20)
+    # 401, 403
+    documented(call(None, png), 401)
+    documented(call('ecode_wrong', png), 401)
+    atok = _admin_tok(c)
+    c.put(f'/admin/api-tokens/{tid}', headers=H(atok), json={'is_active': False})
+    documented(call(key, png), 403)                                                             # disabled
+    c.put(f'/admin/api-tokens/{tid}', headers=H(atok), json={'is_active': True})
+    documented(call(_new_key(c, valid_from='2999-01-01')[0], png), 403)                         # not valid yet
+    documented(call(_new_key(c, valid_until='2000-01-01')[0], png), 403)                        # expired
+    documented(call(_new_key(c, allowed_ips=['10.1.2.3'])[0], png), 403)                        # IP refused
+    # 413, 415, 429, 500
+    monkeypatch.setitem(app.config, 'MAX_CONTENT_LENGTH', 500)
+    documented(call(key, b'x' * 5000), 413)
+    monkeypatch.setitem(app.config, 'MAX_CONTENT_LENGTH', 10 * 1024 * 1024)
+    documented(call(key, b'x', 'a.gif'), 415)
+    limited = _new_key(c, quota_hourly=1, quota_monthly=100)[0]
+    documented(call(limited, png), 200)
+    documented(call(limited, png), 429)                                                         # hourly quota
+    monthly = _new_key(c, quota_monthly=1)[0]
+    documented(call(monthly, png), 200)
+    documented(call(monthly, png), 429)                                                         # monthly quota
+
+    def boom(*args, **kwargs):
+        raise RuntimeError('simulated failure')
+    monkeypatch.setattr(api_routes, 'extract_document', boom)
+    documented(call(key, png), 500)
+    # every documented status code was exercised
+    assert set(responses) == {'200', '400', '401', '403', '413', '415', '429', '500'}
+
+
 # ---------------------------------------------------------------- decoder: poor quality scans, speed, coordinates
 
 def _big_codes_page(w=1400, h=1000):

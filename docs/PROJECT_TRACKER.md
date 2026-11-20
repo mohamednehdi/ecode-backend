@@ -131,11 +131,16 @@ Why: makes the back office more than a CRUD screen; needs per-request latency da
 - Size: 5. Status: DONE
 
 ### F5. API documentation (priority 5)
-- OpenAPI/Swagger page for `/api/v1/extract` (parameters, errors, examples), README for API users.
+- OpenAPI 3 description built from the code (`app/api/openapi.py`, served at `/api/v1/openapi.json`), Swagger UI at `/api/docs/`
+  (files served from the package: works offline), developer guide `docs/API.md`, runnable examples in `docs/examples/`, link in the admin sidebar.
+- Report document: `docs/API_DOCS_F5.md`.
 - Acceptance criteria:
-  - [ ] Swagger UI reachable and the "Try it" call works with a key
-  - [ ] Examples in curl, Python and JavaScript
-- Size: 2. Status: TODO
+  - [x] Swagger UI reachable (checked in a browser: both operations, `thorough`, required `file`, Authorize, 8 response codes, 5 schemas)
+  - [x] Examples in curl, Python and JavaScript, each run for real against a local server
+  - [x] Contract tests: spec is a valid OpenAPI 3 document; its examples fit its schemas; 21 real requests cover every documented status and message (mutation-checked)
+  - [ ] "Try it out" with a real file upload was NOT exercised in the browser (curl/Python/Node prove the same call)
+- Limits: examples checked on a local server only; one version (1.0.0); no SDK; speed/accuracy figures in the text come from synthetic-image measurements.
+- Size: 2. Status: DONE
 
 ### F6. Observability (priority 6)
 - Structured JSON logs with a request id, Prometheus `/metrics` endpoint (latency histogram, quota rejections), Grafana dashboard.
@@ -222,3 +227,4 @@ Short notes after each work session (date, what was done, what was learned, what
 | 2026-11-20 | F3b: region decoding (crop, straighten, enlarge, 5 variants), thorough mode, unread regions in the JSON and in orange on the public page (Angular), API `?thorough=1`. 5 strategies compared; final exam run once. 38 tests pass. Misreads NOT fixed (come from the quick read). | F4 admin dashboard, or F2b |
 | 2026-11-20 | Looked at the public page: 1D codes had thin/partial boxes (zxing reports only the scanned line). Fixed: every code has its real outline (`polygon`), 1D codes get the located region's box in thorough mode, page draws polygons. Orange image frame made neutral grey (orange now means unreadable region). Speed test made robust (best of 15). 39 tests pass. | F4 or F2b |
 | 2026-11-20 | F4: request outcome logged (status, duration, codes, pages, type, size), statistics endpoints + CSV, demo-data commands, Angular statistics page with 3 hand-made SVG/HTML chart components. Looked at it in a browser (scratch MySQL + scratch frontend copy, both removed): found and fixed unreadable horizontal-bar text. 44 tests pass. | Apply migration d4b7a1e90c53; then F2b or F5-F9 |
+| 2026-11-20 | F5: OpenAPI description built by the code, Swagger UI served locally, developer guide, curl/Python/Node examples executed for real, 3 contract tests (47 tests pass; the contract test was proven by breaking a message on purpose), sidebar link. | F7 (tests + CI) or F2b |

@@ -77,6 +77,13 @@ def create_app(config_class=Config):
     app.register_blueprint(stats_bp, url_prefix='/admin/stats')
     app.register_blueprint(api_bp, url_prefix='/api/v1')
 
+    # Interactive documentation of the web service (Swagger UI, files served from the package: works offline)
+    from flask_swagger_ui import get_swaggerui_blueprint
+    app.register_blueprint(get_swaggerui_blueprint(
+        '/api/docs', '/api/v1/openapi.json',
+        config={'app_name': 'eCode API', 'docExpansion': 'list', 'defaultModelsExpandDepth': 1,
+                'persistAuthorization': True, 'displayRequestDuration': True}), url_prefix='/api/docs')
+
     @app.cli.command('init-db')
     def init_db():
         """Prepares the database: builds it on first start, upgrades it afterwards (used by Docker).

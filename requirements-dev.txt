@@ -8,3 +8,5 @@ opencv-python
 locust  # stress test (see stress/)
 pyzbar  # decoder study (bench/): compared with zxing-cpp
 matplotlib  # decoder study: charts
+openapi-spec-validator  # tests: the API description is a valid OpenAPI document
+jsonschema  # tests: real answers match the API description
