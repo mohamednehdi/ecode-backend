@@ -426,6 +426,61 @@ def test_client_ip_comes_from_the_proxy_only_when_a_proxy_is_trusted(ctx):
     assert call(proxied, '198.51.100.1').status_code == 403
 
 
+# ---------------------------------------------------------------- localisation of codes (F3)
+
+def _doc_page(seed):
+    """A document page (text, table, logo) with 1 to 3 codes, and the true box (x, y, w, h) of each code."""
+    import numpy as np
+    sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'bench'))
+    from make_documents import _background, _place_codes
+    rng = np.random.default_rng(seed)
+    page = _background(rng)
+    codes = _place_codes(page, rng)
+    return page, [(c['x'], c['y'], c['w'], c['h']) for c in codes]
+
+
+def _overlap(a, b):
+    ix = max(0, min(a[0] + a[2], b[0] + b[2]) - max(a[0], b[0]))
+    iy = max(0, min(a[1] + a[3], b[1] + b[3]) - max(a[1], b[1]))
+    inter = ix * iy
+    return inter / (a[2] * a[3] + b[2] * b[3] - inter) if inter else 0.0
+
+
+def test_localizer_finds_every_code_of_a_document_page():
+    from app.scans.localizer import find_regions
+    page, truth = _doc_page(6)                                    # 3 codes among text and a table
+    regions = find_regions(page)
+    assert len(regions) == 3
+    for box in truth:
+        assert any(_overlap(box, (r['x'], r['y'], r['w'], r['h'])) >= 0.5 for r in regions)
+    assert all(0.5 <= r['score'] <= 1 and len(r['box']) == 4 for r in regions)
+
+
+def test_localizer_blank_pages_have_no_region():
+    import numpy as np
+    from app.scans.localizer import find_regions
+    assert find_regions(np.full((600, 800), 255, np.uint8)) == []
+    assert find_regions(np.full((600, 800, 3), 255, np.uint8)) == []
+
+
+def test_localizer_maps_boxes_back_on_a_large_scan():
+    """A 1600x2000 page is searched on a reduced copy; the boxes must come back in the page's own pixels."""
+    import cv2
+    from app.scans.localizer import find_regions
+    page, truth = _doc_page(6)
+    big = cv2.resize(page, None, fx=2, fy=2, interpolation=cv2.INTER_NEAREST)
+    regions = find_regions(big)
+    found = sum(any(_overlap(tuple(2 * v for v in box), (r['x'], r['y'], r['w'], r['h'])) >= 0.5 for r in regions) for box in truth)
+    assert found >= 2
+
+
+def test_localizer_model_is_loaded_and_filters_candidates():
+    from app.scans.localizer import FEATURES, MODEL, find_regions
+    assert MODEL is not None and len(MODEL['weights']) == len(FEATURES)
+    page, _ = _doc_page(5)
+    assert len(find_regions(page, model=None)) >= len(find_regions(page)) >= 1     # the model only removes candidates
+
+
 # ---------------------------------------------------------------- decoder: poor quality scans, speed, coordinates
 
 def _big_codes_page(w=1400, h=1000):

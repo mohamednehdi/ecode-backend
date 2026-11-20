@@ -1,10 +1,12 @@
 """Builds the labelled dataset of the decoder comparison study (F2).
 
-    python bench/make_dataset.py [samples_per_cell]        (default 8)
+    python bench/make_dataset.py [samples_per_cell]            (default 8)  -> bench/dataset/
+    python bench/make_dataset.py [samples_per_cell] tuning     other seeds -> bench/dataset_tuning/ (for development)
 
 Four code types x 22 conditions x N random contents. Every image is a page (800x600, white) holding ONE code
-at a random position; the known content is written to bench/dataset/labels.csv, so a decoder is right only
-when it returns exactly that content. The random generator is seeded: the dataset is identical on every run.
+at a random position; the known content and the true position of the code (x, y, w, h of its bounding box in the
+final image) are written to labels.csv, so a decoder is right only when it returns exactly that content and
+a localiser is right when its box overlaps the true box. The random generator is seeded: the dataset is identical on every run.
 
 Conditions: clean | blur (3) | gaussian noise (3) | JPEG compression (3) | low contrast (2) | rotation (4) |
 perspective | small (2) | inverted | uneven lighting | "poor scan" (rotation + blur + noise + JPEG + low contrast).
@@ -68,7 +70,11 @@ def _page(kind, rng):
     x = int(rng.integers(60, max(61, PAGE_W - code.width - 60)))
     y = int(rng.integers(60, max(61, PAGE_H - code.height - 60)))
     page.paste(code, (x, y))
-    return np.array(page), truth
+    # Position of the code itself (bars / modules, without the quiet zone), kept as a mask that follows the geometry
+    ys, xs = np.where(np.array(code.convert('L')) < 128)
+    mask = np.full((PAGE_H, PAGE_W, 3), 255, np.uint8)
+    mask[y + ys.min():y + ys.max() + 1, x + xs.min():x + xs.max() + 1] = 0
+    return np.array(page), truth, mask
 
 
 # ----------------------------------------------------------------------------------------------- degradations
@@ -155,26 +161,42 @@ CONDITIONS = [
 ]
 
 
+# Conditions that move the code: the true box is found by applying the same transform to the mask.
+# The other conditions (blur, noise, JPEG, contrast, inversion, lighting) leave the code where it is.
+GEOMETRY = {
+    'rotate_10': rotate(10), 'rotate_30': rotate(30), 'rotate_45': rotate(45), 'rotate_90': rotate(90),
+    'perspective': perspective, 'small_0.5': small(0.5), 'small_0.35': small(0.35), 'poor_scan': rotate(5),
+}
+
+
+def _true_box(mask, name, seed):
+    moved = GEOMETRY[name](mask.copy(), np.random.default_rng(seed)) if name in GEOMETRY else mask
+    ys, xs = np.where(moved.min(axis=2) < 128)
+    return int(xs.min()), int(ys.min()), int(xs.max() - xs.min() + 1), int(ys.max() - ys.min() + 1)
+
+
 # ----------------------------------------------------------------------------------------------- main
 
-def build(samples):
-    os.makedirs(OUT, exist_ok=True)
+def build(samples, out=OUT, offset=0):
+    os.makedirs(out, exist_ok=True)
     os.makedirs(FIGURES, exist_ok=True)
     rows = []
     for t, kind in enumerate(TYPES):
         for i in range(samples):
             # The same base page is used for every condition: differences between conditions come from the degradation only
-            base, truth = _page(kind, np.random.default_rng(1000 * t + i))
+            base, truth, mask = _page(kind, np.random.default_rng(offset + 1000 * t + i))
             for c, (name, degrade) in enumerate(CONDITIONS):
-                img = degrade(base.copy(), np.random.default_rng(100000 + 1000 * t + 10 * i + c))
+                seed = offset + 100000 + 1000 * t + 10 * i + c
+                img = degrade(base.copy(), np.random.default_rng(seed))
                 fname = f'{kind}_{name}_{i}.png'
-                Image.fromarray(img).save(os.path.join(OUT, fname))
-                rows.append((fname, kind, name, truth))
-    with open(os.path.join(OUT, 'labels.csv'), 'w', newline='', encoding='utf-8') as f:
+                Image.fromarray(img).save(os.path.join(out, fname))
+                x, y, w, h = _true_box(mask, name, seed)
+                rows.append((fname, kind, name, truth, x, y, w, h))
+    with open(os.path.join(out, 'labels.csv'), 'w', newline='', encoding='utf-8') as f:
         w = csv.writer(f)
-        w.writerow(['file', 'type', 'condition', 'truth'])
+        w.writerow(['file', 'type', 'condition', 'truth', 'x', 'y', 'w', 'h'])
         w.writerows(rows)
-    print(f'{len(rows)} images ({len(TYPES)} types x {len(CONDITIONS)} conditions x {samples}) in {OUT}')
+    print(f'{len(rows)} images ({len(TYPES)} types x {len(CONDITIONS)} conditions x {samples}) in {out}')
 
 
 def examples_figure(kind='QRCODE'):
@@ -195,5 +217,11 @@ def examples_figure(kind='QRCODE'):
 
 
 if __name__ == '__main__':
-    build(int(sys.argv[1]) if len(sys.argv) > 1 else 8)
-    examples_figure()
+    samples = int(sys.argv[1]) if len(sys.argv) > 1 else 8
+    if 'tuning' in sys.argv[2:]:
+        # A second dataset with other seeds (other contents, other positions) used to develop and tune the
+        # localiser and the decoder passes, so that the main dataset stays a fair final exam.
+        build(samples, out=os.path.join(HERE, 'dataset_tuning'), offset=5_000_000)
+    else:
+        build(samples)
+        examples_figure()

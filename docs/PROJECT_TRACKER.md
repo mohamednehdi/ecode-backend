@@ -100,13 +100,20 @@ Why: turns "I chose zxing-cpp" into a measured, defensible engineering decision.
 
 ### F3. Barcode localisation stage (priority 3)
 Why: the project title says "localisation et extraction"; localisation is currently only a by-product of decoding.
-- Detect candidate barcode regions first (gradient/morphology for 1D, finder patterns or contours for 2D), then decode crops.
-- Return the region even when the content cannot be decoded (`decoded: false`) so the user sees where a code was found.
+
+| Part | What | Status |
+|---|---|---|
+| F3a | Localiser (`app/scans/localizer.py`): finds code regions without decoding; true boxes added to the datasets; realistic document pages; scoring model trained on tuning sets only; final exam on untouched sets | DONE: documents recall 80.6 %, precision 73.1 %, 64 ms (`docs/LOCALIZER_STUDY.md`) |
+| F3b | Use the regions: decode each region (crop, deskew, enlarge), report unreadable regions in the JSON and show them in another colour on the public page, decode the other codes of a page when only some were read | TODO |
+
 - Acceptance criteria:
-  - [ ] Detection rate measured on the F2 dataset (precision/recall of regions)
-  - [ ] Improvement on poor scans vs the current fallback passes, measured
+  - [x] Detection recall and precision measured on a dataset with true boxes (80.6 % / 73.1 % on document pages)
+  - [x] Tests for the localiser (blank pages, large scans, model loaded)
+  - [ ] Improvement on poor scans vs the current fallback passes, measured on the final sets
   - [ ] Public page shows undecoded regions in another colour
-- Size: 8 (split). Status: TODO
+- Lessons: the single-code pages were far too easy (first detector: 100 % there, 36 % on realistic pages); tuning and final
+  sets use different seeds and the final sets were scored once; limits (synthetic fonts and codes, no real scans) are in the study.
+- Size: 8. Status: IN PROGRESS (F3a done)
 
 ### F4. Admin statistics dashboard (priority 4)
 Why: makes the back office more than a CRUD screen; needs per-request latency data.
@@ -206,3 +213,4 @@ Short notes after each work session (date, what was done, what was learned, what
 | 2026-11-19 | Docker Desktop installed (WSL updated). `docker compose up -d --build` works. End-to-end through Nginx: admin login, key creation, PDF with 5 codes read, quota 2 -> 200/200/429 with both app containers serving (Redis key holds the count), wrong key 401. | F1c: scaling measurements, then F2 |
 | 2026-11-19 | F1c benchmark: 1/2/4 containers, two workloads, 0 failures; throughput flat (CPU-bound on 4 cores). First run invalid (wrong port) and discarded; script now checks `/health`. Results in `docs/PERFORMANCE.md`. | F2: decoder comparison study |
 | 2026-11-19 | F2 decoder study: dataset of 704 images, 7 decoders compared, tables + charts + study document. First dataset recalibrated (1D bars too thin: everybody at 0 %). Found 2 weaknesses of our own decoder (EAN-13 misreads at 30 degrees, gap at 20-30 degrees) -> F2b. | F2b or F3 (localisation) |
+| 2026-11-20 | F3a: true boxes in the datasets, 240 realistic document pages, density-based localiser + 12-weight logistic scoring, trimming, speed-ups (296 ms -> 64 ms), 4 new tests (33 pass). Final exam run once on untouched sets: documents recall 80.6 % / precision 73.1 %. Honest limits written in docs/LOCALIZER_STUDY.md. | F3b: use the regions to decode better and show unreadable codes |

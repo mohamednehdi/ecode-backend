@@ -1,0 +1,41 @@
+type            codes  recall  mean IoU
+CODE128           120   75.0%      0.70
+DataMatrix        121   86.8%      0.78
+QRCODE            117   98.3%      0.87
+EAN13             110   60.9%      0.59
+
+condition       codes  recall  mean IoU
+clean             231   85.3%      0.78
+scan              237   75.9%      0.70
+
+damage          codes  recall  mean IoU
+lowcontrast+tilt      8  100.0%      0.92
+tilt               56   98.2%      0.89
+tilt+small          6  100.0%      0.88
+lowcontrast+blur      7   28.6%      0.36
+none               89   88.8%      0.81
+small              61   70.5%      0.66
+lowcontrast        52   67.3%      0.67
+blur               52   82.7%      0.77
+inverted+tilt       6  100.0%      0.87
+inverted+lowcontrast      9   66.7%      0.53
+inverted           47   91.5%      0.79
+small+blur          6   50.0%      0.42
+inverted+small      5   60.0%      0.65
+blur+inverted       7   85.7%      0.65
+small+lowcontrast      6   33.3%      0.39
+inverted+blur       5  100.0%      0.77
+tilt+blur           3  100.0%      0.89
+tilt+inverted       2  100.0%      0.90
+lowcontrast+small      7   28.6%      0.29
+lowcontrast+inverted      5   40.0%      0.48
+blur+small          5   60.0%      0.62
+blur+tilt           7  100.0%      0.89
+blur+lowcontrast      4   75.0%      0.70
+small+tilt          5  100.0%      0.88
+tilt+lowcontrast      5   40.0%      0.55
+small+inverted      3  100.0%      0.73
+
+ALL: 468 codes on 240 pages | recall 80.6% | precision 73.1% (139 false regions, 2.15 regions/page for 1.95 codes/page) | median 63.6 ms
+  clean          precision  71.6%  false regions/page 0.65
+  scan           precision  74.7%  false regions/page 0.51
