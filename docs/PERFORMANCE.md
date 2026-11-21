@@ -208,7 +208,7 @@ Autres points de dimensionnement :
 
 ## 7. Refaire le stress test
 
-Depuis le dossier du projet, environnement virtuel actif (`pip install -r requirements-dev.txt`) :
+Depuis le dossier du projet, environnement virtuel actif (`pip install -r requirements-bench.txt`) :
 
 ```powershell
 python stress/make_samples.py                      # fichiers de test dans stress/samples/

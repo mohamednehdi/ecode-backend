@@ -765,7 +765,6 @@ def test_documented_examples_fit_their_own_schemas(ctx):
 def test_every_documented_answer_is_what_the_service_really_sends(ctx, monkeypatch):
     """One real request per documented status/message: the answer must be one of the documented examples and fit the schema."""
     import app.api.routes as api_routes
-    from datetime import datetime, timedelta
     c, _, app = ctx
     spec = c.get('/api/v1/openapi.json').json
     responses = spec['paths']['/api/v1/extract']['post']['responses']

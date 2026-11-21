@@ -23,7 +23,6 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, ROOT)
 
 import cv2
-import numpy as np
 import zxingcpp
 from flask import Flask
 from pyzbar import pyzbar

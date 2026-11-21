@@ -1,0 +1,71 @@
+name: CI
+
+# Runs on every push and every pull request: lint, tests with coverage, and a check that the Docker image still builds and starts.
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+
+jobs:
+  lint:
+    name: Lint (ruff)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: pip install ruff
+      - run: ruff check .
+
+  test:
+    name: Tests and coverage
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+          cache: pip
+          cache-dependency-path: requirements*.txt
+      # OpenCV needs libGL; the tests build DataMatrix images with pylibdmtx, which needs the libdmtx library
+      - name: System libraries
+        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends libgl1 libglib2.0-0t64 libdmtx0t64
+      - run: pip install -r requirements-dev.txt
+      # Fails below 90 % (measured: 91.6 % on Ubuntu), so a change that drops the coverage is noticed
+      - name: Tests with coverage
+        run: pytest --cov=app --cov=config --cov-report=term --cov-report=xml --cov-fail-under=90
+      - name: Coverage in the run summary
+        if: always()
+        run: |
+          python - <<'EOF' >> "$GITHUB_STEP_SUMMARY"
+          import xml.etree.ElementTree as ET
+          try:
+              rate = float(ET.parse('coverage.xml').getroot().get('line-rate')) * 100
+              print(f'### Coverage: {rate:.1f} % of the lines')
+          except Exception as exc:
+              print(f'### Coverage not available ({exc})')
+          EOF
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-xml
+          path: coverage.xml
+
+  docker:
+    name: Docker image builds and starts
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t ecode-backend .
+      - name: Start the image and call /health
+        run: |
+          docker run -d --name ecode -p 5000:5000 \
+            -e SECRET_KEY=ci-secret -e JWT_SECRET_KEY=ci-jwt-secret -e DATABASE_URL=sqlite:////tmp/ci.db \
+            ecode-backend
+          for _ in $(seq 1 30); do
+            if curl -fsS http://localhost:5000/health; then exit 0; fi
+            sleep 2
+          done
+          docker logs ecode
+          exit 1

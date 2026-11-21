@@ -150,13 +150,20 @@ Why: makes the back office more than a CRUD screen; needs per-request latency da
 - Size: 3. Status: TODO
 
 ### F7. CI pipeline and test quality (priority 7)
-- GitHub Actions: backend tests, frontend build and unit tests, lint.
-- Frontend unit tests for the services and the token form; one end-to-end test (Playwright): upload, login, create a key.
-- Backend coverage report.
+- GitHub Actions in both repos (`.github/workflows/ci.yml`): backend = lint, tests with coverage (fails under 90 %), Docker image builds and answers `/health`;
+  frontend = build, unit tests with coverage, end-to-end test (a real browser, the real site, the real backend).
+- 86 Angular unit tests (11 before, 9 of them failing), 5 Playwright end-to-end tests, backend coverage 92 % (Windows) / 91.6 % (Linux), README in both repos.
+- Report document: `docs/TESTING_CI_F7.md`.
 - Acceptance criteria:
-  - [ ] Pipeline green on every push
-  - [ ] Coverage figure in the README
-- Size: 3. Status: TODO
+  - [ ] **Pipeline green on every push: NOT shown.** The pipelines never ran on GitHub (nothing was pushed). Checked instead: actionlint on both files (clean), the backend
+        lint and test steps in a clean Ubuntu 24.04 container (47 pass, 91.6 %), the Docker job's commands locally, the frontend unit command and the end-to-end test locally (Edge instead of Chrome/Chromium)
+  - [x] Frontend unit tests for services and the token form; one end-to-end test (upload, login, create a key, use it, statistics, disable)
+  - [x] Coverage figure in both READMEs
+  - [x] Tests proven able to fail: 4 deliberate breaks, each caught by the intended test
+- Found: 9 of 11 Angular tests failed (empty stubs); plain `npm ci` failed on the original lock (mixed Angular 17.3.x versions: `.npmrc` workaround, proper alignment NOT done);
+  the clean Linux run failed 16 tests (`distutils` removed in Python 3.12, hidden on Windows by setuptools): fixed with `setuptools` in `requirements-dev.txt`; ruff removed 6 unused imports.
+- Limits: first GitHub run still to do; the e2e job needs the backend repo (private: secret BACKEND_REPO_TOKEN); no frontend lint; frontend branch coverage 73.6 %; SMTP code (58 %) untested.
+- Size: 3. Status: IN PROGRESS (first real GitHub run pending)
 
 ### F8. Asynchronous jobs for large documents (priority 8)
 - `POST /api/v1/jobs` returns a job id; `GET /api/v1/jobs/<id>` returns progress and result; optional webhook on completion.
@@ -228,3 +235,4 @@ Short notes after each work session (date, what was done, what was learned, what
 | 2026-11-20 | Looked at the public page: 1D codes had thin/partial boxes (zxing reports only the scanned line). Fixed: every code has its real outline (`polygon`), 1D codes get the located region's box in thorough mode, page draws polygons. Orange image frame made neutral grey (orange now means unreadable region). Speed test made robust (best of 15). 39 tests pass. | F4 or F2b |
 | 2026-11-20 | F4: request outcome logged (status, duration, codes, pages, type, size), statistics endpoints + CSV, demo-data commands, Angular statistics page with 3 hand-made SVG/HTML chart components. Looked at it in a browser (scratch MySQL + scratch frontend copy, both removed): found and fixed unreadable horizontal-bar text. 44 tests pass. | Apply migration d4b7a1e90c53; then F2b or F5-F9 |
 | 2026-11-20 | F5: OpenAPI description built by the code, Swagger UI served locally, developer guide, curl/Python/Node examples executed for real, 3 contract tests (47 tests pass; the contract test was proven by breaking a message on purpose), sidebar link. | F7 (tests + CI) or F2b |
+| 2026-11-20 | F7: 86 Angular unit tests (random order), 5 Playwright e2e tests, backend lint + coverage + README, CI workflows for both repos (actionlint clean). Linux run caught a real failure (distutils/setuptools, 16 tests) before GitHub did; npm ci found broken on the original lock (.npmrc). Tests proven by deliberate breaks. NOT run on GitHub yet. | Push both repos, watch the first runs, fix what they show |

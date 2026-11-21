@@ -150,5 +150,5 @@ python bench/run_benchmark.py        # ≈ 3 minutes ; écrit bench/results/resu
 python bench/analyze.py              # tableaux (bench/results/summary.md) et figures (bench/figures/)
 ```
 
-Dépendances : `pip install -r requirements-dev.txt` (pylibdmtx, pyzbar, matplotlib, opencv-python). Ne rien lancer d'autre
+Dépendances : `pip install -r requirements-bench.txt` (pylibdmtx, pyzbar, matplotlib). Ne rien lancer d'autre
 pendant `run_benchmark.py` : les temps sont mesurés.

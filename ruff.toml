@@ -1,0 +1,8 @@
+# Lint (ruff): only the rules that find real bugs, so that a failure always means something.
+#   F   pyflakes: unused imports and variables, undefined names, duplicate keys...
+#   E9  syntax errors
+line-length = 140
+extend-exclude = ["venv", "_backup_before_step1", "instance", "bench/dataset", "bench/dataset_tuning", "bench/documents", "bench/documents_tuning"]
+
+[lint]
+select = ["F", "E9"]

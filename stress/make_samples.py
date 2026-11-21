@@ -11,7 +11,6 @@ import io
 import os
 
 import barcode
-import numpy as np
 import pymupdf
 import segno
 from barcode.writer import ImageWriter

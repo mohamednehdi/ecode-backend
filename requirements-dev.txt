@@ -1,12 +1,12 @@
+# What the tests and the CI pipeline need (kept lean: nothing that is only for the studies)
 -r requirements.txt
 pytest
-fakeredis  # tests of the Redis quota counters without a Redis server
-segno
-python-barcode[images]
-pylibdmtx  # only used by the tests to generate DataMatrix images
-opencv-python
-locust  # stress test (see stress/)
-pyzbar  # decoder study (bench/): compared with zxing-cpp
-matplotlib  # decoder study: charts
-openapi-spec-validator  # tests: the API description is a valid OpenAPI document
-jsonschema  # tests: real answers match the API description
+pytest-cov           # coverage figure
+ruff                 # lint
+fakeredis            # tests of the Redis quota counters without a Redis server
+segno                # tests: QR codes
+python-barcode[images]   # tests: 1D codes
+pylibdmtx            # tests: DataMatrix images (needs the libdmtx system library)
+setuptools           # pylibdmtx imports distutils, which Python 3.12 removed: setuptools provides it (found by the Linux CI run)
+openapi-spec-validator   # tests: the API description is a valid OpenAPI document
+jsonschema           # tests: real answers match the API description

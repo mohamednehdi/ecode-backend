@@ -1,0 +1,5 @@
+# Extra tools for the studies (bench/) and the stress test (stress/): not needed to run the tests
+-r requirements-dev.txt
+pyzbar               # decoder study: compared with zxing-cpp (needs the zbar system library)
+matplotlib           # decoder study: charts
+locust               # stress test (see stress/ and docs/PERFORMANCE.md)

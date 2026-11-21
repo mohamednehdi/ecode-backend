@@ -12,9 +12,8 @@ The `api_usage` table is still written for every accepted request: it is the aud
 monthly counter if Redis loses its data.
 """
 import logging
-import time
 import uuid
-from datetime import datetime, timedelta, timezone
+from datetime import timedelta, timezone
 
 from .models.api_token import ApiUsage
 
