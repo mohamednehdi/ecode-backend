@@ -1,9 +1,9 @@
 # eCode : plateforme de localisation et d'extraction de codes-barres
 
-[![CI](https://github.com/mohamednehdi/Python-merged/actions/workflows/ci.yml/badge.svg)](https://github.com/mohamednehdi/Python-merged/actions/workflows/ci.yml)
+[![CI](https://github.com/mohamednehdi/ecode-backend/actions/workflows/ci.yml/badge.svg)](https://github.com/mohamednehdi/ecode-backend/actions/workflows/ci.yml)
 
 Projet de fin d'études, Progress Engineering. Ce dépôt est le **backend** (Flask). Le site (Angular) est dans le dépôt
-[new-angular-barcode](https://github.com/mohamednehdi/new-angular-barcode).
+[ecode-frontend](https://github.com/mohamednehdi/ecode-frontend).
 
 Ce que fait la plateforme : lire les codes-barres **1D, QR Code et DataMatrix** d'images (PNG, JPG) et de PDF de plusieurs pages, et
 rendre le résultat en JSON, par :
