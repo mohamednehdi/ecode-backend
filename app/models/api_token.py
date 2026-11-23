@@ -34,6 +34,10 @@ class ApiToken(db.Model):
     valid_until = db.Column(db.DateTime, nullable=True)
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     last_used_at = db.Column(db.DateTime, nullable=True)
+    # Key rotation: the previous key keeps working until previous_valid_until (a grace period for the application to switch)
+    previous_token_hash = db.Column(db.String(64), nullable=True, index=True)
+    previous_valid_until = db.Column(db.DateTime, nullable=True)
+    rotated_at = db.Column(db.DateTime, nullable=True)
 
     usages = db.relationship('ApiUsage', backref='api_token', lazy=True, cascade='all, delete-orphan')
 

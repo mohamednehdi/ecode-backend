@@ -29,6 +29,15 @@ class User(db.Model):
     def check_password(self, password):
         return check_password_hash(self.password, password)
 
+    _dummy_hash = None
+
+    @classmethod
+    def burn_password_check(cls, password):
+        """Checks the password against a throw-away hash of the same cost, so that "no such account" takes as long as "wrong password"."""
+        if cls._dummy_hash is None:
+            cls._dummy_hash = generate_password_hash('not-a-real-password').decode('utf-8')
+        check_password_hash(cls._dummy_hash, password)
+
     def set_verification_code(self, code, ttl_minutes=15):
         self.verification_code = code
         self.verification_code_expiry = datetime.utcnow() + timedelta(minutes=ttl_minutes)

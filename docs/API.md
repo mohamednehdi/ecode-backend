@@ -20,6 +20,10 @@ qu'une fois à sa création : la conserver dans un coffre de secrets ou une vari
 côté navigateur. L'administrateur peut limiter une clé à certaines adresses IP, à certains types de codes, à une période de
 validité et à des quotas.
 
+**Renouvellement.** Si l'administrateur renouvelle votre clé avec une période de grâce, l'ancienne clé continue de marcher jusqu'à une
+heure fixée ; chaque réponse obtenue avec l'ancienne clé porte alors l'en-tête **`X-API-Key-Replaced-Until`** (date et heure UTC de la fin).
+Passez à la nouvelle clé avant cette heure : après, l'ancienne donne 401.
+
 ## 3. La requête
 
 `POST /api/v1/extract`, en `multipart/form-data` :
@@ -65,7 +69,7 @@ Toute erreur a la forme `{"error": "message lisible"}`.
 
 | Statut | Cause | Que faire |
 |---|---|---|
-| **400** | pas de champ `file` ; extension et contenu différents ; image illisible ; PDF illisible ou protégé par mot de passe ; PDF trop long | corriger le fichier ; **ne pas réessayer tel quel** |
+| **400** | pas de champ `file` ; extension et contenu différents ; image illisible ; PDF illisible ou protégé par mot de passe ; PDF trop long ; image trop grande en pixels (plus de 50 millions) | corriger le fichier ; **ne pas réessayer tel quel** |
 | **401** | en-tête `X-API-Key` absent, ou clé inconnue | vérifier la clé |
 | **403** | clé désactivée, pas encore valide, expirée, ou adresse IP non autorisée | contacter l'administrateur |
 | **413** | fichier trop gros | réduire le fichier |
@@ -78,6 +82,7 @@ Exemples réels :
 ```
 401  {"error": "Clé API invalide"}
 400  {"error": "Le fichier n'est pas une image valide"}
+400  {"error": "Image trop grande (max 50 millions de pixels)"}
 415  {"error": "Format non supporté (PDF, PNG ou JPG uniquement)"}
 429  {"error": "Quota horaire dépassé (100 requêtes par heure)"}
 ```

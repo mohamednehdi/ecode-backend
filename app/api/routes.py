@@ -5,12 +5,13 @@ import time
 from datetime import datetime, timedelta
 
 from flask import Blueprint, current_app, request, jsonify
+from sqlalchemy import and_, or_
 
 from ..extensions import db
 from .openapi import build_spec
 from ..models.api_token import ApiToken, ApiUsage, hash_key
 from ..scans.services import (
-    extract_document, is_pdf, InvalidImageError, InvalidPdfError, TooManyPagesError,
+    extract_document, is_pdf, ImageTooLargeError, InvalidImageError, InvalidPdfError, TooManyPagesError,
 )
 
 logger = logging.getLogger(__name__)
@@ -68,11 +69,15 @@ def extract():
     if not raw_key:
         return _error('Clé API manquante (en-tête X-API-Key)', 401)
 
-    token = ApiToken.query.filter_by(token_hash=hash_key(raw_key)).first()
+    now = datetime.utcnow()
+    key_hash = hash_key(raw_key)
+    # The current key, or the previous one while its grace period lasts (key rotation)
+    token = ApiToken.query.filter(or_(
+        ApiToken.token_hash == key_hash,
+        and_(ApiToken.previous_token_hash == key_hash, ApiToken.previous_valid_until > now))).first()
     if not token:
         return _error('Clé API invalide', 401)
-
-    now = datetime.utcnow()
+    old_key_in_use = token.token_hash != key_hash
     if not token.is_active:
         return _error('Clé API désactivée', 403)
     if token.valid_from and now < token.valid_from:
@@ -101,6 +106,8 @@ def extract():
         result = extract_document(data, allowed_types, thorough)
         outcome.update(codes_found=len(result['barcodes']), pages=result['page_count'])
         response = jsonify(result), 200
+    except ImageTooLargeError as e:
+        response = _error(f'Image trop grande (max {e.max_pixels // 1_000_000} millions de pixels)', 400)
     except InvalidImageError:
         response = _error("Le fichier n'est pas une image valide", 400)
     except InvalidPdfError:
@@ -113,4 +120,6 @@ def extract():
 
     # The request is logged whatever the outcome (a failing file counts against the quota too). One insert per request.
     _log_usage(token, now, response[1], int((time.perf_counter() - started) * 1000), len(data), thorough, **outcome)
+    if old_key_in_use:      # the application still uses the key that was replaced: tell it when it stops working
+        response[0].headers['X-API-Key-Replaced-Until'] = token.previous_valid_until.isoformat() + 'Z'
     return response

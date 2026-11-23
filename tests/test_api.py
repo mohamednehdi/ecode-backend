@@ -29,6 +29,8 @@ def ctx(monkeypatch):
     monkeypatch.setattr(auth_routes, 'send_email', lambda to, subject, body: sent.append(body) or True)
 
     app = create_app()
+    from app.extensions import limiter
+    limiter.reset()                                    # login / reset counters of the previous test must not leak into this one
     with app.app_context():
         db.drop_all()
         db.create_all()
@@ -826,6 +828,371 @@ def test_every_documented_answer_is_what_the_service_really_sends(ctx, monkeypat
     documented(call(key, png), 500)
     # every documented status code was exercised
     assert set(responses) == {'200', '400', '401', '403', '413', '415', '429', '500'}
+
+
+# ---------------------------------------------------------------- hostile files (F9): tiny to send, huge to open
+
+def _png_claiming(width, height):
+    """A PNG whose HEADER says width x height pixels. It holds no pixel data: just a few hundred bytes."""
+    import struct
+    import zlib
+
+    def chunk(kind, body):
+        return struct.pack('>I', len(body)) + kind + body + struct.pack('>I', zlib.crc32(kind + body) & 0xffffffff)
+
+    header = struct.pack('>IIBBBBB', width, height, 8, 0, 0, 0, 0)
+    return b'\x89PNG\r\n\x1a\n' + chunk(b'IHDR', header) + chunk(b'IDAT', zlib.compress(b'\x00' * 64)) + chunk(b'IEND', b'')
+
+
+def test_an_image_claiming_gigantic_dimensions_is_refused_before_it_is_decoded(ctx):
+    import time
+    c, _, _ = ctx
+    key, _ = _new_key(c)
+    bomb = _png_claiming(12000, 12000)                                  # 144 million pixels, a few hundred bytes
+    assert len(bomb) < 1000
+    start = time.perf_counter()
+    for r in (_extract(c, key, bomb), c.post('/public/extract', data={'file': (io.BytesIO(bomb), 'a.png')}, content_type='multipart/form-data')):
+        assert r.status_code == 400 and r.json['error'] == 'Image trop grande (max 50 millions de pixels)'
+    assert time.perf_counter() - start < 1.0                            # refused from the header: nothing was allocated or decoded
+
+
+def test_the_pixel_limit_is_a_setting_and_a_normal_image_still_passes(ctx, monkeypatch):
+    c, _, app = ctx
+    key, _ = _new_key(c)
+    png = _blank_png()                                                  # 80 x 80 = 6400 pixels
+    assert _extract(c, key, png).status_code == 200
+    monkeypatch.setitem(app.config, 'MAX_IMAGE_PIXELS', 6000)
+    r = _extract(c, key, png)
+    assert r.status_code == 400 and 'max 0 millions' in r.json['error']
+
+
+def test_a_pdf_page_declared_enormous_is_rendered_small_not_at_full_size(ctx, monkeypatch):
+    import pymupdf
+    from app.scans.services import _render_pdf_pages
+    _, _, app = ctx
+    doc = pymupdf.open()
+    doc.new_page(width=14400, height=14400)                             # the largest page a PDF allows: 40000 px a side at 200 dpi
+    tiny = doc.tobytes()
+    assert len(tiny) < 2000
+    with app.app_context():
+        monkeypatch.setitem(app.config, 'MAX_IMAGE_PIXELS', 4_000_000)
+        page = _render_pdf_pages(tiny, gray=True)[0]
+        assert page.size <= 4_000_000 * 1.01                            # a few million pixels, not 1.6 billion
+        assert page.shape[0] == page.shape[1]                           # the shape of the page is kept
+
+
+def test_a_pdf_with_many_big_pages_stays_within_the_document_budget(ctx, monkeypatch):
+    import pymupdf
+    from app.scans.services import _render_pdf_pages
+    _, _, app = ctx
+    doc = pymupdf.open()
+    for _ in range(10):
+        doc.new_page(width=3000, height=3000)
+    data = doc.tobytes()
+    with app.app_context():
+        monkeypatch.setitem(app.config, 'MAX_IMAGE_PIXELS', 50_000_000)
+        monkeypatch.setitem(app.config, 'MAX_DOCUMENT_PIXELS', 20_000_000)
+        pages = _render_pdf_pages(data, gray=True)
+        assert len(pages) == 10
+        assert sum(p.size for p in pages) <= 20_000_000 * 1.05          # the whole document, not 10 full pages
+
+
+def test_a_normal_a4_pdf_is_still_rendered_at_full_resolution(ctx):
+    import pymupdf
+    from app.scans.services import _render_pdf_pages
+    _, _, app = ctx
+    doc = pymupdf.open()
+    doc.new_page(width=595, height=842)                                 # A4
+    with app.app_context():
+        page = _render_pdf_pages(doc.tobytes(), gray=True)[0]
+    assert page.shape == (2339, 1653)                                   # A4 at 200 dpi (height, width): untouched by the protection
+
+
+# ---------------------------------------------------------------- security hardening (F9)
+
+def _audit(c, **params):
+    from urllib.parse import urlencode
+    r = c.get('/admin/audit?' + urlencode(params), headers=H(_admin_tok(c)))
+    assert r.status_code == 200, r.json
+    return r.json['items']
+
+
+def test_login_is_blocked_after_five_failures_for_an_address(ctx):
+    c, _, _ = ctx
+    codes = [login(c, 'admin@t.com', 'wrong').status_code for _ in range(5)]
+    assert codes == [401] * 5
+    blocked = login(c, 'admin@t.com', 'adminpass1')                      # even the RIGHT password is refused while locked
+    assert blocked.status_code == 429 and 'Trop de tentatives' in blocked.json['message'] and int(blocked.headers['Retry-After']) > 0
+    assert login(c, 'someone-else@t.com', 'x').status_code == 401        # another address is not affected
+
+
+def test_an_unknown_address_is_blocked_exactly_like_a_real_one(ctx):
+    """If only real accounts got locked, the lock itself would tell an attacker which addresses exist."""
+    c, _, _ = ctx
+    real = [login(c, 'admin@t.com', 'wrong').status_code for _ in range(7)]
+    unknown = [login(c, 'nobody@t.com', 'wrong').status_code for _ in range(7)]
+    assert real == unknown == [401] * 5 + [429] * 2
+
+
+def test_successful_logins_do_not_count_toward_the_lock(ctx):
+    c, _, _ = ctx
+    for _ in range(4):
+        assert login(c, 'admin@t.com', 'wrong').status_code == 401
+    assert login(c, 'admin@t.com', 'adminpass1').status_code == 200      # success: not a failure
+    assert login(c, 'admin@t.com', 'wrong').status_code == 401           # the 5th failure
+    assert login(c, 'admin@t.com', 'adminpass1').status_code == 429      # now it is locked
+
+
+def test_the_lock_ends_when_the_window_ends(ctx):
+    from app.extensions import limiter
+    c, _, _ = ctx
+    for _ in range(5):
+        login(c, 'admin@t.com', 'wrong')
+    assert login(c, 'admin@t.com', 'adminpass1').status_code == 429
+    limiter.reset()                                                      # stands for "15 minutes later" (the window is the library's)
+    assert login(c, 'admin@t.com', 'adminpass1').status_code == 200
+
+
+def test_login_attempts_are_also_limited_per_ip_address(ctx, monkeypatch):
+    c, _, app = ctx
+    monkeypatch.setitem(app.config, 'LOGIN_RATE_LIMIT', '3 per minute')
+    codes = [login(c, f'user{i}@t.com', 'x').status_code for i in range(5)]       # different addresses: only the IP limit can stop this
+    assert codes == [401, 401, 401, 429, 429]
+
+
+def test_an_unknown_account_takes_as_long_to_refuse_as_a_wrong_password(ctx):
+    """Without the dummy password check, "no such account" answers in ~2 ms and a real account in ~200 ms: timing reveals who exists."""
+    import statistics
+    import time
+    c, _, _ = ctx
+    login(c, 'warmup@t.com', 'x')                                         # first bcrypt call loads the dummy hash
+    known, unknown = [], []
+    for i in range(4):                                                     # below the lock: 4 failures per address
+        t = time.perf_counter(); login(c, 'admin@t.com', f'wrong{i}'); known.append(time.perf_counter() - t)
+        t = time.perf_counter(); login(c, f'ghost{i}@t.com', f'wrong{i}'); unknown.append(time.perf_counter() - t)
+    assert statistics.median(unknown) > 0.5 * statistics.median(known), (known, unknown)
+
+
+def test_password_reset_requests_are_limited(ctx):
+    c, sent, _ = ctx
+    codes = [c.post('/auth/request-password-reset', json={'email': 'admin@t.com'}).status_code for _ in range(5)]
+    assert codes == [200, 200, 200, 429, 429]                              # 3 per hour per account
+    assert len(sent) == 3                                                  # and no e-mail beyond the limit
+    flood = [c.post('/auth/request-password-reset', json={'email': f'a{i}@t.com'}).status_code for i in range(8)]
+    assert 429 in flood                                                    # per IP address: many different accounts do not get round it
+
+
+def test_the_audit_log_records_the_security_events_without_any_secret(ctx):
+    c, _, app = ctx
+    login(c, 'admin@t.com', 'wrong')
+    for _ in range(4):
+        login(c, 'admin@t.com', 'wrong')                                   # the 5th failure locks the address
+    app.extensions['quota']                                                # (the app is up)
+    from app.extensions import limiter
+    limiter.reset()
+    tok = _admin_tok(c)
+    key, tid = _new_key(c, quota_hourly=10)
+    c.put(f'/admin/api-tokens/{tid}', headers=H(tok), json={'quota_hourly': 20, 'is_active': False})
+    rotated = c.post(f'/admin/api-tokens/{tid}/rotate', headers=H(tok), json={'grace_hours': 2})
+    c.delete(f'/admin/api-tokens/{tid}', headers=H(tok))
+    c.post('/auth/logout', headers=H(tok))
+
+    entries = _audit(c, days=1, limit=100)
+    actions = [e['action'] for e in entries]
+    for expected in ('login.success', 'login.failure', 'login.locked', 'token.create', 'token.update', 'token.rotate', 'token.delete', 'logout'):
+        assert expected in actions, (expected, actions)
+    assert actions.count('login.locked') == 1                              # once, not once per refused attempt
+    failure = next(e for e in entries if e['action'] == 'login.failure')
+    assert failure['actor_email'] == 'admin@t.com' and failure['success'] is False and failure['ip'] == '127.0.0.1'
+    assert failure['details'] == {'reason': 'wrong_password'}
+    update = next(e for e in entries if e['action'] == 'token.update')
+    assert update['details']['quota_hourly'] == [10, 20] and update['target_name'] == 'App test' and update['actor_email'] == 'admin@t.com'
+    assert next(e for e in entries if e['action'] == 'token.rotate')['details'] == {'grace_hours': 2}
+    assert next(e for e in entries if e['action'] == 'token.delete')['target_name'] == 'App test'
+    # nothing secret anywhere in the journal: not the keys, not their hashes, not the passwords
+    from app.models.api_token import hash_key
+    everything = repr(entries) + repr(_audit(c, days=1, limit=100))
+    for secret in (key, rotated.json['api_key'], hash_key(key), hash_key(rotated.json['api_key']), 'adminpass1', 'wrong'):
+        assert secret not in everything.replace("'reason': 'wrong_password'", '')
+
+
+def test_a_secret_named_field_is_hidden_even_if_a_caller_passes_it(ctx):
+    from app import audit
+    from app.models.audit_log import AuditLog
+    _, _, app = ctx
+    with app.app_context():
+        audit.record(audit.TOKEN_UPDATE, actor_email='x@t.com', details={'password': 'hunter2', 'api_key': 'ecode_zzz', 'quota': 5})
+        assert 'hunter2' not in AuditLog.query.first().details and 'ecode_zzz' not in AuditLog.query.first().details
+        assert '"quota": 5' in AuditLog.query.first().details
+
+
+def test_the_audit_log_can_be_read_by_administrators_only_and_never_changed(ctx):
+    c, _, app = ctx
+    login(c, 'admin@t.com', 'adminpass1')
+    plain = _user_jwt(app)
+    for path in ('/admin/audit', '/admin/audit/export.csv'):
+        assert c.get(path).status_code == 401
+        assert c.get(path, headers=H(plain)).status_code == 403
+    entry_id = _audit(c, days=1)[0]['id']
+    for method in (c.put, c.patch, c.delete, c.post):                      # append only: no route changes or deletes an entry
+        assert method(f'/admin/audit/{entry_id}', headers=H(_admin_tok(c))).status_code in (404, 405)
+        assert method('/admin/audit', headers=H(_admin_tok(c))).status_code == 405
+
+
+def test_audit_filters_paging_and_validation(ctx):
+    c, _, _ = ctx
+    for _ in range(3):
+        login(c, 'admin@t.com', 'wrong')
+    login(c, 'other@t.com', 'wrong')
+    assert {e['action'] for e in _audit(c, action='login.failure')} == {'login.failure'}
+    assert all(e['success'] is False for e in _audit(c, success='false'))
+    assert {e['actor_email'] for e in _audit(c, q='OTHER')} == {'other@t.com'}      # case-insensitive search
+    first = c.get('/admin/audit?limit=2', headers=H(_admin_tok(c))).json
+    assert len(first['items']) == 2 and first['next_before_id']
+    second = c.get(f"/admin/audit?limit=2&before_id={first['next_before_id']}", headers=H(_admin_tok(c))).json
+    assert second['items'] and max(e['id'] for e in second['items']) < min(e['id'] for e in first['items'])
+    tok = H(_admin_tok(c))
+    for bad in ('days=0', 'days=99999', 'limit=0', 'limit=9999', 'action=made.up'):
+        assert c.get('/admin/audit?' + bad, headers=tok).status_code == 400
+
+
+def test_audit_csv_export_neutralises_spreadsheet_formulas(ctx):
+    c, _, _ = ctx
+    login(c, '=HYPERLINK("http://evil.example","click")', 'x')              # an attacker chooses what appears in the journal
+    r = c.get('/admin/audit/export.csv?days=1', headers=H(_admin_tok(c)))
+    text = r.data.decode('utf-8')
+    assert r.status_code == 200 and text.startswith('\ufeff') and 'attachment' in r.headers['Content-Disposition']
+    assert "'=hyperlink" in text                                           # (the login lowercases the address) the cell starts with a quote
+    assert ',=hyperlink' not in text and '"=hyperlink' not in text         # so it is text in a spreadsheet, never a formula
+
+
+def test_a_failing_audit_log_never_breaks_the_action_it_describes(ctx, monkeypatch):
+    import app.audit as audit_module
+    c, _, _ = ctx
+
+    def broken(*args, **kwargs):
+        raise RuntimeError('the journal is down')
+    monkeypatch.setattr(audit_module, 'AuditLog', broken)
+    assert login(c, 'admin@t.com', 'adminpass1').status_code == 200       # the login still works
+    assert c.post('/admin/api-tokens', headers=H(_admin_tok(c)), json={'name': 'x'}).status_code == 201
+
+
+def test_purge_audit_removes_only_old_entries(ctx):
+    from datetime import datetime, timedelta
+    from app.extensions import db
+    from app.models.audit_log import AuditLog
+    c, _, app = ctx
+    login(c, 'admin@t.com', 'adminpass1')
+    with app.app_context():
+        db.session.add(AuditLog(action='login.success', created_at=datetime.utcnow() - timedelta(days=400)))
+        db.session.commit()
+        before = AuditLog.query.count()
+    out = app.test_cli_runner().invoke(args=['purge-audit', '--keep-days', '365']).output
+    assert '1 entrées supprimées' in out
+    with app.app_context():
+        assert AuditLog.query.count() == before - 1
+
+
+def test_the_create_admin_command_is_in_the_audit_log(ctx):
+    c, _, app = ctx
+    app.test_cli_runner().invoke(args=['create-admin', '--email', 'new-admin@t.com', '--password', 'longenough1'])
+    assert any(e['action'] == 'admin.cli' and e['actor_email'] == 'new-admin@t.com' for e in _audit(c, days=1))
+
+
+# ---- key rotation
+
+def _rotate(c, tid, **body):
+    return c.post(f'/admin/api-tokens/{tid}/rotate', headers=H(_admin_tok(c)), json=body)
+
+
+def test_rotating_a_key_gives_a_new_secret_and_keeps_the_old_one_during_the_grace_period(ctx):
+    c, _, _ = ctx
+    blank = _blank_png()
+    old, tid = _new_key(c, quota_hourly=100, allowed_types=['QRCODE'])
+    assert _extract(c, old, blank).status_code == 200
+    r = _rotate(c, tid, grace_hours=24)
+    assert r.status_code == 200
+    new = r.json['api_key']
+    assert new.startswith('ecode_') and new != old and r.json['token']['token_prefix'] == new[:10]
+    assert r.json['token']['quota_hourly'] == 100 and r.json['token']['allowed_types'] == ['QRCODE']      # restrictions unchanged
+    assert r.json['token']['previous_key_valid_until'] and r.json['token']['rotated_at']
+    assert _extract(c, new, blank).status_code == 200
+    on_old = _extract(c, old, blank)
+    assert on_old.status_code == 200 and 'X-API-Key-Replaced-Until' in on_old.headers      # the application is told when it stops
+    assert 'X-API-Key-Replaced-Until' not in _extract(c, new, blank).headers
+    listed = c.get('/admin/api-tokens', headers=H(_admin_tok(c))).json[0]
+    assert listed['usage_hour'] == 4 and 'api_key' not in listed                          # one key, one history, no secret in the list
+
+
+def test_rotating_with_no_grace_period_stops_the_old_key_at_once(ctx):
+    c, _, _ = ctx
+    old, tid = _new_key(c)
+    new = _rotate(c, tid, grace_hours=0).json['api_key']
+    assert _extract(c, old, _blank_png()).status_code == 401
+    assert _extract(c, new, _blank_png()).status_code == 200
+
+
+def test_the_old_key_stops_when_the_grace_period_is_over(ctx):
+    from datetime import datetime, timedelta
+    from app.extensions import db
+    from app.models.api_token import ApiToken
+    c, _, app = ctx
+    old, tid = _new_key(c)
+    _rotate(c, tid, grace_hours=1)
+    assert _extract(c, old, _blank_png()).status_code == 200
+    with app.app_context():
+        db.session.get(ApiToken, tid).previous_valid_until = datetime.utcnow() - timedelta(seconds=1)
+        db.session.commit()
+    assert _extract(c, old, _blank_png()).status_code == 401
+
+
+def test_only_the_last_replaced_key_survives_a_second_rotation(ctx):
+    c, _, _ = ctx
+    key1, tid = _new_key(c)
+    key2 = _rotate(c, tid, grace_hours=24).json['api_key']
+    key3 = _rotate(c, tid, grace_hours=24).json['api_key']
+    blank = _blank_png()
+    assert [_extract(c, k, blank).status_code for k in (key1, key2, key3)] == [401, 200, 200]
+
+
+def test_rotation_validation_and_access(ctx):
+    c, _, app = ctx
+    _, tid = _new_key(c)
+    for bad in (-1, 169, 'x', True, None):
+        assert _rotate(c, tid, grace_hours=bad).status_code == 400, bad
+    assert _rotate(c, 99999, grace_hours=1).status_code == 404
+    assert c.post(f'/admin/api-tokens/{tid}/rotate').status_code == 401
+    assert c.post(f'/admin/api-tokens/{tid}/rotate', headers=H(_user_jwt(app))).status_code == 403
+    assert _rotate(c, tid).status_code == 200                                              # no body: the default grace period
+
+
+# ---- security headers
+
+def test_every_answer_carries_the_security_headers(ctx):
+    c, _, _ = ctx
+    key, _ = _new_key(c)
+    for r in (c.get('/health'), _extract(c, key, _blank_png()), c.get('/admin/api-tokens', headers=H(_admin_tok(c))), c.post('/auth/login', json={})):
+        assert r.headers['X-Content-Type-Options'] == 'nosniff'
+        assert r.headers['X-Frame-Options'] == 'DENY'
+        assert r.headers['Referrer-Policy'] == 'no-referrer'
+        assert r.headers['Cache-Control'] == 'no-store'
+        assert "default-src 'none'" in r.headers['Content-Security-Policy'] and "frame-ancestors 'none'" in r.headers['Content-Security-Policy']
+
+
+def test_the_documentation_page_keeps_its_scripts_but_gets_the_basic_headers(ctx):
+    c, _, _ = ctx
+    page = c.get('/api/docs/', follow_redirects=True)
+    assert page.status_code == 200 and page.headers['X-Content-Type-Options'] == 'nosniff' and page.headers['X-Frame-Options'] == 'DENY'
+    assert 'Content-Security-Policy' not in page.headers                                   # Swagger UI needs its own scripts
+
+
+def test_hsts_is_sent_only_over_https_and_can_be_turned_off(ctx, monkeypatch):
+    c, _, app = ctx
+    assert 'Strict-Transport-Security' not in c.get('/health').headers
+    secure = c.get('/health', environ_overrides={'wsgi.url_scheme': 'https'})
+    assert secure.headers['Strict-Transport-Security'] == 'max-age=31536000; includeSubDomains'
+    monkeypatch.setitem(app.config, 'HSTS_SECONDS', 0)
+    assert 'Strict-Transport-Security' not in c.get('/health', environ_overrides={'wsgi.url_scheme': 'https'}).headers
 
 
 # ---------------------------------------------------------------- decoder: poor quality scans, speed, coordinates

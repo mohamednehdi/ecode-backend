@@ -9,7 +9,7 @@ Ce que fait la plateforme : lire les codes-barres **1D, QR Code et DataMatrix** 
 rendre le résultat en JSON, par :
 - une **page publique gratuite** (dépôt d'un fichier, résultat à l'écran) ;
 - un **service web** réservé aux applications munies d'une clé API (adresses IP, types de codes, quotas et période de validité par clé) ;
-- un **back office** d'administration (clés API, statistiques d'utilisation).
+- un **back office** d'administration (clés API et leur renouvellement, statistiques d'utilisation, journal d'audit).
 
 ## Démarrage rapide (développement, Windows)
 
@@ -30,15 +30,15 @@ Redis, MySQL) : `docker compose up -d --build` (voir `docs/DEPLOYMENT.md`).
 
 ```powershell
 pip install -r requirements-dev.txt
-pytest                                       # 47 tests
+pytest                                       # 75 tests
 pytest --cov=app --cov=config --cov-report=term-missing     # avec la couverture
 ruff check .                                 # lint
 ```
 
 | Mesure | Valeur |
 |---|---|
-| Tests du backend | **47**, tous passent |
-| Couverture (instructions et branches) | **92 %** sous Windows, **91,6 %** sous Linux, mesurée le 20/11/2026 ; le plus faible : l'envoi d'e-mails par SMTP (`app/auth/services.py`, 58 %), non testable sans serveur de messagerie |
+| Tests du backend | **75**, tous passent |
+| Couverture (instructions et branches) | **92 %** sous Windows (mesurée le 23/11/2026 avec F9), **91,6 %** sous Linux (mesurée le 20/11/2026, avant F9) ; le plus faible : l'envoi d'e-mails par SMTP (`app/auth/services.py`, 58 %), non testable sans serveur de messagerie |
 | Lint | `ruff` (erreurs de type pyflakes : imports inutiles, noms indéfinis) |
 
 À chaque `push` et chaque demande de fusion, GitHub Actions (`.github/workflows/ci.yml`) lance : le lint, les tests avec couverture
@@ -56,6 +56,7 @@ l'est pas, est dans `docs/TESTING_CI_F7.md`.
 | `LOCALIZER_STUDY.md`, `REGIONS_DECODING.md` | localisation des codes et lecture par régions |
 | `STATISTICS.md` | tableau de bord statistique de l'administrateur |
 | `API_DOCS_F5.md`, `TESTING_CI_F7.md` | notes de réalisation de la documentation d'API, des tests et de l'intégration continue |
+| `SECURITY_F9.md` | modèle de menaces, journal d'audit, renouvellement des clés, protection de la connexion, limites |
 | `PROJECT_TRACKER.md` | backlog, critères d'acceptation et journal de travail |
 
 ## Organisation du dépôt

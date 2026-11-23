@@ -19,6 +19,14 @@ class InvalidPdfError(Exception):
     """The uploaded file is not a readable PDF."""
 
 
+class ImageTooLargeError(Exception):
+    """The image has more pixels than MAX_IMAGE_PIXELS (checked in the header, before anything is decoded)."""
+
+    def __init__(self, max_pixels):
+        super().__init__(max_pixels)
+        self.max_pixels = max_pixels
+
+
 class TooManyPagesError(Exception):
     """The PDF has more pages than PDF_MAX_PAGES."""
 
@@ -33,11 +41,16 @@ def is_pdf(data):
 
 def _load_image(data, gray=False):
     """Image bytes -> numpy array. gray=True is faster and enough when no result image is drawn."""
+    max_pixels = current_app.config['MAX_IMAGE_PIXELS']
     try:
-        image = Image.open(io.BytesIO(data))
+        image = Image.open(io.BytesIO(data))                        # reads the header only
+        if image.width * image.height > max_pixels:
+            raise ImageTooLargeError(max_pixels)                    # refused before any pixel is decoded
         if gray:
             image.draft('L', image.size)  # JPEG: decode only the luminance (faster); ignored by other formats
         return np.array(image.convert('L' if gray else 'RGB'))
+    except Image.DecompressionBombError as e:                       # Pillow's own, even larger, limit
+        raise ImageTooLargeError(max_pixels) from e
     except (UnidentifiedImageError, OSError) as e:
         raise InvalidImageError() from e
 
@@ -59,9 +72,20 @@ def _render_pdf_pages(data, gray=False):
         if doc.page_count > max_pages:
             raise TooManyPagesError(max_pages)
 
+        # A page can be declared enormous in a tiny file: shrink the rendering of a page that would exceed its share of the
+        # pixel budget (one page never above MAX_IMAGE_PIXELS, the whole document never above MAX_DOCUMENT_PIXELS)
+        per_page_pixels = min(current_app.config['MAX_IMAGE_PIXELS'],
+                              current_app.config['MAX_DOCUMENT_PIXELS'] // doc.page_count)
+        zoom = dpi / 72.0
         pages = []
         for page in doc:
-            pix = page.get_pixmap(dpi=dpi, colorspace=pymupdf.csGRAY if gray else pymupdf.csRGB, alpha=False)
+            width_pt, height_pt = page.rect.width, page.rect.height
+            if not (0 < width_pt < 1e6 and 0 < height_pt < 1e6):
+                raise InvalidPdfError()
+            pixels = (width_pt * zoom) * (height_pt * zoom)
+            page_zoom = zoom if pixels <= per_page_pixels else zoom * (per_page_pixels / pixels) ** 0.5
+            pix = page.get_pixmap(matrix=pymupdf.Matrix(page_zoom, page_zoom),
+                                  colorspace=pymupdf.csGRAY if gray else pymupdf.csRGB, alpha=False)
             shape = (pix.height, pix.width) if gray else (pix.height, pix.width, 3)
             img = np.frombuffer(pix.samples, dtype=np.uint8).reshape(shape)
             pages.append(img.copy())  # copy: the pixmap buffer is freed with the page

@@ -9,6 +9,7 @@ from app.models.user import User
 from app.models.api_token import ApiToken, ApiUsage, hash_key
 from app.scans.services import SUPPORTED_TYPES
 from app.extensions import db
+from app import audit
 
 
 admin_bp = Blueprint('admin', __name__)
@@ -33,6 +34,11 @@ def _iso(value):
     return value.isoformat() if value else None
 
 
+def _plain(value):
+    """A value for the audit log: dates as text."""
+    return value.isoformat() if isinstance(value, datetime) else value
+
+
 def _token_json(t, now=None):
     now = now or datetime.utcnow()
     month_start = now.replace(day=1, hour=0, minute=0, second=0, microsecond=0)
@@ -50,6 +56,9 @@ def _token_json(t, now=None):
         'valid_until': _iso(t.valid_until),
         'created_at': _iso(t.created_at),
         'last_used_at': _iso(t.last_used_at),
+        'rotated_at': _iso(t.rotated_at),
+        # while the previous key still works: until when (the application has until then to switch)
+        'previous_key_valid_until': _iso(t.previous_valid_until) if t.previous_valid_until and t.previous_valid_until > now else None,
         'usage_hour': usage.filter(ApiUsage.created_at >= now - timedelta(hours=1)).count(),
         'usage_month': usage.filter(ApiUsage.created_at >= month_start).count(),
     }
@@ -146,6 +155,7 @@ def create_api_token(current_admin):
     token = ApiToken(token_hash=hash_key(raw_key), token_prefix=raw_key[:10], **values)
     db.session.add(token)
     db.session.commit()
+    audit.record(audit.TOKEN_CREATE, actor=current_admin, target=token, details={k: _plain(v) for k, v in values.items() if k != 'name'})
     # The key is shown only now: only its hash is stored
     return jsonify({'token': _token_json(token), 'api_key': raw_key}), 201
 
@@ -159,12 +169,14 @@ def update_api_token(token_id, current_admin):
     values, error = _parse_token_fields(request.get_json(silent=True) or {}, partial=True)
     if error:
         return jsonify({'error': error}), 400
+    changes = {key: [_plain(getattr(token, key)), _plain(value)] for key, value in values.items() if getattr(token, key) != value}
     for key, value in values.items():
         setattr(token, key, value)
     if token.valid_from and token.valid_until and token.valid_until <= token.valid_from:
         db.session.rollback()
         return jsonify({'error': 'La date de fin doit être après la date de début'}), 400
     db.session.commit()
+    audit.record(audit.TOKEN_UPDATE, actor=current_admin, target=token, details=changes or None)
     return jsonify(_token_json(token))
 
 
@@ -174,6 +186,35 @@ def delete_api_token(token_id, current_admin):
     token = db.session.get(ApiToken, token_id)
     if not token:
         return jsonify({'error': 'Clé introuvable'}), 404
+    snapshot = type('Deleted', (), {'id': token.id, 'name': token.name, 'token_hash': ''})()    # the row is about to disappear
     db.session.delete(token)  # its usage log is deleted too (cascade)
     db.session.commit()
+    audit.record(audit.TOKEN_DELETE, actor=current_admin, target=snapshot)
     return jsonify({'message': 'Clé supprimée'})
+
+
+MAX_GRACE_HOURS = 168       # one week
+
+
+@admin_bp.route('/api-tokens/<int:token_id>/rotate', methods=['POST'])
+@admin_required
+def rotate_api_token(token_id, current_admin):
+    """Gives the key a new secret. The old secret keeps working for `grace_hours` (0 = stops at once), so that the application that
+    uses it can switch without an interruption. The restrictions and quotas of the key are unchanged. The new key is shown once."""
+    token = db.session.get(ApiToken, token_id)
+    if not token:
+        return jsonify({'error': 'Clé introuvable'}), 404
+    grace = (request.get_json(silent=True) or {}).get('grace_hours', 24)
+    if isinstance(grace, bool) or not isinstance(grace, (int, float)) or not 0 <= grace <= MAX_GRACE_HOURS:
+        return jsonify({'error': f'grace_hours doit être compris entre 0 et {MAX_GRACE_HOURS}'}), 400
+
+    now = datetime.utcnow()
+    raw_key = ApiToken.generate_key()
+    token.previous_token_hash = token.token_hash if grace > 0 else None
+    token.previous_valid_until = now + timedelta(hours=grace) if grace > 0 else None
+    token.token_hash = hash_key(raw_key)
+    token.token_prefix = raw_key[:10]
+    token.rotated_at = now
+    db.session.commit()
+    audit.record(audit.TOKEN_ROTATE, actor=current_admin, target=token, details={'grace_hours': grace})
+    return jsonify({'token': _token_json(token, now), 'api_key': raw_key})

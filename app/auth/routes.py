@@ -1,11 +1,15 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 
 from flask import Blueprint, request, jsonify, current_app
 from flask_jwt_extended import create_access_token, get_jwt, get_jwt_identity, jwt_required, decode_token
 
 from ..models.user import User
 from ..models.token import Token
-from ..extensions import db
+from sqlalchemy import func
+
+from .. import audit
+from ..extensions import db, email_key, limiter
+from ..models.audit_log import AuditLog
 from .services import (
     send_email, generate_verification_code,
     generate_reset_token, read_reset_token, PURPOSE_VERIFY, PURPOSE_RESET,
@@ -27,18 +31,43 @@ def _password_error(password):
 
 ###############################################################################################################################
 
+def _failure_limit():
+    cfg = current_app.config
+    return f"{cfg['LOGIN_MAX_FAILURES']} per {cfg['LOGIN_LOCK_MINUTES']} minutes"
+
+
+def _note_failure(email, user, reason):
+    """Writes the failed attempt to the audit log, and a single "locked" entry when this attempt is the one that locks the address."""
+    audit.record(audit.LOGIN_FAILURE, actor=user, actor_email=email, success=False, details={'reason': reason})
+    cfg = current_app.config
+    since = datetime.utcnow() - timedelta(minutes=cfg['LOGIN_LOCK_MINUTES'])
+    failures = AuditLog.query.filter(AuditLog.action == audit.LOGIN_FAILURE, func.lower(AuditLog.actor_email) == email,
+                                     AuditLog.created_at >= since).count()
+    if failures == cfg['LOGIN_MAX_FAILURES']:
+        audit.record(audit.LOGIN_LOCKED, actor=user, actor_email=email, success=False,
+                     details={'failures': failures, 'locked_minutes': cfg['LOGIN_LOCK_MINUTES']})
+
+
 @auth_bp.route('/login', methods=['POST'])
+@limiter.limit(lambda: current_app.config['LOGIN_RATE_LIMIT'])                       # per IP address: every attempt
+@limiter.limit(_failure_limit, key_func=email_key, deduct_when=lambda r: r.status_code in (401, 403))   # per e-mail: failures only
 def login():
     data = _json()
     email = (data.get('email') or '').strip().lower()
     password = data.get('password') or ''
 
     user = User.query.filter_by(email=email).first()
-    if not user or not user.check_password(password):
+    if not user:
+        User.burn_password_check(password)          # same time as a real account: the answer time does not reveal who exists
+        _note_failure(email, None, 'unknown_account')
+        return jsonify({'message': 'Invalid credentials'}), 401
+    if not user.check_password(password):
+        _note_failure(email, user, 'wrong_password')
         return jsonify({'message': 'Invalid credentials'}), 401
 
     # Only administrators have accounts: the public page and the web service need no login
     if user.role != 'admin':
+        _note_failure(email, user, 'not_admin')
         return jsonify({'message': 'Accès réservé aux administrateurs'}), 403
 
     access_token = create_access_token(identity=str(user.id), additional_claims={'role': user.role})
@@ -51,6 +80,7 @@ def login():
         ip_address=request.remote_addr,
     ))
     db.session.commit()
+    audit.record(audit.LOGIN_SUCCESS, actor=user)
     return jsonify({'access_token': access_token, 'role': user.role}), 200
 
 ###############################################################################################################################
@@ -61,6 +91,7 @@ def logout():
     # Deleting the session row revokes this JWT (see token_in_blocklist_loader in app/__init__.py)
     Token.query.filter_by(jti=get_jwt()['jti']).delete()
     db.session.commit()
+    audit.record(audit.LOGOUT, actor=db.session.get(User, int(get_jwt_identity())))
     return jsonify({'message': 'Logged out successfully'}), 200
 
 ###############################################################################################################################
@@ -87,6 +118,8 @@ def get_current_user():
 ##############################################################################################################################
 
 @auth_bp.route('/request-password-reset', methods=['POST'])
+@limiter.limit(lambda: current_app.config['RESET_REQUEST_LIMIT'])                    # each call can send an e-mail
+@limiter.limit(lambda: current_app.config['RESET_EMAIL_LIMIT'], key_func=email_key)
 def request_reset_password():
     email = (_json().get('email') or '').strip().lower()
     if not email:
@@ -100,6 +133,7 @@ def request_reset_password():
     }
 
     user = User.query.filter_by(email=email).first()
+    audit.record(audit.PASSWORD_RESET_REQUEST, actor=user, actor_email=email, details={'known_account': bool(user)})
     if user:
         code = generate_verification_code()
         user.set_verification_code(code, current_app.config['RESET_CODE_TTL_MINUTES'])
@@ -115,6 +149,7 @@ def request_reset_password():
 ##############################################################################################################################
 
 @auth_bp.route('/verify-code', methods=['POST'])
+@limiter.limit(lambda: current_app.config['RESET_STEP_LIMIT'])
 def verify_code():
     data = _json()
     cfg = current_app.config
@@ -146,6 +181,7 @@ def verify_code():
 ##############################################################################################################################
 
 @auth_bp.route('/reset-password', methods=['POST'])
+@limiter.limit(lambda: current_app.config['RESET_STEP_LIMIT'])
 def reset_password():
     data = _json()
     cfg = current_app.config
@@ -168,4 +204,5 @@ def reset_password():
     # Log out every existing session of this user
     Token.query.filter_by(user_id=user.id).delete()
     db.session.commit()
+    audit.record(audit.PASSWORD_RESET_DONE, actor=user, details={'sessions_closed': True})
     return jsonify({'message': 'Password reset successfully'}), 200

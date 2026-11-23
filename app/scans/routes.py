@@ -5,7 +5,7 @@ import os
 from flask import Blueprint, current_app, jsonify, request
 
 from ..extensions import limiter
-from .services import process_document, is_pdf, InvalidImageError, InvalidPdfError, TooManyPagesError
+from .services import process_document, is_pdf, ImageTooLargeError, InvalidImageError, InvalidPdfError, TooManyPagesError
 
 logger = logging.getLogger(__name__)
 
@@ -36,6 +36,8 @@ def extract():
 
     try:
         return jsonify(process_document(data))
+    except ImageTooLargeError as e:
+        return jsonify({'error': f'Image trop grande (max {e.max_pixels // 1_000_000} millions de pixels)'}), 400
     except InvalidImageError:
         return jsonify({'error': "Le fichier n'est pas une image valide"}), 400
     except InvalidPdfError:

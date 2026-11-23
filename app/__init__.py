@@ -5,6 +5,8 @@ from flask import Flask, jsonify
 from config import Config
 import click
 
+import time
+
 from .extensions import db, migrate, bcrypt, jwt, cors, limiter
 
 
@@ -58,7 +60,23 @@ def create_app(config_class=Config):
 
     @app.errorhandler(429)
     def too_many_requests(e):
-        return jsonify({'error': 'Trop de requêtes, réessayez dans quelques instants'}), 429
+        from flask import request
+        seconds = 60
+        current = getattr(limiter, 'current_limit', None)
+        if current is not None and getattr(current, 'reset_at', None):
+            seconds = max(1, int(current.reset_at - time.time()))
+        if request.path == '/auth/login':
+            minutes = max(1, (seconds + 59) // 60)
+            message = f'Trop de tentatives de connexion. Réessayez dans {minutes} minute(s).'
+            response = jsonify({'error': message, 'message': message, 'retry_after': seconds})
+        else:
+            response = jsonify({'error': 'Trop de requêtes, réessayez dans quelques instants'})
+        response.status_code = 429
+        response.headers['Retry-After'] = str(seconds)
+        return response
+
+    from .security import init_security
+    init_security(app)
 
     @app.get('/health')
     def health():
@@ -71,10 +89,12 @@ def create_app(config_class=Config):
     from app.admin.routes import admin_bp
     from app.api.routes import api_bp
     from app.admin.stats import stats_bp
+    from app.admin.audit_routes import audit_bp
     app.register_blueprint(auth_bp, url_prefix='/auth')
     app.register_blueprint(public_bp, url_prefix='/public')
     app.register_blueprint(admin_bp, url_prefix='/admin')
     app.register_blueprint(stats_bp, url_prefix='/admin/stats')
+    app.register_blueprint(audit_bp, url_prefix='/admin/audit')
     app.register_blueprint(api_bp, url_prefix='/api/v1')
 
     # Interactive documentation of the web service (Swagger UI, files served from the package: works offline)
@@ -124,6 +144,8 @@ def create_app(config_class=Config):
         user.is_active = True
         user.set_password(password)
         db.session.commit()
+        from . import audit
+        audit.record(audit.ADMIN_CLI, actor=user, details={'what': 'account created' if created else 'password reset'})
         click.echo(f"Administrateur {'créé' if created else 'mis à jour'} : {email}")
 
     @app.cli.command('seed-demo-usage')
@@ -142,6 +164,17 @@ def create_app(config_class=Config):
         from .demo_data import clear
         rows, tokens = clear()
         click.echo(f'{rows} lignes et {tokens} clés de démonstration supprimées')
+
+    @app.cli.command('purge-audit')
+    @click.option('--keep-days', default=365, show_default=True, type=int, help='Keep the audit log of the last N days')
+    def purge_audit(keep_days):
+        """Deletes old audit-log entries. The journal is append-only for the application: this command is the only way to remove entries."""
+        from datetime import datetime, timedelta
+        from .models.audit_log import AuditLog
+        limit = datetime.utcnow() - timedelta(days=keep_days)
+        removed = AuditLog.query.filter(AuditLog.created_at < limit).delete(synchronize_session=False)
+        db.session.commit()
+        click.echo(f'{removed} entrées supprimées (plus anciennes que {keep_days} jours)')
 
     @app.cli.command('purge-usage')
     @click.option('--keep-days', default=35, show_default=True, type=int,

@@ -52,6 +52,15 @@ Les règles « IP autorisées » et la limite par IP lisent l'adresse du client.
 de Nginx : `TRUSTED_PROXIES=1` lui fait lire l'en-tête `X-Forwarded-For`, que Nginx **réécrit** (il ne l'additionne pas à celui du
 client). Sans proxy, la valeur reste `0` : un en-tête forgé est alors ignoré (un test le vérifie).
 
+## HTTPS : hors du `docker-compose`, obligatoire en production
+
+Le `docker-compose` de démonstration parle en HTTP sur `localhost` : le trafic ne quitte pas la machine, donc personne ne peut le lire.
+**Un déploiement réel doit être en HTTPS**, car la plateforme transmet des mots de passe, des jetons de connexion et des clés API.
+Le HTTPS se met en général devant l'application (équilibreur de charge du fournisseur cloud, Caddy, ou Nginx avec Let's Encrypt) et
+dépend d'un nom de domaine appartenant à l'entreprise : un certificat auto-signé dans le compose ne serait qu'une démonstration.
+Côté application, rien à changer : si le proxy transmet `X-Forwarded-Proto: https` (et `TRUSTED_PROXIES` est réglé), l'en-tête
+`Strict-Transport-Security` est envoyé automatiquement.
+
 ## Ce qui est vérifié, et ce qui ne l'est pas
 
 | Élément | État |

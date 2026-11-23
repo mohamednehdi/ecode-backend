@@ -175,9 +175,21 @@ Why: makes the back office more than a CRUD screen; needs per-request latency da
 - Size: 8 (split). Status: TODO
 
 ### F9. Security hardening (priority 9)
-- Admin audit log (who created/edited/deleted which token), key rotation, login brute-force protection, HTTPS in the compose setup, security headers.
-- A short threat-model section in the report (assets, threats, mitigations).
-- Size: 3. Status: TODO
+- Admin audit log (who created/edited/deleted which token), key rotation, login brute-force protection, security headers, protection against hostile files, threat model.
+- Report document: `docs/SECURITY_F9.md` (assets, attackers, 12 threats with existing and added mitigations, verification, limits).
+- Acceptance criteria:
+  - [x] Audit log: every login, key creation/edit/rotation/deletion and password reset is recorded (who, what, which key, IP, success); read-only in the interface; secrets masked; CSV export safe against formula injection; Angular page with filters
+  - [x] Key rotation with a grace period (0 to 168 h), header `X-API-Key-Replaced-Until`, Angular panel
+  - [x] Login lock: 5 failures per address => 429 for 15 minutes, identical for unknown and real addresses; per-IP limit; limits on the password-reset routes
+  - [x] Security headers on every response (HSTS only over HTTPS)
+  - [x] Decompression-bomb and giant-PDF-page protection
+  - [x] Threat-model document
+  - [x] 28 new backend tests (75 in total), 21 new Angular unit tests (107), 1 new end-to-end test (6); mutation checks; migration up/down/up on a throwaway MariaDB; both pages looked at in a browser
+  - [x] HTTPS in compose: **decided out of scope for the demo** (localhost traffic never leaves the machine; a self-signed certificate would only simulate it); required in production at the front proxy, documented in `DEPLOYMENT.md`; the HSTS header is in place
+  - [ ] Migration `e8c2f6a41b7d` applied to the user's own MySQL (`upgrade_db.bat`): to do by the user, their server was stopped during the work
+- Found: the first mutation check silently did not apply (wrong search pattern), redone; test mistakes (missing `import time`, upper-case e-mail vs lower-cased login).
+- Limits: lock counters are in memory unless `RATELIMIT_STORAGE_URI` points to Redis; a hostile PDF page can still use about 0.5 GB on the public page (bounded, rate-limited); an attacker can lock an administrator's address for 15 min; audit table lives in the same database; rejected API calls (401/403/429) are not in the audit log; no 2FA; no external penetration test.
+- Size: 3. Status: DONE (the user still has to apply the migration to their own MySQL)
 
 ---
 
@@ -238,3 +250,4 @@ Short notes after each work session (date, what was done, what was learned, what
 | 2026-11-20 | F5: OpenAPI description built by the code, Swagger UI served locally, developer guide, curl/Python/Node examples executed for real, 3 contract tests (47 tests pass; the contract test was proven by breaking a message on purpose), sidebar link. | F7 (tests + CI) or F2b |
 | 2026-11-20 | F7: 86 Angular unit tests (random order), 5 Playwright e2e tests, backend lint + coverage + README, CI workflows for both repos (actionlint clean). Linux run caught a real failure (distutils/setuptools, 16 tests) before GitHub did; npm ci found broken on the original lock (.npmrc). Tests proven by deliberate breaks. NOT run on GitHub yet. | Push both repos, watch the first runs, fix what they show |
 | 2026-11-23 | F7 on GitHub: new public repos `ecode-backend` / `ecode-frontend`. Backend run: 3/3 green. Frontend run 1 failed (private backend repo; production build never passed: original login CSS over its budget), fixed, run 2 all green (build, 86 unit tests in Chrome, 5 e2e tests in Chromium). | F9 (security), F2b, or the Scrum report |
+| 2026-11-23 | F9: audit log (table, admin-only read API, CSV, Angular page), key rotation with grace period, login lock (same answer for unknown and real addresses, constant-time check), reset-route limits, security headers, decompression-bomb / giant-PDF protection, migration `e8c2f6a41b7d`, threat-model document. 75 backend tests (92 % coverage), 107 Angular unit tests (96 % lines), 6 e2e tests; production build passes. Verified on a throwaway MariaDB and in a browser; mutation checks. HTTPS in compose left out on purpose (production concern, documented). | Commit, push the clean copies and watch CI; apply the migration; then F2b, F6 or F8 |

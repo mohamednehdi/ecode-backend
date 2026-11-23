@@ -21,6 +21,7 @@ def build_spec(config):
     max_mb = config['MAX_CONTENT_LENGTH'] // (1024 * 1024)
     max_pages = config['PDF_MAX_PAGES']
     dpi = config['PDF_DPI']
+    max_pixels = config['MAX_IMAGE_PIXELS']
 
     description = f"""
 Service web de **localisation et d'extraction de codes-barres** (1D, QR Code, DataMatrix…) dans des images et des PDF
@@ -101,6 +102,7 @@ en lecture rapide directe, ce n'est que la ligne de balayage lue.
                         ('Aucun fichier', 'Aucun fichier reçu (champ multipart "file")'),
                         ('Extension et contenu différents', 'Le contenu du fichier ne correspond pas à son extension'),
                         ('Image illisible', "Le fichier n'est pas une image valide"),
+                        ('Image trop grande', f'Image trop grande (max {max_pixels // 1_000_000} millions de pixels)'),
                         ('PDF invalide', 'Le fichier PDF est invalide ou protégé par mot de passe'),
                         ('PDF trop long', f'Le PDF contient trop de pages (max {max_pages})')),
                     '401': _error_response(

@@ -38,6 +38,13 @@ class Config:
     PDF_DPI = int(os.environ.get('PDF_DPI', 200))
     PDF_MAX_PAGES = int(os.environ.get('PDF_MAX_PAGES', 20))
 
+    # Hostile files: a tiny file can describe a gigantic picture (a 165 KB PNG of 12000x12000 pixels made the server use
+    # 1.2 GB; a 0.5 KB PDF can ask for a page of several gigabytes). The size is read from the header BEFORE decoding.
+    MAX_IMAGE_PIXELS = int(os.environ.get('MAX_IMAGE_PIXELS', 50_000_000))          # one image: refused above this
+    # One PDF: every page is rendered at the usual resolution, or smaller when the page is huge, so that the whole
+    # document stays within this many pixels (and no single page above MAX_IMAGE_PIXELS)
+    MAX_DOCUMENT_PIXELS = int(os.environ.get('MAX_DOCUMENT_PIXELS', 100_000_000))
+
     # Decoding: scans larger than this (longest side, pixels) are decoded at reduced size
     DECODE_MAX_SIDE = int(os.environ.get('DECODE_MAX_SIDE', 3000))
     # Extra clean-up attempts on a poor scan when the fast pass finds nothing: time budget per document (ms), 0 = off
@@ -53,6 +60,19 @@ class Config:
     DECODE_ALL_REGIONS = os.environ.get('DECODE_ALL_REGIONS', '0') == '1'
     # Regions that look like a code but could not be read are reported when the localiser is at least this sure
     UNREAD_MIN_SCORE = float(os.environ.get('UNREAD_MIN_SCORE', 0.9))
+
+    # Login protection: after LOGIN_MAX_FAILURES failed attempts for an e-mail address (known or not: the answer does not reveal
+    # which accounts exist) every attempt for that address is refused for LOGIN_LOCK_MINUTES. Per IP address, LOGIN_RATE_LIMIT
+    # caps all attempts (checking a password costs CPU). The password-reset routes send e-mails: they are limited too.
+    LOGIN_MAX_FAILURES = int(os.environ.get('LOGIN_MAX_FAILURES', 5))
+    LOGIN_LOCK_MINUTES = int(os.environ.get('LOGIN_LOCK_MINUTES', 15))
+    LOGIN_RATE_LIMIT = os.environ.get('LOGIN_RATE_LIMIT', '20 per minute')
+    RESET_REQUEST_LIMIT = os.environ.get('RESET_REQUEST_LIMIT', '5 per hour')           # e-mails asked, per IP address
+    RESET_EMAIL_LIMIT = os.environ.get('RESET_EMAIL_LIMIT', '3 per hour')               # e-mails asked, per account
+    RESET_STEP_LIMIT = os.environ.get('RESET_STEP_LIMIT', '20 per hour')                # code check / new password, per IP
+
+    # HTTPS: sent only on requests that arrived over HTTPS (behind a proxy: TRUSTED_PROXIES=1). 0 = never send it.
+    HSTS_SECONDS = int(os.environ.get('HSTS_SECONDS', 31536000))
 
     # Free public upload page: limit per IP address (Flask-Limiter syntax)
     PUBLIC_RATE_LIMIT = os.environ.get('PUBLIC_RATE_LIMIT', '10 per minute;60 per hour')
