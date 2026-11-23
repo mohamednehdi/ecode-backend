@@ -155,15 +155,16 @@ Why: makes the back office more than a CRUD screen; needs per-request latency da
 - 86 Angular unit tests (11 before, 9 of them failing), 5 Playwright end-to-end tests, backend coverage 92 % (Windows) / 91.6 % (Linux), README in both repos.
 - Report document: `docs/TESTING_CI_F7.md`.
 - Acceptance criteria:
-  - [ ] **Pipeline green on every push: NOT shown.** The pipelines never ran on GitHub (nothing was pushed). Checked instead: actionlint on both files (clean), the backend
-        lint and test steps in a clean Ubuntu 24.04 container (47 pass, 91.6 %), the Docker job's commands locally, the frontend unit command and the end-to-end test locally (Edge instead of Chrome/Chromium)
+  - [x] Pipelines ran on GitHub (new public repos `ecode-backend` / `ecode-frontend`, 2026-11-23): backend 3/3 jobs green at the first run; frontend first run failed (backend repo still private; production build never passed because the original login stylesheet exceeds a 4 kB budget), second run all green: build, 86 unit tests in Chrome, 5 Playwright tests in Chromium
+  - [ ] "Green on EVERY push" is not demonstrated: two pushes observed
   - [x] Frontend unit tests for services and the token form; one end-to-end test (upload, login, create a key, use it, statistics, disable)
   - [x] Coverage figure in both READMEs
   - [x] Tests proven able to fail: 4 deliberate breaks, each caught by the intended test
 - Found: 9 of 11 Angular tests failed (empty stubs); plain `npm ci` failed on the original lock (mixed Angular 17.3.x versions: `.npmrc` workaround, proper alignment NOT done);
   the clean Linux run failed 16 tests (`distutils` removed in Python 3.12, hidden on Windows by setuptools): fixed with `setuptools` in `requirements-dev.txt`; ruff removed 6 unused imports.
-- Limits: first GitHub run still to do; the e2e job needs the backend repo (private: secret BACKEND_REPO_TOKEN); no frontend lint; frontend branch coverage 73.6 %; SMTP code (58 %) untested.
-- Size: 3. Status: IN PROGRESS (first real GitHub run pending)
+- Limits: only two pushes observed; the e2e job needs the backend repo (both repos are public for the test; private needs the secret BACKEND_REPO_TOKEN); no frontend lint; frontend branch coverage 73.6 %; SMTP code (58 %) untested.
+- Also found by the first GitHub run: the production build had never passed (original login stylesheet over the 4 kB budget, raised to 12 kB); old `C:\fonts\...` icon-font path in the login CSS and an 890 kB bundle (budget 500 kB) NOT fixed.
+- Size: 3. Status: DONE
 
 ### F8. Asynchronous jobs for large documents (priority 8)
 - `POST /api/v1/jobs` returns a job id; `GET /api/v1/jobs/<id>` returns progress and result; optional webhook on completion.
@@ -236,3 +237,4 @@ Short notes after each work session (date, what was done, what was learned, what
 | 2026-11-20 | F4: request outcome logged (status, duration, codes, pages, type, size), statistics endpoints + CSV, demo-data commands, Angular statistics page with 3 hand-made SVG/HTML chart components. Looked at it in a browser (scratch MySQL + scratch frontend copy, both removed): found and fixed unreadable horizontal-bar text. 44 tests pass. | Apply migration d4b7a1e90c53; then F2b or F5-F9 |
 | 2026-11-20 | F5: OpenAPI description built by the code, Swagger UI served locally, developer guide, curl/Python/Node examples executed for real, 3 contract tests (47 tests pass; the contract test was proven by breaking a message on purpose), sidebar link. | F7 (tests + CI) or F2b |
 | 2026-11-20 | F7: 86 Angular unit tests (random order), 5 Playwright e2e tests, backend lint + coverage + README, CI workflows for both repos (actionlint clean). Linux run caught a real failure (distutils/setuptools, 16 tests) before GitHub did; npm ci found broken on the original lock (.npmrc). Tests proven by deliberate breaks. NOT run on GitHub yet. | Push both repos, watch the first runs, fix what they show |
+| 2026-11-23 | F7 on GitHub: new public repos `ecode-backend` / `ecode-frontend`. Backend run: 3/3 green. Frontend run 1 failed (private backend repo; production build never passed: original login CSS over its budget), fixed, run 2 all green (build, 86 unit tests in Chrome, 5 e2e tests in Chromium). | F9 (security), F2b, or the Scrum report |

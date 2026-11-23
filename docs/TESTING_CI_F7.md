@@ -51,6 +51,10 @@ testaient rien. Rien ne disait automatiquement « ce commit casse quelque chose 
    importe le module `distutils`, **supprimé de Python 3.12**. L'environnement Windows avait `setuptools`, qui le fournit en douce ; un Python 3.12 neuf (celui de
    GitHub) ne l'a pas. Sans l'exécution sous Linux, **le premier passage du pipeline sur GitHub aurait échoué**. Correctif : `setuptools` dans `requirements-dev.txt`.
    (L'image Docker de production n'est pas concernée : elle n'utilise pas `pylibdmtx`.)
+6. **Le build de production du site n'avait jamais réussi** (voir §6 bis) : feuille de style de la page de connexion au-dessus de la limite de taille, depuis le premier commit.
+   Trouvé par le premier passage sur GitHub, reproduit en local avec la même commande, corrigé en relevant la limite.
+7. **Deux défauts anciens du site, non corrigés**, révélés par ce build : la feuille de style de la page de connexion référence une police d'icônes par un chemin absolu
+   (`C:\fonts\material-icon\…`) qui n'existe que sur une machine : ailleurs, les icônes de cette page ne se chargent pas ; et le paquet initial pèse 890 ko pour un budget de 500 ko (avertissement).
 
 ## 5. Comment on s'est assuré que les tests savent échouer
 
@@ -68,7 +72,7 @@ Dans chaque cas un seul test échoue, celui prévu, et les fichiers ont été re
 
 ## 6. Comment on a vérifié les pipelines sans GitHub
 
-**Les pipelines n'ont jamais tourné sur GitHub** (rien n'a été envoyé). Ce qui a été fait à la place :
+**Avant le premier envoi, les pipelines n'avaient jamais tourné sur GitHub.** Ce qui a été fait à la place :
 
 | Vérification | Résultat |
 |---|---|
@@ -78,12 +82,26 @@ Dans chaque cas un seul test échoue, celui prévu, et les fichiers ont été re
 | Commande des tests unitaires du frontend (`npm run test:ci`) | passe, deux fois, avec Edge comme navigateur sans fenêtre |
 | Test de bout en bout | passe sur une pile isolée (backend sur le port 5057, base SQLite jetable, copie du site sur le port 4301), avec Edge |
 
+## 6 bis. Le premier passage réel sur GitHub (23/11/2026)
+
+Les deux dépôts ont été envoyés sur deux **nouveaux** dépôts GitHub (`ecode-backend`, `ecode-frontend`), rendus publics pour l'essai.
+
+| Dépôt | Passage | Résultat |
+|---|---|---|
+| Backend | n° 1 | **3 jobs verts du premier coup** : lint (8 s), image Docker (68 s), tests et couverture (81 s) |
+| Frontend | n° 1 | **échec** : (a) job de bout en bout : le dépôt du backend était encore privé, impossible à récupérer ; (b) build de production : la feuille de style de la page de connexion pèse 6,8 ko pour une limite de 4 ko |
+| Frontend | n° 2 | **tout vert** : build de production, 86 tests unitaires dans Chrome sans fenêtre, 5 tests de bout en bout (Playwright, Chromium) |
+
+Le point (b) n'est pas un défaut du pipeline : cette feuille de style date de mai 2025 et dépassait déjà la limite au premier commit. **Le build de production
+n'avait jamais réussi** ; `ng serve` ne contrôle pas ces limites et le défaut est resté invisible. La limite par feuille de style a été relevée
+(avertissement 8 ko, erreur 12 ko) ; l'avertissement sur la taille totale (890 ko pour un budget de 500 ko) reste affiché.
+
 ## 7. Limites (à dire au jury)
 
-- **Pas encore d'exécution réelle sur GitHub.** Le badge d'état des README n'affichera rien tant qu'une première exécution n'aura pas eu lieu. Rien n'est garanti
-  tant qu'elle n'a pas réussi : un paquet système, un droit d'accès ou une version d'outil peut encore faire échouer le premier passage.
+- **Deux passages observés, pas une longue série.** « Vert à chaque envoi » n'est pas démontré : on a vu le backend passer une fois et le frontend passer au deuxième essai.
+  Les dépôts sont publics pour l'essai (voir §6 bis) ; les remettre en privé oblige à créer le secret `BACKEND_REPO_TOKEN`.
 - **Le job de bout en bout du frontend récupère le dépôt du backend** : s'il est privé, il faut créer un secret `BACKEND_REPO_TOKEN` (un jeton qui peut le lire).
-- **Navigateurs** : en local, Edge a remplacé Chrome/Chromium ; la CI utilisera Chrome (tests unitaires) et Chromium (bout en bout), non essayés ici.
+- **Navigateurs** : en local on a utilisé Edge ; sur GitHub, Chrome (tests unitaires) et Chromium (bout en bout) ont réussi aussi. Un seul navigateur est essayé en bout en bout.
 - **Couverture** : chiffres sur les fichiers que les tests chargent ; les fichiers de modules et de routage ne sont pas comptés. Branches frontend : 73,6 %.
   Backend : l'envoi d'e-mails (58 %) n'est pas testé.
 - **Pas de test de charge ni de test de vitesse dans la CI** (voir `docs/PERFORMANCE.md`), **pas de lint du frontend**, un seul navigateur en bout en bout,
@@ -95,4 +113,4 @@ Dans chaque cas un seul test échoue, celui prévu, et les fichiers ont été re
 « À chaque envoi de code, un pipeline lance le lint, 47 tests du backend (92 % de couverture) et 86 tests du site, construit le conteneur Docker,
 et rejoue le parcours complet de l'administrateur dans un vrai navigateur. J'ai vérifié que les tests savent échouer en cassant volontairement
 le code. En le mettant en place j'ai découvert que 9 tests Angular sur 11 ne passaient plus et que le site ne pouvait pas s'installer sur une machine
-neuve. Je n'ai pas pu lancer GitHub Actions moi-même : j'ai validé les fichiers avec un outil dédié et rejoué les étapes sur Linux. »
+neuve. Les pipelines ont ensuite tourné sur GitHub : le backend est passé du premier coup, le frontend a échoué (un build de production qui n'avait jamais réussi, et un dépôt privé) puis est passé après correction. »
